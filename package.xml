@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>API-Application</name>
+  <name>api_application</name>
   <version>0.0.0</version>
-  <description>The API-Application package</description>
+  <description>The api_application package</description>
 
   <maintainer email="kitrokopter@isibboi.de">KITrokopter Team</maintainer>
 

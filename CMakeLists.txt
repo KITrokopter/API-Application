@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(API-Application)
+project(api_application)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -80,7 +80,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES API-Application
+#  LIBRARIES api_application
 #  CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
 )
@@ -97,19 +97,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(API-Application
-#   src/${PROJECT_NAME}/API-Application.cpp
+# add_library(api_application
+#   src/${PROJECT_NAME}/api_application.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(API-Application_node src/API-Application_node.cpp)
+# add_executable(api_application_node src/api_application_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(API-Application_node API-Application_generate_messages_cpp)
+# add_dependencies(api_application_node api_application_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(API-Application_node
+# target_link_libraries(api_application_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -128,7 +128,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS API-Application API-Application_node
+# install(TARGETS api_application api_application_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -153,7 +153,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_API-Application.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_api_application.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
