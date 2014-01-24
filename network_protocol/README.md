@@ -190,13 +190,13 @@ float64[] cameraIDs
 Daten
 ```
 Header header
-uint32 id
+uint32 ID
 float32 xPosition
 float32 yPosition
-floate32 zPosition
+float32 zPosition
 float32 xOrientation
 float32 yOrientation
-floate32 zOrientation
+float32 zOrientation
 ```
 &nbsp;
 
@@ -383,11 +383,24 @@ uint8 error # 0 bei ok, != 0 sonst
 
 ```
 Header header
-uint32 id
-float32 batteryStatus
-float32  linkQuality
-float32 altimeterData
-float32[3] magnometerData
-float32[3] gyroscopeData
-float32[3] accelerometerData
+uint32 ID
+float32 battery_status
+float32 link_quality
+float32 altimeter
+float32 mag_x
+float32 mag_y
+float32 mag_z
+float32 gyro_x
+float32 gyro_y
+float32 gyro_z
+float32 acc_x
+float32 acc_y
+float32 acc_z
+uint16 motor_m1
+uint16 motor_m2
+uint16 motor_m3
+uint16 motor_m4
+float32 roll
+float32 pitch
+float32 yaw
 ```
