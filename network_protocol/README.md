@@ -84,9 +84,9 @@ uint32 ID # Wenn ID = -1 Dann Fehler
 
 ```
 Header header
-double[] xPositions
-double[] yPositions
-double[] zPositions
+float64[] xPositions
+float64[] yPositions
+float64[] zPositions
 ```
 
 ## <a name="h.me7p3tpzl1k1"></a> Bewege Formation
@@ -187,6 +187,17 @@ float64[] cameraIDs
 
 *   Beschreibung: Kanal um neu berechnete aktuelle Positionen(Position mit Orientierung) der Quadrokopter zu senden
 
+Daten
+```
+Header header
+uint32 id
+float32 xPosition
+float32 yPosition
+floate32 zPosition
+float32 xOrientation
+float32 yOrientation
+floate32 zOrientation
+```
 &nbsp;
 
 ## <a name="h.iutufwt9dh5"></a> Gesamtkoordinatensystem
@@ -212,6 +223,16 @@ float64[] cameraIDs
 *   Empf&auml;nger: Quadcopters
 
 *   Beschreibung: Kanal um die Bewegungsdaten der Quadrokopter zu senden
+
+Daten
+```
+Header header
+uint32 id
+uint16 thrust
+float32 yaw
+float32 pitch
+float32 roll
+```
 
 # <a name="h.3g5qczgbcr5u"></a>Kameraanwendung
 
@@ -256,8 +277,8 @@ Header header
 uint32 ID
 uint32 imageNumber
 uint64 timestamp # Wann das Quellbild gemacht wurde
-double[] xPositions
-double[] yPositions
+float64[] xPositions
+float64[] yPositions
 uint8[] quadcopterIds
 ```
 ## <a name="h.cpg6abgbppfz"></a> Bildsendungsaktivierung
@@ -318,8 +339,8 @@ uint32 imageDelay
 Header header
 uint64 cameraHardwareId
 boolean createdByCamera
-double[3*3] intrinsics
-double[4] distortion
+float64[3*3] intrinsics
+float64[4] distortion
 ```
 
 ## <a name="h.xq1mzhvgcen6"></a> Initialize Camera
