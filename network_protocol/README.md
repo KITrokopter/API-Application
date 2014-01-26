@@ -4,11 +4,9 @@
 
 *   Name: Ping
 *   Typ: Topic
-*   Sender: Alle au&szlig;er API
-*   Empf&auml;nger: API
+*   Sender: Alle außer API
+*   Empfänger: API
 *   Beschreibung: Kanal, in dem alle Anwendungen mitteilen, dass sie da sind.
-
-&nbsp;
 
 ### Daten
 
@@ -21,7 +19,7 @@ uint32 ID
 
 *   Name: System
 *   Sender: API
-*   Empf&auml;nger: Alle au&szlig;er API
+*   Empfänger: Alle außer API
 *   Beschreibung: Kanal, in dem die API das System den Startbefehl geben und beenden kann.
 
 ### Daten
@@ -35,9 +33,9 @@ uint8 command # 1 = Start, 2 = Ende
 
 *   Name: Message
 *   Typ: Topic
-*   Sender: Alle au&szlig;er API
-*   Empf&auml;nger: API
-*   Beschreibung: Kanal, &uuml;ber den Nachrichten in die API gesendet werden k&ouml;nnen.
+*   Sender: Alle außer API
+*   Empfänger: API
+*   Beschreibung: Kanal, über den Nachrichten in die API gesendet werden können.
 
 ### Daten
 
@@ -51,8 +49,8 @@ uint8[] message
 ## Anmeldeservice
 
 *   Name: Announce
-*   Sender: Alle au&szlig;er API // Die API hat per default den Namen API
-*   Empf&auml;nger: API
+*   Sender: Alle außer API // Die API hat per default den Namen API
+*   Empfänger: API
 *   Beschreibung: Service an dem sich jede Anwendung anmeldet.
 
 ### Daten
@@ -73,7 +71,7 @@ uint32 ID # Wenn ID = -1 Dann Fehler
 *   Name: SetFormation
 *   Typ: Topic
 *   Sender: API
-*   Empf&auml;nger: Steuerungsanwendung
+*   Empfänger: Steuerungsanwendung
 *   Beschreibung: Service mit dem die API die vom User gesetzte Formation weitergeben kann.
 
 ### Daten
@@ -90,7 +88,7 @@ float64[] zPositions
 *   Name: MoveFormation
 *   Typ: Topic
 *   Sender: API
-*   Empf&auml;nger: Steuerungsanwendung
+*   Empfänger: Steuerungsanwendung
 *   Beschreibung: Service mit dem die API die vom User gesetzte Formation weitergeben kann.
 
 ### Daten
@@ -107,7 +105,7 @@ float64 zMovement
 *   Name: StartCalibration
 *   Typ: Service
 *   Sender: API
-*   Empf&auml;nger: Steuerungsanwendung
+*   Empfänger: Steuerungsanwendung
 *   Beschreibung: Service mit dem die API den Kalibrierungsprozess starten kann.
 
 ### Daten
@@ -122,7 +120,7 @@ Header header
 *   Name: TakeCalibrationPicture
 *   Typ: Service
 *   Sender: API
-*   Empf&auml;nger: Steuerungsanwendung
+*   Empfänger: Steuerungsanwendung
 *   Beschreibung: Service, der bewirkt, dass alle Kameras ein Bild machen, und wenn genug gute Bilder dabei sind, werden diese an die API gesendet.
 
 ### Daten
@@ -138,7 +136,7 @@ uint8[][] images
 *   Name: CalculateCalibration
 *   Typ: Service
 *   Sender: API
-*   Empf&auml;nger: Steuerungsanwendung
+*   Empfänger: Steuerungsanwendung
 *   Beschreibung: Service, der die Kalibrierung berechnet.
 
 ### Daten
@@ -160,7 +158,7 @@ float64[] cameraIDs
 *   Name: CurrentPositions
 *   Typ: Topic
 *   Sender: Steueranwendung
-*   Empf&auml;nger: API
+*   Empfänger: API
 *   Beschreibung: Kanal um neu berechnete aktuelle Positionen(Position mit Orientierung) der Quadrokopter zu senden
 
 Daten
@@ -174,14 +172,13 @@ float32 xOrientation
 float32 yOrientation
 float32 zOrientation
 ```
-&nbsp;
 
 ## Gesamtkoordinatensystem
 
 *   Name: GlobalCoordinateSystem
 *   Typ: Topic
 *   Sender: Steueranwendung
-*   Empf&auml;nger: API
+*   Empfänger: API
 *   Beschreibung: Kanal um das Gesamtkoordinatensystem zu senden
 
 ## Bewegungsdaten
@@ -189,7 +186,7 @@ float32 zOrientation
 *   Name: Movement
 *   Typ: Topic
 *   Sender: Steueranwendung
-*   Empf&auml;nger: Quadcopters
+*   Empfänger: Quadcopters
 *   Beschreibung: Kanal um die Bewegungsdaten der Quadrokopter zu senden
 
 Daten
@@ -209,7 +206,7 @@ float32 roll
 *   Name: Picture
 *   Typ: Topic
 *   Sender: Kameraanwendung
-*   Empf&auml;nger: API-Anwendung
+*   Empfänger: API-Anwendung
 *   Beschreibung: Kanal um Bilder zu senden
 
 ### Daten
@@ -227,7 +224,7 @@ uint8[640*480] image
 *   Name: RawPosition
 *   Typ: Topic
 *   Sender: Kameraanwendung
-*   Empf&auml;nger: Positionsmodul
+*   Empfänger: Positionsmodul
 *   Beschreibung: Kanal um die Positionsinformationen die aus dem Bild extrathiert wurden zu senden.
 
 ### Daten
@@ -246,7 +243,7 @@ uint8[] quadcopterIds
 *   Name: PictureSendingActivation
 *   Typ: Topic
 *   Sender: API
-*   Empf&auml;nger: Kameraanwendung
+*   Empfänger: Kameraanwendung
 *   Beschreibung: Kanal um das senden der Bilder zu aktivieren und deaktivieren.
 
 ### Daten
@@ -262,8 +259,8 @@ boolean active
 *   Name: CalibrateCamera
 *   Typ: Topic
 *   Sender: API
-*   Empf&auml;nger: Kameraanwendung
-*   Beschreibung: Kanal um das Kalibrieren eine Kamera zu starten. Kalibrierungsbilder werden &uuml;ber das Bildertopic gesendet. Bei Erfolg werden die Daten &uuml;ber das Einzelkamera-Kalibrierungsdatentopic gesendet.
+*   Empfänger: Kameraanwendung
+*   Beschreibung: Kanal um das Kalibrieren eine Kamera zu starten. Kalibrierungsbilder werden über das Bildertopic gesendet. Bei Erfolg werden die Daten über das Einzelkamera-Kalibrierungsdatentopic gesendet.
 
 ### Daten
 
@@ -278,7 +275,7 @@ uint32 imageDelay
 *   Name: CameraCalibrationData
 *   Typ: Topic
 *   Sender: API, Kameraanwendung
-*   Empf&auml;nger: API, Kameraanwendung
+*   Empfänger: API, Kameraanwendung
 *   Beschreibung: Kanal zum Senden von Kalibrierungsdaten
 
 ### Daten
@@ -296,15 +293,15 @@ float64[4] distortion
 *   Name: InitializeCameraService[ID]
 *   Typ: Service
 *   Sender: API
-*   Empf&auml;nger: Kameraanwendung
+*   Empfänger: Kameraanwendung
 *   Beschreibung: Kanal zum Initialisieren der Kamera
 
 ### Daten
 
 ```
 Header header
-uint32[] hsvColorRanges # erster Range: [0-1], zweiter Range: [2-3] &hellip;
-uint32[] quadCopterIds # erster Copter: [0], zweiter Copter: [1] &hellip;
+uint32[] hsvColorRanges # erster Range: [0-1], zweiter Range: [2-3] …
+uint32[] quadCopterIds # erster Copter: [0], zweiter Copter: [1] …
 ---
 uint8 error # 0 bei ok, != 0 sonst
 ```
@@ -316,7 +313,7 @@ uint8 error # 0 bei ok, != 0 sonst
 *   Name: QuadcopterStatus
 *   Typ: Topic
 *   Sender: Quadrokopteranwendung
-*   Empf&auml;nger: API-Anwendung
+*   Empfänger: API-Anwendung
 *   Beschreibung: Topic, an welches die Quadrokopteranwendung periodisch neue Statusinformationen der Quadrokopter schickt.
 
 ### Daten
