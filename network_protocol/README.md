@@ -1,6 +1,6 @@
 # API
 
-## <a name="h.hyhi525h2d3v"></a> Globaler Ping
+## Globaler Ping
 
 *   Name: Ping
 *   Typ: Topic
@@ -10,28 +10,28 @@
 
 &nbsp;
 
-### <a name="h.13lbj1l89yia"></a> Daten
+### Daten
 
 ```
 Header header
 uint32 ID
 ```
 
-## <a name="h.2b4ax7tvfjj5"></a> Systemstart und Systemshutdown
+## Systemstart und Systemshutdown
 
 *   Name: System
 *   Sender: API
 *   Empf&auml;nger: Alle au&szlig;er API
 *   Beschreibung: Kanal, in dem die API das System den Startbefehl geben und beenden kann.
 
-### <a name="h.1sg5zzdaw0os"></a> Daten
+### Daten
 
 ```
 Header header
 uint8 command # 1 = Start, 2 = Ende
 ```
 
-## <a name="h.9fd375e0v4ln"></a> Nachrichten
+## Nachrichten
 
 *   Name: Message
 *   Typ: Topic
@@ -39,7 +39,7 @@ uint8 command # 1 = Start, 2 = Ende
 *   Empf&auml;nger: API
 *   Beschreibung: Kanal, &uuml;ber den Nachrichten in die API gesendet werden k&ouml;nnen.
 
-### <a name="h.3qphc3vim31z"></a> Daten
+### Daten
 
 ```
 Header header
@@ -48,14 +48,14 @@ uint8 type # 1 = Message, 2 = Warning, 3 = Error
 uint8[] message
 ```
 
-## <a name="h.8h8sncihn8lz"></a>Anmeldeservice
+## Anmeldeservice
 
 *   Name: Announce
 *   Sender: Alle au&szlig;er API // Die API hat per default den Namen API
 *   Empf&auml;nger: API
 *   Beschreibung: Service an dem sich jede Anwendung anmeldet.
 
-### <a name="h.qzez4ztcwyaw"></a> Daten
+### Daten
 
 ```
 Header header
@@ -66,9 +66,9 @@ uint8[] initializeServiceName
 uint32 ID # Wenn ID = -1 Dann Fehler
 ```
 
-# <a name="h.6l52x2dch50o"></a> Steueranwendung
+# Steueranwendung
 
-## <a name="h.rwwbp9d5s3m7"></a> Setze Formation
+## Setze Formation
 
 *   Name: SetFormation
 *   Typ: Topic
@@ -76,7 +76,7 @@ uint32 ID # Wenn ID = -1 Dann Fehler
 *   Empf&auml;nger: Steuerungsanwendung
 *   Beschreibung: Service mit dem die API die vom User gesetzte Formation weitergeben kann.
 
-### <a name="h.g43yxuia2f4j"></a> Daten
+### Daten
 
 ```
 Header header
@@ -85,7 +85,7 @@ float64[] yPositions
 float64[] zPositions
 ```
 
-## <a name="h.me7p3tpzl1k1"></a> Bewege Formation
+## Bewege Formation
 
 *   Name: MoveFormation
 *   Typ: Topic
@@ -93,7 +93,7 @@ float64[] zPositions
 *   Empf&auml;nger: Steuerungsanwendung
 *   Beschreibung: Service mit dem die API die vom User gesetzte Formation weitergeben kann.
 
-### <a name="h.dnzxvfeaark8"></a> Daten
+### Daten
 
 ```
 Header header
@@ -102,7 +102,7 @@ float64 yMovement
 float64 zMovement
 ```
 
-## <a name="h.wjbekfg8a8qq"></a>Starte Kalibrierung
+## Starte Kalibrierung
 
 *   Name: StartCalibration
 *   Typ: Service
@@ -110,14 +110,14 @@ float64 zMovement
 *   Empf&auml;nger: Steuerungsanwendung
 *   Beschreibung: Service mit dem die API den Kalibrierungsprozess starten kann.
 
-### <a name="h.mt281j8brno3"></a> Daten
+### Daten
 
 ```
 Header header
 ---
 ```
 
-## <a name="h.e6vbf1m81k0"></a> Mache Kalibrierungsbild
+## Mache Kalibrierungsbild
 
 *   Name: TakeCalibrationPicture
 *   Typ: Service
@@ -125,7 +125,7 @@ Header header
 *   Empf&auml;nger: Steuerungsanwendung
 *   Beschreibung: Service, der bewirkt, dass alle Kameras ein Bild machen, und wenn genug gute Bilder dabei sind, werden diese an die API gesendet.
 
-### <a name="h.fp7lvc54mldb"></a> Daten
+### Daten
 
 ```
 Header header
@@ -133,7 +133,7 @@ Header header
 uint8[][] images
 ```
 
-## <a name="h.w8uo4dblor2w"></a> Berechne Kalibrierung
+## Berechne Kalibrierung
 
 *   Name: CalculateCalibration
 *   Typ: Service
@@ -141,7 +141,7 @@ uint8[][] images
 *   Empf&auml;nger: Steuerungsanwendung
 *   Beschreibung: Service, der die Kalibrierung berechnet.
 
-### <a name="h.mjmfqkkatygi"></a> Daten
+### Daten
 
 ```
 Header header
@@ -155,7 +155,7 @@ float64[] cameraZOrientation
 float64[] cameraIDs
 ```
 
-## <a name="h.d4aayalu18xg"></a>Aktuelle Positionen
+## Aktuelle Positionen
 
 *   Name: CurrentPositions
 *   Typ: Topic
@@ -176,7 +176,7 @@ float32 zOrientation
 ```
 &nbsp;
 
-## <a name="h.iutufwt9dh5"></a> Gesamtkoordinatensystem
+## Gesamtkoordinatensystem
 
 *   Name: GlobalCoordinateSystem
 *   Typ: Topic
@@ -184,7 +184,7 @@ float32 zOrientation
 *   Empf&auml;nger: API
 *   Beschreibung: Kanal um das Gesamtkoordinatensystem zu senden
 
-## <a name="h.8btndew697oo"></a> Bewegungsdaten
+## Bewegungsdaten
 
 *   Name: Movement
 *   Typ: Topic
@@ -202,9 +202,9 @@ float32 pitch
 float32 roll
 ```
 
-# <a name="h.3g5qczgbcr5u"></a>Kameraanwendung
+# Kameraanwendung
 
-## <a name="h.bog1cvyjhmge"></a> Bilder
+## Bilder
 
 *   Name: Picture
 *   Typ: Topic
@@ -212,7 +212,7 @@ float32 roll
 *   Empf&auml;nger: API-Anwendung
 *   Beschreibung: Kanal um Bilder zu senden
 
-### <a name="h.ugy20nwhs0ni"></a> Daten
+### Daten
 
 ```
 Header header
@@ -222,7 +222,7 @@ uint32 imageNumber # Bei Kalibrierung Nummer des Kalibrierungs-
 uint64 timestamp # Wann das Bild gemacht wurde
 uint8[640*480] image
 ```
-## <a name="h.66trsnoez8a"></a> Positionsinformationen
+## Positionsinformationen
 
 *   Name: RawPosition
 *   Typ: Topic
@@ -230,7 +230,7 @@ uint8[640*480] image
 *   Empf&auml;nger: Positionsmodul
 *   Beschreibung: Kanal um die Positionsinformationen die aus dem Bild extrathiert wurden zu senden.
 
-### <a name="h.b3cb9d1qpu4s"></a> Daten
+### Daten
 
 ```
 Header header
@@ -241,7 +241,7 @@ float64[] xPositions
 float64[] yPositions
 uint8[] quadcopterIds
 ```
-## <a name="h.cpg6abgbppfz"></a> Bildsendungsaktivierung
+## Bildsendungsaktivierung
 
 *   Name: PictureSendingActivation
 *   Typ: Topic
@@ -249,7 +249,7 @@ uint8[] quadcopterIds
 *   Empf&auml;nger: Kameraanwendung
 *   Beschreibung: Kanal um das senden der Bilder zu aktivieren und deaktivieren.
 
-### <a name="h.7ek6luufm7f3"></a> Daten
+### Daten
 
 ```
 Header header
@@ -257,7 +257,7 @@ uint32 ID
 boolean active
 ```
 
-## <a name="h.fjt9uhpmyxgk"></a> Kalibrierungsauftrag
+## Kalibrierungsauftrag
 
 *   Name: CalibrateCamera
 *   Typ: Topic
@@ -265,7 +265,7 @@ boolean active
 *   Empf&auml;nger: Kameraanwendung
 *   Beschreibung: Kanal um das Kalibrieren eine Kamera zu starten. Kalibrierungsbilder werden &uuml;ber das Bildertopic gesendet. Bei Erfolg werden die Daten &uuml;ber das Einzelkamera-Kalibrierungsdatentopic gesendet.
 
-### <a name="h.n6v87tvkymq3"></a> Daten
+### Daten
 
 ```
 Header header
@@ -273,7 +273,7 @@ uint32 ID
 uint32 imageAmount
 uint32 imageDelay
 ```
-## <a name="h.uf44kj7aofhv"></a> Einzelkamera-Kalibrierungsdaten
+## Einzelkamera-Kalibrierungsdaten
 
 *   Name: CameraCalibrationData
 *   Typ: Topic
@@ -281,7 +281,7 @@ uint32 imageDelay
 *   Empf&auml;nger: API, Kameraanwendung
 *   Beschreibung: Kanal zum Senden von Kalibrierungsdaten
 
-### <a name="h.dih1l81jk2iy"></a> Daten
+### Daten
 
 ```
 Header header
@@ -291,7 +291,7 @@ float64[3*3] intrinsics
 float64[4] distortion
 ```
 
-## <a name="h.xq1mzhvgcen6"></a> Initialize Camera
+## Initialize Camera
 
 *   Name: InitializeCameraService[ID]
 *   Typ: Service
@@ -299,7 +299,7 @@ float64[4] distortion
 *   Empf&auml;nger: Kameraanwendung
 *   Beschreibung: Kanal zum Initialisieren der Kamera
 
-### <a name="h.5bf5dj3bzjkn"></a> Daten
+### Daten
 
 ```
 Header header
@@ -309,9 +309,9 @@ uint32[] quadCopterIds # erster Copter: [0], zweiter Copter: [1] &hellip;
 uint8 error # 0 bei ok, != 0 sonst
 ```
 
-# <a name="h.ehjh1xexyrzh"></a>Quadrokopteranwendung
+# Quadrokopteranwendung
 
-## <a name="h.bsrsypit6amc"></a> Quadrokopter Statusinformationen
+## Quadrokopter Statusinformationen
 
 *   Name: QuadcopterStatus
 *   Typ: Topic
@@ -319,7 +319,7 @@ uint8 error # 0 bei ok, != 0 sonst
 *   Empf&auml;nger: API-Anwendung
 *   Beschreibung: Topic, an welches die Quadrokopteranwendung periodisch neue Statusinformationen der Quadrokopter schickt.
 
-### <a name="h.oyvcadfiw4df"></a> Daten
+### Daten
 
 ```
 Header header
