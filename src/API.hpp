@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 namespace kitrokopter {
 
 class API {
@@ -18,21 +20,21 @@ class API {
 
 		/* Cameras */
 		APICameraSystem getCameraSystem();
-		APICamera[] getCameras();
-		APICamera[] getCalibratedCameras();
-		APICamera[] getUncalibratedCameras();
+		std::vector<APICamera> getCameras();
+		std::vector<APICamera> getCalibratedCameras();
+		std::vector<APICamera> getUncalibratedCameras();
 		int getCameraAmount();
 		int getCalibratedCameraAmount();
 		int getUncalibratedCameraAmount();
 
 		/* Quadcopter getters */
-		APIQuadcopter[] getQuadcopters();
-		APIQuadcopter[] getQuadcoptersFlying();
-		APIQuadcopter[] getQuadcoptersOnGround();
-		APIQuadcopter[] getQuadcoptersTracked();
-		APIQuadcopter[] getQuadcoptersUntracked();
-		APIQuadcopter[] getQuadcoptersInFormation();
-		APIQuadcopter[] getQuadcoptersNotInFormation();
+		std::vector<APIQuadcopter> getQuadcopters();
+		std::vector<APIQuadcopter> getQuadcoptersFlying();
+		std::vector<APIQuadcopter> getQuadcoptersOnGround();
+		std::vector<APIQuadcopter> getQuadcoptersTracked();
+		std::vector<APIQuadcopter> getQuadcoptersUntracked();
+		std::vector<APIQuadcopter> getQuadcoptersInFormation();
+		std::vector<APIQuadcopter> getQuadcoptersNotInFormation();
 
 		/* Quadcopter amount */
 		int getQuadcopterAmount();
