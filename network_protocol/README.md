@@ -66,18 +66,20 @@ uint32 ID # Wenn ID = -1 Dann Fehler
 
 # Steueranwendung
 
-## Setze Formation
+## Gesetzte Formation
 
 *   Name: SetFormation
 *   Typ: Topic
 *   Sender: API
 *   Empfänger: Steuerungsanwendung
-*   Beschreibung: Service mit dem die API die vom User gesetzte Formation weitergeben kann.
+*   Beschreibung: Topic mit dem die API die vom User gesetzte Formation weitergeben kann.
 
 ### Daten
 
 ```
 Header header
+int16 distance
+int16 amount
 float64[] xPositions
 float64[] yPositions
 float64[] zPositions
