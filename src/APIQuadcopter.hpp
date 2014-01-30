@@ -10,9 +10,6 @@ namespace kitrokopter {
 // FIXME: What's a CV_HSV?
 typedef int CV_HSV;
 
-// FIXME: What's a Status?
-typedef int Status;
-
 class APIQuadcopter {
 
 	public:
@@ -52,7 +49,6 @@ class APIQuadcopter {
 		bool selectedForFlight;
 		int id;
 		CV_HSV* colorRange[2];
-		Status status;
 		int currentSpeed;
 		int currentAcceleration;
 		Vector currentPosition;
