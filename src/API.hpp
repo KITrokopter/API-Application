@@ -2,6 +2,13 @@
 
 #include <vector>
 
+#include "Vector.hpp"
+#include "APIQuadcopter.hpp"
+#include "APIFormation.hpp"
+#include "APICamera.hpp"
+#include "APICameraSystem.hpp"
+#include "APIMessageListener.hpp"
+
 namespace kitrokopter {
 
 class API {
@@ -46,8 +53,8 @@ class API {
 		int getQuadcoptersNotInFormationAmount();
 
 		/* message listeners */
-		void addMessageListener(APIMessageListener);
-		void removeMessageListener(APIMessageListener);
+		void addMessageListener(APIMessageListener*);
+		void removeMessageListener(APIMessageListener*);
 
 		/* Launch / Land */
 		void launchQuadcopters(int height);

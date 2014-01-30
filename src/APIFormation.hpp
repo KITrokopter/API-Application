@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Vector.hpp"
+
 namespace kitrokopter {
 
 class APIFormation {

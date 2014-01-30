@@ -1,5 +1,7 @@
 #pragma once
 
+#include <opencv2/core/core.hpp>
+
 namespace kitrokopter {
 
 class APIImageListener {

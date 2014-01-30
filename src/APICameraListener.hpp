@@ -1,5 +1,7 @@
 #pragma once
 
+#include "APICameraUpdateEvent.hpp"
+
 namespace kitrokopter {
 
 class APICameraListener {

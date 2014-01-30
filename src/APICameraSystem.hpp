@@ -1,6 +1,9 @@
 #pragma once
 
 #include <vector>
+#include <opencv2/core/core.hpp>
+
+#include "APICamera.hpp"
 
 namespace kitrokopter {
 
@@ -22,7 +25,7 @@ class APICameraSystem {
 		bool isCalibrated();
 		std::vector<APICamera> getCalibratedCameras();
 		std::vector<APICamera> getUncalibratedCameras();
-		cv::Mat[][] getCalibrationPictures();
+		std::vector< std::vector<cv::Mat> > getCalibrationPictures();
 		int getCalibrationPictureCount();
 
 	private:

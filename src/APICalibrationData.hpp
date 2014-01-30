@@ -1,5 +1,9 @@
 #pragma once
 
+#include <opencv2/core/core.hpp>
+
+#include "Vector.hpp"
+
 namespace kitrokopter {
 
 class APICalibrationData {

@@ -2,7 +2,16 @@
 
 #include <vector>
 
+#include "Vector.hpp"
+#include "APIQuadcopterListener.hpp"
+
 namespace kitrokopter {
+
+// FIXME: What's a CV_HSV?
+typedef int CV_HSV;
+
+// FIXME: What's a Status?
+typedef int Status;
 
 class APIQuadcopter {
 
@@ -21,7 +30,7 @@ class APIQuadcopter {
 
 		bool isTracked();
 
-		CV_HSV[2] getColorRange();
+		std::vector<CV_HSV> getColorRange();
 		int getNetworkLatency();
 		int getLinkQuality();
 		int getAltimeterAltitude();
@@ -31,12 +40,12 @@ class APIQuadcopter {
 
 		void setSelectedForFlight(bool);
 		void setColorRange(CV_HSV first, CV_HSV second);
-		void setColorRange(CV_HSV[2] range);
+		void setColorRange(CV_HSV range[2]);
 
 		void blink();
 
-		void addQuadcopterListener(APIQuadcopterListener);
-		void removeQuadcopterListener(APIQuadcopterListener);
+		void addQuadcopterListener(APIQuadcopterListener*);
+		void removeQuadcopterListener(APIQuadcopterListener*);
 
 
 	private:
