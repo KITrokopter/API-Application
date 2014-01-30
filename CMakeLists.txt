@@ -66,7 +66,7 @@ add_message_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-	api_application
+  api_application
   std_msgs
 )
 
@@ -84,7 +84,7 @@ catkin_package(
 #  LIBRARIES api_application
 #  CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
-CATKIN_DEPENDS message_runtime
+  CATKIN_DEPENDS message_runtime
 )
 
 ###########
@@ -95,6 +95,7 @@ CATKIN_DEPENDS message_runtime
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
+  src
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -105,6 +106,8 @@ include_directories(
 
 ## Declare a cpp executable
 # add_executable(api_application_node src/api_application_node.cpp)
+
+add_executable(TestCreation test/TestCreation.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
