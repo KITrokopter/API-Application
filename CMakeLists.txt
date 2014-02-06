@@ -48,6 +48,9 @@ add_message_files(
   FILES
   SetFormation.msg
   MoveFormation.msg
+  Ping.msg
+  System.msg
+  Message.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -55,6 +58,7 @@ add_service_files(
   FILES
   BuildFormation.srv
   Shutdown.srv
+  Announce.srv
 )
 
 ## Generate actions in the 'action' folder
