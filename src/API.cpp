@@ -1,13 +1,12 @@
 #include "ros/ros.h"
 #include <ros/console.h>
 #include "api_application/Announce.h"
-
 #include <vector> 
 
 class API
 {
     public:
-	API(int argc, char **argv):
+	API(int argc, char **argv)
 	{
 		idCounter = 0;
 		ros::init(argc, argv, "api_server");
@@ -22,13 +21,12 @@ class API
 	int idCounter;
 	
 	//the ids of modules by category
-	vector<int[2]> cameras; //first value is the module id, second the camera id
-	vector<int> quadcopters;
-	vector<int> controllers;
-	vector<int> positions;
+	std::vector<int[2]> cameras; //first value is the module id, second the camera id
+	std::vector<int> quadcopters;
+	std::vector<int> controllers;
+	std::vector<int> positions;
 	
-	bool announce(camera_application::Announce::Request  &req,
-		camera_application::Announce::Response &res)
+	bool announce(api_application::Announce::Request  &req, api_application::Announce::Response &res)
 	{
 	    res.id = idCounter++;
 	    switch (req.type) {
