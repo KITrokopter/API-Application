@@ -113,6 +113,7 @@ include_directories(
 
 add_executable(api_application_node
     src/API.cpp
+    src/APICameraSystem.cpp
 )
 
 ## Add cmake target dependencies of the executable/library
@@ -122,6 +123,8 @@ add_executable(api_application_node
 ## Specify libraries to link a library or executable target against
 target_link_libraries(api_application_node
   ${catkin_LIBRARIES}
+  libopencv_core.so
+  # libopencv_imgproc.so libopencv_calib3d.so libcvblob.so libopencv_highgui.so
 )
 
 add_dependencies(api_application_node api_application_generate_messages_cpp)

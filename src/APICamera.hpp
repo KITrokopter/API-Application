@@ -38,6 +38,7 @@ class APICamera {
 
 	private:
 		APICalibrationData calibration;
+		bool calibrated;
 		int id;
 		static const int VERTICAL_DETECTION_ANGLE;
 		static const int HORIZONTAL_DETECTION_ANGLE;
