@@ -110,7 +110,7 @@ include_directories(
 ## Declare a cpp executable
 # add_executable(api_application_node src/api_application_node.cpp)
 
-add_executable(
+add_executable(api_application_node
     src/API.cpp
 )
 
