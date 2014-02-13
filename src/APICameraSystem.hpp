@@ -30,7 +30,6 @@ class APICameraSystem {
 
 	private:
 		std::vector<APICamera> cameras;
-		int cameraCount;
 };
 
 }
