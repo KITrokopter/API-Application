@@ -12,10 +12,9 @@ class API
 		idCounter = 0;
 		ros::init(argc, argv, "api_server");
 		ros::NodeHandle n;
-		ros::ServiceServer service = n.advertiseService("announce", API::announce);
+		ros::ServiceServer service = n.advertiseService("announce", &API::announce, this);
 		ROS_INFO("Ready to deliver IDs.");
 		ros::spin();
-		return 0;
 	}
 	
 	bool announce(api_application::Announce::Request &req, api_application::Announce::Response &res)
