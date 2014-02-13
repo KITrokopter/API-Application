@@ -1,3 +1,4 @@
+#include "Communicator.hpp"
 #include "ros/ros.h"
 #include <ros/console.h>
 #include "api_application/Announce.h"
@@ -11,13 +12,13 @@ class API
 		idCounter = 0;
 		ros::init(argc, argv, "api_server");
 		ros::NodeHandle n;
-		ros::ServiceServer service = n.advertiseService("announce", this->announce);
+		ros::ServiceServer service = n.advertiseService("announce", API::announce);
 		ROS_INFO("Ready to deliver IDs.");
 		ros::spin();
 		return 0;
 	}
 	
-	bool announce(api_application::Announce::Request  &req, api_application::Announce::Response &res)
+	bool announce(api_application::Announce::Request &req, api_application::Announce::Response &res)
 	{
 	    res.id = idCounter++;
 	    switch (req.type) {
