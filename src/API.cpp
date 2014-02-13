@@ -44,3 +44,16 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
     ROS_INFO("Registered new module with type %d and id %d", req.type, res.id);
     return true;
 }
+
+int main(int argc, char** argv)
+{
+    API api = new API(argc, argv);
+    ros::shutdown();
+    
+    // Wait for ros to shutdown.
+    while (ros::ok()) {
+	usleep(10000);
+    }
+    
+    std::cout << "API Application successfully terminated" << std::endl;
+}    
