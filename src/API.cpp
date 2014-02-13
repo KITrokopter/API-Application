@@ -1,8 +1,6 @@
 #include "API.hpp"
 #include "ros/ros.h"
 #include <ros/console.h>
-#include "api_application/Announce.h"
-#include <vector> 
 
 using namespace kitrokopter;
 

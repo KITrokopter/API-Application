@@ -9,6 +9,8 @@
 #include "APICameraSystem.hpp"
 #include "APIMessageListener.hpp"
 
+#include "api_application/Announce.h"
+
 namespace kitrokopter {
     
     class API {
@@ -17,7 +19,7 @@ namespace kitrokopter {
 	
 	API(int argc, char **argv);
 	
-	bool announce(api_application::Announce::Request &req, api_application::Announce::Response &res);
+	bool announce(api_application::Announce::Request req, api_application::Announce::Response res);
 	
 	/* Quadcopter mutation */
 	APIQuadcopter getQuadcopter(int id);
