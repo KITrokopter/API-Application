@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <pair>
 
 #include "Vector.hpp"
 #include "APIQuadcopter.hpp"
