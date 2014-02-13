@@ -110,7 +110,9 @@ include_directories(
 ## Declare a cpp executable
 # add_executable(api_application_node src/api_application_node.cpp)
 
-add_executable(TestCreation test/TestCreation.cpp)
+add_executable(
+    src/API.cpp
+)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
