@@ -88,7 +88,7 @@ catkin_package(
 #  LIBRARIES api_application
 #  CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
-  CATKIN_DEPENDS message_runtime
+  CATKIN_DEPENDS roscpp std_msgs message_runtime
 )
 
 ###########
