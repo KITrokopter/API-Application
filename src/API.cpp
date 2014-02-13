@@ -6,12 +6,12 @@ using namespace kitrokopter;
 
 API::API(int argc, char **argv)
 {
-    idCounter = 0;
+    this->idCounter = 0;
     
-    cameras = std::vector<int[2]>(8);
-    quadcopters = std::vector<int>(10);
-    controllers = std::vector<int>(1);
-    positions = std::vector<int>(5);
+    this->cameras = std::vector<int[2]>(8);
+    this->quadcopters = std::vector<int>(10);
+    this->controllers = std::vector<int>(1);
+    this->positions = std::vector<int>(5);
     
     ros::init(argc, argv, "api_server");
     ros::NodeHandle n;
@@ -25,16 +25,16 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
     res.id = idCounter++;
     switch (req.type) {
 	case 0:
-	    cameras.push_back({res.id, req.camera_id});
+	    this->cameras.push_back({res.id, req.camera_id});
 	    break;
 	case 1:
-	    quadcopters.push_back(res.id);
+	    this->quadcopters.push_back(res.id);
 	    break;
 	case 2:
-	    controllers.push_back(res.id);
+	    this->controllers.push_back(res.id);
 	    break;
 	case 3:
-	    positions.push_back(res.id);
+	    this->positions.push_back(res.id);
 	    break;
 	default:
 	    ROS_ERROR("Malformed register attempt!");
