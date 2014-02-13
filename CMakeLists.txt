@@ -120,9 +120,9 @@ add_executable(api_application_node
 # add_dependencies(api_application_node api_application_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(api_application_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(api_application_node
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
