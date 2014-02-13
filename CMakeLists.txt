@@ -7,6 +7,7 @@ project(api_application)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  rosconsole
   message_generation
 )
 
