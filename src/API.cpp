@@ -8,7 +8,7 @@ API::API(int argc, char **argv)
 {
     this->idCounter = 0;
     
-    this->cameras = std::vector<std::pair<int, int> >(8);
+    this->cameras = std::vector<std::pair<int, long> >(8);
     this->quadcopters = std::vector<int>(10);
     this->controllers = std::vector<int>(1);
     this->positions = std::vector<int>(5);

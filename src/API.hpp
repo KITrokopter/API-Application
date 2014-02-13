@@ -89,7 +89,7 @@ namespace kitrokopter {
 	int idCounter;
 	
 	//the ids of modules by category
-	std::vector<std::pair<int, int> > cameras; //first value is the module id, second the camera id
+	std::vector<std::pair<int, long> > cameras; //first value is the module id, second the camera id
 	std::vector<int> quadcopters;
 	std::vector<int> controllers;
 	std::vector<int> positions;
