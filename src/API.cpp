@@ -47,7 +47,7 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
 
 int main(int argc, char** argv)
 {
-    API api = new API(argc, argv);
+    new API(argc, argv);
     ros::shutdown();
     
     // Wait for ros to shutdown.
