@@ -11,20 +11,11 @@ class API
 		idCounter = 0;
 		ros::init(argc, argv, "api_server");
 		ros::NodeHandle n;
-		ros::ServiceServer service = n.advertiseService("announce", announce);
+		ros::ServiceServer service = n.advertiseService("announce", this->announce);
 		ROS_INFO("Ready to deliver IDs.");
 		ros::spin();
 		return 0;
 	}
-
-    private:
-	int idCounter;
-	
-	//the ids of modules by category
-	std::vector<int[2]> cameras; //first value is the module id, second the camera id
-	std::vector<int> quadcopters;
-	std::vector<int> controllers;
-	std::vector<int> positions;
 	
 	bool announce(api_application::Announce::Request  &req, api_application::Announce::Response &res)
 	{
@@ -46,8 +37,17 @@ class API
 		    ROS_ERROR("Malformed register attempt!");
 		    res.id = -1;
 		    return false;
-
+	    }
 	    ROS_INFO("Registered new module with type %d and id %d", req.type, res.id);
 	    return true;
 	}
+	
+	private:
+	    int idCounter;
+	    
+	    //the ids of modules by category
+	    std::vector<int[2]> cameras; //first value is the module id, second the camera id
+	    std::vector<int> quadcopters;
+	    std::vector<int> controllers;
+	    std::vector<int> positions;
 }    
