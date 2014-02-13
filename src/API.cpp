@@ -8,10 +8,10 @@ API::API(int argc, char **argv)
 {
     idCounter = 0;
     
-    cameras = vector<int[2]>(8);
-    quadcopters = vector<int>(10);
-    controllers = vector<int>(1);
-    positions = vector<int>(5);
+    cameras = std::vector<int[2]>(8);
+    quadcopters = std::vector<int>(10);
+    controllers = std::vector<int>(1);
+    positions = std::vector<int>(5);
     
     ros::init(argc, argv, "api_server");
     ros::NodeHandle n;
