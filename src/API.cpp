@@ -9,6 +9,7 @@ class API
     public:
 	API(int argc, char **argv):
 	{
+		idCounter = 0;
 		ros::init(argc, argv, "api_server");
 		ros::NodeHandle n;
 		ros::ServiceServer service = n.advertiseService("announce", announce);
@@ -18,7 +19,7 @@ class API
 	}
 
     private:
-	int idCounter = 0;
+	int idCounter;
 	
 	//the ids of modules by category
 	vector<int[2]> cameras; //first value is the module id, second the camera id

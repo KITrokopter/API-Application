@@ -1,6 +1,6 @@
 Header header
-uint8 type # 0 = Camera, 1 = Quadcopter, 2 = Controller, 3 = Position
-uint64 cameraId # Wenn type != 0 dann cameraId undefiniert
+uint8 type # 0 = camera, 1 = quadcopter, 2 = controller, 3 = position
+uint64 camera_id # if type != 0 => camera_id not defined
 string initializeServiceName
 ---
-uint32 ID # Wenn ID = -1 Dann Fehler
+uint32 id # if id = -1 => error while announcement
