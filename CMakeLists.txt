@@ -124,6 +124,8 @@ target_link_libraries(api_application_node
   ${catkin_LIBRARIES}
 )
 
+add_dependencies(api_application_node api_application_generate_messages_cpp)
+
 #############
 ## Install ##
 #############
