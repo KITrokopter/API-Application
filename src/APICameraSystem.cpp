@@ -2,6 +2,11 @@
 
 using namespace kitrokopter;
 
+/**
+ * Finds all calibrated cameras.
+ *
+ * @return A vector of cameras.
+ */
 std::vector<APICamera> getCalibratedCameras()
 {
     std::vector<APICamera> result;
@@ -12,6 +17,11 @@ std::vector<APICamera> getCalibratedCameras()
     return result;
 }
 
+/**
+ * Finds all uncalibrated cameras.
+ *
+ * @return A vector of cameras.
+ */
 std::vector<APICamera> getUncalibratedCameras()
 {
     std::vector<APICamera> result;
