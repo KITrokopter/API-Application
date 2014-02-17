@@ -15,6 +15,8 @@ class APICamera {
 
 	public:
 
+		APICamera();
+
 		cv::Mat getImage();
 
 		/* Calibration */
@@ -37,7 +39,7 @@ class APICamera {
 		void removeCameraListener(APICameraListener*);
 
 	private:
-		APICalibrationData calibration;
+		APICalibrationData *calibration;
 		bool calibrated;
 		int id;
 		static const int VERTICAL_DETECTION_ANGLE;
