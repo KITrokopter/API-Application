@@ -38,6 +38,27 @@ void APICamera::addImageListener(APIImageListener *listener)
 }
 
 /**
+ * Adds an camera listener.
+ *
+ * @param listener A pointer to the listener.
+ */
+void APICamera::addCameraListener(APICameraListener *listener)
+{
+    cameraListeners.push_back(listener);
+}
+
+template <typename T>
+void removeListener(std::vector<T*> from, T *listener)
+{
+    for (typename std::vector<T*>::iterator it = from.begin(); it != from.end(); ++it) {
+	if (*it == listener) {
+	    from.erase(it);
+	    return;
+	}
+    }
+}
+
+/**
  * Removes an image listener.
  *
  * Remember to free it!
@@ -46,22 +67,7 @@ void APICamera::addImageListener(APIImageListener *listener)
  */
 void APICamera::removeImageListener(APIImageListener *listener)
 {
-    for (std::vector<APIImageListener*>::iterator it = imageListeners.begin(); it != imageListeners.end(); ++it) {
-	if (*it == listener) {
-	    imageListeners.erase(it);
-	    return;
-	}
-    }
-}
-
-/**
- * Adds an camera listener.
- *
- * @param listener A pointer to the listener.
- */
-void APICamera::addCameraListener(APICameraListener *listener)
-{
-    cameraListeners.push_back(listener);
+    removeListener(imageListeners, listener);
 }
 
 /**
@@ -73,10 +79,5 @@ void APICamera::addCameraListener(APICameraListener *listener)
  */
 void APICamera::removeCameraListener(APICameraListener *listener)
 {
-    for (std::vector<APICameraListener*>::iterator it = cameraListeners.begin(); it != cameraListeners.end(); ++it) {
-	if (*it == listener) {
-	    cameraListeners.erase(it);
-	    return;
-	}
-    }
+    removeListener(cameraListeners, listener);
 }
