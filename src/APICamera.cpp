@@ -5,8 +5,39 @@ using namespace kitrokopter;
 /**
  * Constructs an APICamera.
  */
-APICamera::APICamera() : calibrated(false)
+APICamera::APICamera() : calibrated(false),
+			 calibration(NULL)
 {
+}
+
+/**
+ * Destructs an APICamera.
+ */
+APICamera::~APICamera()
+{
+    if (calibration)
+	delete calibration;
+}
+
+/**
+ * Sets calibration data.
+ *
+ * @param data The calibration data to set.
+ */
+void APICamera::setCalibrationData(APICalibrationData data)
+{
+    if (calibration)
+	*calibration = data;
+    else
+	calibration = new APICalibrationData(data);
+}
+
+/**
+ * @return The calibration data.
+ */
+APICalibrationData* const APICamera::getCalibrationData()
+{
+    return calibration;
 }
 
 /**

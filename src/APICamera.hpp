@@ -16,6 +16,7 @@ class APICamera {
 	public:
 
 		APICamera();
+		~APICamera();
 
 		cv::Mat getImage();
 
@@ -25,7 +26,7 @@ class APICamera {
 		std::vector<cv::Mat> getAllCalibrationImages();
 		cv::Mat getCalibrationImage(int number);
 		void setCalibrationData(APICalibrationData data);
-		APICalibrationData getCalibrationData();
+		APICalibrationData* const getCalibrationData();
 		bool isCalibrated();
 		void deleteCalibration();
 
