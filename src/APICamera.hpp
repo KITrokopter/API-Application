@@ -45,6 +45,10 @@ class APICamera {
 		static const int VERTICAL_DETECTION_ANGLE;
 		static const int HORIZONTAL_DETECTION_ANGLE;
 
+		// Listeners
+		std::vector<APIImageListener*> imageListeners;
+		std::vector<APICameraListener*> cameraListeners;
+
 };
 
 }
