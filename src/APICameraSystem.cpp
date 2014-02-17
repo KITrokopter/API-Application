@@ -3,6 +3,30 @@
 using namespace kitrokopter;
 
 /**
+ * @return A pointer to the camera with the given id.
+ */
+APICamera APICameraSystem::getCamera(int id)
+{
+    return cameras.at(id);
+}
+
+/**
+ * @return The number of cameras in this system.
+ */
+int APICameraSystem::getCameraAmount()
+{
+    return cameras.size();
+}
+
+/**
+ * @return A vector with all cameras.
+ */
+std::vector<APICamera> APICameraSystem::getCameras()
+{
+    return cameras;
+}
+
+/**
  * Finds all calibrated cameras.
  *
  * @return A vector of cameras.
