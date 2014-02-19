@@ -3,6 +3,21 @@
 using namespace kitrokopter;
 
 /**
+ * Initializes all cameras.
+ *
+ * See APICamera::initialize()
+ *
+ * @param quadcopters The quadcopters which will be tracked.
+ */
+void APICameraSystem::initializeCameras(std::vector<APIQuadcopter> quadcopters)
+{
+    for (std::vector<APICamera>::iterator it = cameras.begin(); it != cameras.end();
+    ++it) {
+        it->initialize(quadcopters);
+    }
+}
+
+/**
  * @return A pointer to the camera with the given id.
  */
 APICamera APICameraSystem::getCamera(int id)

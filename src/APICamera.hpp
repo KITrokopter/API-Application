@@ -3,6 +3,7 @@
 #include <vector>
 #include <opencv2/core/core.hpp>
 
+#include "APIQuadcopter.hpp"
 #include "APICalibrationData.hpp"
 #include "APIImageListener.hpp"
 #include "APICameraListener.hpp"
@@ -17,6 +18,8 @@ class APICamera {
 
 		APICamera();
 		~APICamera();
+
+		void initialize(std::vector<APIQuadcopter> quadcopters);
 
 		cv::Mat getImage();
 

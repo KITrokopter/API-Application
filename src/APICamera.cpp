@@ -20,6 +20,19 @@ APICamera::~APICamera()
 }
 
 /**
+ * Initializes the camera with the given quadcopters.
+ *
+ * Initializing a camera means transmitting quadcopter color ranges.
+ *
+ * @param quadcopters The quadcopters.
+ */
+void APICamera::initialize(std::vector<APIQuadcopter> quadcopters)
+{
+    // Send InitializeCameraService message
+    throw "Not implemented.";
+}
+
+/**
  * Sets calibration data.
  *
  * @param data The calibration data to set.
