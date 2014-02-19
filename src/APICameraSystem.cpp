@@ -46,10 +46,10 @@ std::vector<APICamera> APICameraSystem::getCameras()
  *
  * @return A vector of cameras.
  */
-std::vector<APICamera> getCalibratedCameras()
+std::vector<APICamera> APICameraSystem::getCalibratedCameras()
 {
     std::vector<APICamera> result;
-    for (std::vector<APICamera>::iterator it = result.begin(); it != result.end(); ++it) {
+    for (std::vector<APICamera>::iterator it = cameras.begin(); it != cameras.end(); ++it) {
 	if (it->isCalibrated())
 	    result.push_back(*it);
     }
@@ -61,10 +61,10 @@ std::vector<APICamera> getCalibratedCameras()
  *
  * @return A vector of cameras.
  */
-std::vector<APICamera> getUncalibratedCameras()
+std::vector<APICamera> APICameraSystem::getUncalibratedCameras()
 {
     std::vector<APICamera> result;
-    for (std::vector<APICamera>::iterator it = result.begin(); it != result.end(); ++it) {
+    for (std::vector<APICamera>::iterator it = cameras.begin(); it != cameras.end(); ++it) {
 	if (!it->isCalibrated())
 	    result.push_back(*it);
     }
