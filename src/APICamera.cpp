@@ -5,6 +5,7 @@
 // Messages
 #include "camera_application/InitializeCameraService.h"
 #include "camera_application/PictureSendingActivation.h"
+#include "camera_application/CalibrateCamera.h"
 
 #include <string>
 #include <stdexcept>
@@ -64,6 +65,27 @@ void APICamera::initialize(std::vector<APIQuadcopter> quadcopters)
 	err << "Could not call service '" << serviceName << "'.";
 	throw new std::runtime_error(err.str());
     }
+}
+
+/**
+ * Starts the calibration process.
+ *
+ * @param imageAmount The number of pictures to take.
+ * @param waitingTime The time to wait between images in ms.
+ */
+void APICamera::startCalibration(int imageAmount, int waitingTime, const CalibrationBoard &board)
+{
+    ros::NodeHandle nh;
+    ros::Publisher pub = nh.advertise<camera_application::CalibrateCamera>("CalibrateCamera", 1);
+    camera_application::CalibrateCamera msg;
+    msg.ID = this->id;
+    msg.imageAmount = imageAmount;
+    msg.imageDelay = waitingTime;
+    msg.boardWidth = board.width;
+    msg.boardHeight = board.height;
+    msg.boardRectangleWidth = board.rectangleWidth;
+    msg.boardRectangleHeight = board.rectangleHeight;
+    pub.publish(msg);
 }
 
 /**
