@@ -3,6 +3,8 @@
 #include <vector>
 #include <opencv2/core/core.hpp>
 
+#include "ros/ros.h"
+
 #include "APIQuadcopter.hpp"
 #include "APICalibrationData.hpp"
 #include "APIImageListener.hpp"
@@ -10,6 +12,9 @@
 #include "CalibrationBoard.hpp"
 #include "Cuboid.hpp"
 #include "Vector.hpp"
+
+// Messages
+#include "camera_application/Picture.h"
 
 namespace kitrokopter {
 
@@ -46,9 +51,11 @@ class APICamera {
 	private:
 
 		void sendPictureSendingActivation(bool active);
+		void handlePicture(const camera_application::Picture::Ptr &msg);
 
 		APICalibrationData *calibration;
 		bool calibrated;
+		std::vector<cv::Mat*> calibrationImages;
 		int id;
 		static const int VERTICAL_DETECTION_ANGLE;
 		static const int HORIZONTAL_DETECTION_ANGLE;
@@ -56,6 +63,9 @@ class APICamera {
 		// Listeners
 		std::vector<APIImageListener*> imageListeners;
 		std::vector<APICameraListener*> cameraListeners;
+
+		// ROS Subscribers
+		ros::Subscriber pictureSubscriber;
 
 };
 

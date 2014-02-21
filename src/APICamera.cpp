@@ -1,7 +1,5 @@
 #include "APICamera.hpp"
 
-#include "ros/ros.h"
-
 // Messages
 #include "camera_application/InitializeCameraService.h"
 #include "camera_application/PictureSendingActivation.h"
@@ -18,6 +16,8 @@ using namespace kitrokopter;
 APICamera::APICamera() : calibrated(false),
 			 calibration(NULL)
 {
+    ros::NodeHandle nh;
+    nh.subscribe("Picture", 1, &APICamera::handlePicture, this);
 }
 
 /**
@@ -27,6 +27,12 @@ APICamera::~APICamera()
 {
     if (calibration)
 	delete calibration;
+
+    // Delete calibration images.
+    for (std::vector<cv::Mat*>::iterator it = calibrationImages.begin(); it != calibrationImages.end();
+    ++it) {
+        delete *it;
+    }
 }
 
 void buildInitializationRequest(std::vector<APIQuadcopter> &quadcopters, camera_application::InitializeCameraService &service)
@@ -195,4 +201,25 @@ void APICamera::sendPictureSendingActivation(bool active)
     msg.ID = this->id;
     msg.active = active;
     pub.publish(msg);
+}
+
+cv::Mat* msgToMat(camera_application::Picture::_image_type data)
+{
+    cv::Mat *mat = new cv::Mat(cv::Size(640, 480), CV_8UC3);
+    for (size_t i = 0; i < (640 * 480 * 3); i++) {
+	mat->data[i] = data[i];
+    }
+    return mat;
+}
+
+/**
+ * Handles incoming pictures.
+ */
+void APICamera::handlePicture(const camera_application::Picture::Ptr &msg)
+{
+    if (msg->ID != this->id) return;
+    if (msg->calibrationImage) {
+	// Save the image.
+	calibrationImages.push_back(msgToMat(msg->image));
+    }
 }
