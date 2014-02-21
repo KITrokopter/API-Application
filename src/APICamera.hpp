@@ -43,6 +43,9 @@ class APICamera {
 		void removeCameraListener(APICameraListener*);
 
 	private:
+
+		void sendPictureSendingActivation(bool active);
+
 		APICalibrationData *calibration;
 		bool calibrated;
 		int id;

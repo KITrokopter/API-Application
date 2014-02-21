@@ -4,6 +4,7 @@
 
 // Messages
 #include "camera_application/InitializeCameraService.h"
+#include "camera_application/PictureSendingActivation.h"
 
 #include <string>
 #include <stdexcept>
@@ -157,4 +158,19 @@ void APICamera::removeImageListener(APIImageListener *listener)
 void APICamera::removeCameraListener(APICameraListener *listener)
 {
     removeListener(cameraListeners, listener);
+}
+
+/**
+ * Sends a message requesting pictures to be or not to be sent.
+ *
+ * @param active `true` will enable image sending, `false` will disable.
+ */
+void APICamera::sendPictureSendingActivation(bool active)
+{
+    ros::NodeHandle nh;
+    ros::Publisher pub = nh.advertise<camera_application::PictureSendingActivation>("PictureSendingActivation", 1);
+    camera_application::PictureSendingActivation msg;
+    msg.ID = this->id;
+    msg.active = active;
+    pub.publish(msg);
 }
