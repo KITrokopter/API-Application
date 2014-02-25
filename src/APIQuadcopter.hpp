@@ -1,9 +1,12 @@
 #pragma once
 
 #include <vector>
+#include <cstdint>
 
 #include "Vector.hpp"
 #include "APIQuadcopterListener.hpp"
+#include "ros/ros.h"
+#include <ros/console.h>
 
 namespace kitrokopter {
 
@@ -13,8 +16,13 @@ typedef int CV_HSV;
 class APIQuadcopter {
 
 	public:
-
+		APIQuadcopter(int id);
+		
 		int getId();
+		
+		bool connectOnChannel();
+		
+		uint8 getchannel();
 
 		Vector getTargetOrientation();
 		Vector getTargetPosition();
@@ -28,12 +36,11 @@ class APIQuadcopter {
 		bool isTracked();
 
 		std::vector<CV_HSV> getColorRange();
-		int getNetworkLatency();
-		int getLinkQuality();
-		int getAltimeterAltitude();
-		Vector getGyroscopeData();
-		Vector getMagnetometerData();
-		Vector getAccelerometerData();
+		float32 getLinkQuality();
+
+		float32 getStabilizerRollData();
+		float32 getStabilizerPitchData();
+		float32 getStabilizerYawData();
 
 		void setSelectedForFlight(bool);
 		void setColorRange(CV_HSV first, CV_HSV second);
@@ -46,23 +53,24 @@ class APIQuadcopter {
 
 
 	private:
+		ros::NodeHandle nodeHandle;
 		bool selectedForFlight;
 		int id;
+		uint8 channel;
 		CV_HSV* colorRange[2];
 		int currentSpeed;
 		int currentAcceleration;
 		Vector currentPosition;
 		Vector currentOrientation;
-		int latency;
-		int linkQuality;
-		int altitude;
-		Vector gyroscopeData;
-		Vector magnetometerData;
+		float32 linkQuality;
 		int targetSpeed;
 		int targetAcceleration;
 		Vector targetPostion;
 		Vector targetOrientation;
-		Vector accelerometerData;
+
+		float32 stabilizerRollData;
+		float32 stabilizerPitchData;
+		float32 stabilizerYawData;
 
 };
 

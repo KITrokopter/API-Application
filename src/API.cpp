@@ -4,6 +4,12 @@
 
 using namespace kitrokopter;
 
+/**
+ * Initializes the API which means starting the announcement service.
+ * 
+ * @param argc remapping arguments from the command line for ros
+ * @param argv remapping arguments from the command line for ros
+ */
 API::API(int argc, char **argv)
 {
     this->idCounter = 0;
@@ -20,6 +26,9 @@ API::API(int argc, char **argv)
     ros::spin();
 }
 
+/**
+ * Function to be called when the announce service is invoked.
+ */
 bool API::announce(api_application::Announce::Request &req, api_application::Announce::Response &res)
 {
     res.id = idCounter++;
