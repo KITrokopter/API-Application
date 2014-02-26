@@ -20,9 +20,10 @@ class APIQuadcopter {
 		
 		int getId();
 		
+		int[] scanChannels();
 		bool connectOnChannel();
 		
-		uint8 getchannel();
+		uint8 getChannel();
 
 		Vector getTargetOrientation();
 		Vector getTargetPosition();
