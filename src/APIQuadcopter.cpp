@@ -5,6 +5,7 @@ using namespace kitrokopter;
 
 void APIQuadcopter::APIQuadcopter(int id) {
     this->id = id;
+    this->selectedForFlight = true;
     std::stringstream sstm;
     sstm << "api_quadcopter_" << id;
     ros::init(argc, argv, sstm.str());
@@ -21,14 +22,14 @@ void APIQuadcopter::APIQuadcopter(int id) {
  */ 
 uint8[] scanChannels() {
     std::stringstream sstm;
-    sstm << "open_link_" << id;
-    ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::open_link>(sstm.str());
-    quadcopter_application::open_link srv;
+    sstm << "search_links_" << id;
+    ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::search_links>(sstm.str());
+    quadcopter_application::search_links srv;
     srv.request.header.stamp = ros::Time::now();
     srv.request.channel = this->channel();
-    if (!client.call(srv) || srv.response.error != 0) {
-	ROS_ERROR("Failed to connect on channel.");
-	return false;
+    if (!client.call(srv)) {
+	ROS_ERROR("Failed to scan channels.");
+	return 
     } else {
 	return true;
     }
@@ -56,8 +57,13 @@ bool APIQuadcopter::connectOnChannel(uint8 channel) {
     }
 }
 
+/**
+ * Get the id of the corresponding quadcopter module.
+ *
+ * @return the id
+ */ 
 int APIQuadcopter::getId() {
-    return this→id;
+    return this->id;
 }
 
 /**
@@ -66,7 +72,7 @@ int APIQuadcopter::getId() {
  * @return the channel
  */
 uint8 APIQuadcopter::getChannel() {
-    return this→channel();
+    return this->channel();
 }
 
 /**
@@ -82,6 +88,61 @@ void APIQuadcopter::blink() {
 	ROS_ERROR("Failed to blink.");
 	return 1;
     }
+}
+
+/**
+ * Set the color range for tracking this quadcopter.
+ * 
+ * @param min the lower bound
+ * @param max the upper bound
+ */
+void APIQuadcopter::setColorRange(uint32_t min, uint32_t max) {
+    this->colorRange = {min, max};
+}
+
+/**
+ * Set the color range for tracking this quadcopter.
+ * 
+ * @param range[2] lower bound, upper bound
+ */
+void APIQuadcopter::setColorRange(uint32_t range[2]) {
+    this->colorRange = range;
+}
+
+/**
+ * Get the color range for tracking this quadcopter.
+ * 
+ * @return the color range
+ */
+uint32_t[2] APIQuadcopter::getColorRange() {
+    return this->colorRange;
+}
+
+/**
+ * Whether this quadcopter is selected to fly or to stay on the ground.
+ * 
+ * @return whether this quadcopter shall fly
+ */
+bool APIQuadcopter::isSelectedForFlight() {
+    return this->selectedForFlight;
+}
+
+/**
+ * Set whether this quadcopter shall fly or stay on the ground.
+ * 
+ * @param select whether this quadcopter shall fly or stay on the ground
+ */
+void APIQuadcopter::setSelectedForFlight(bool select) {
+   this->selectedForFlight = select; 
+}
+
+/**
+ * Get the quality of the connection to the quadcopter.
+ * 
+ * @return the link quality
+ */
+float32 getLinkQuality() {
+    return this->linkQuality;
 }
 
 void APIQuadcopter::statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg) {
