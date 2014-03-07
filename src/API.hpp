@@ -24,6 +24,8 @@ namespace kitrokopter {
 	    api_application::Announce::Request &req,
 	    api_application::Announce::Response &res);
 	
+	void sendHues();
+	
 	/* Quadcopter mutation */
 	APIQuadcopter getQuadcopter(int id);
 	bool removeQuadcopter(int id);
@@ -92,12 +94,11 @@ namespace kitrokopter {
 	int idCounter;
 	
 	//the ids of modules by category
-	std::vector<int> cameraIds;
 	std::vector<int> controllerIds;
 	std::vector<int> positionIds;
 	
-	std::map <int, APIQuadcopter> quadcopters;
-	std::map <int, APICamera> cameras;
+	std::map <uint32_t, APIQuadcopter> quadcopters;
+	std::map <uint32_t, APICamera> cameras;
 	
 	APIFormation formation;
     };
