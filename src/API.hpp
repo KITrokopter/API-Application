@@ -24,7 +24,7 @@ namespace kitrokopter {
 	    api_application::Announce::Request &req,
 	    api_application::Announce::Response &res);
 	
-	void sendHues();
+	void initializeCameras();
 	
 	/* Quadcopter mutation */
 	APIQuadcopter getQuadcopter(int id);
