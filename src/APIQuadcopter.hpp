@@ -1,20 +1,26 @@
 #pragma once
 
 #include <vector>
+#include <cstdint>
 
 #include "Vector.hpp"
 #include "APIQuadcopterListener.hpp"
+#include "ros/ros.h"
+#include <ros/console.h>
 
 namespace kitrokopter {
-
-// FIXME: What's a CV_HSV?
-typedef int CV_HSV;
 
 class APIQuadcopter {
 
 	public:
-
+		APIQuadcopter(int id);
+		
 		int getId();
+		
+		int[] scanChannels();
+		bool connectOnChannel();
+		
+		uint8_t getChannel();
 
 		Vector getTargetOrientation();
 		Vector getTargetPosition();
@@ -27,17 +33,18 @@ class APIQuadcopter {
 
 		bool isTracked();
 
-		std::vector<CV_HSV> getColorRange();
-		int getNetworkLatency();
-		int getLinkQuality();
-		int getAltimeterAltitude();
-		Vector getGyroscopeData();
-		Vector getMagnetometerData();
-		Vector getAccelerometerData();
+		uint32_t[2] getColorRange();
+		float32 getLinkQuality();
 
-		void setSelectedForFlight(bool);
-		void setColorRange(CV_HSV first, CV_HSV second);
-		void setColorRange(CV_HSV range[2]);
+		float32 getStabilizerRollData();
+		float32 getStabilizerPitchData();
+		float32 getStabilizerYawData();
+
+		void setSelectedForFlight(bool select);
+		bool isSelectedForFlight();
+		
+		void setColorRange(uint32_t min, uint32_t max);
+		void setColorRange(uint32_t range[2]);
 
 		void blink();
 
@@ -46,23 +53,24 @@ class APIQuadcopter {
 
 
 	private:
+		ros::NodeHandle nodeHandle;
 		bool selectedForFlight;
 		int id;
-		CV_HSV* colorRange[2];
+		uint8_t channel;
+		uint32_t colorRange[2];
 		int currentSpeed;
 		int currentAcceleration;
 		Vector currentPosition;
 		Vector currentOrientation;
-		int latency;
-		int linkQuality;
-		int altitude;
-		Vector gyroscopeData;
-		Vector magnetometerData;
+		float32 linkQuality;
 		int targetSpeed;
 		int targetAcceleration;
 		Vector targetPostion;
 		Vector targetOrientation;
-		Vector accelerometerData;
+
+		float32 stabilizerRollData;
+		float32 stabilizerPitchData;
+		float32 stabilizerYawData;
 
 };
 
