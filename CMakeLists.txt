@@ -103,28 +103,28 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-## Declare a cpp library
-# add_library(api_application
-#   src/${PROJECT_NAME}/api_application.cpp
-# )
+# Declare a cpp library
+add_library(api_application
+  src/API.cpp
+  src/APICamera.cpp
+  src/APICameraSystem.cpp
+)
 
 ## Declare a cpp executable
 # add_executable(api_application_node src/api_application_node.cpp)
-
-add_executable(api_application_node
-    src/API.cpp
-)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(api_application_node api_application_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(api_application_node
+target_link_libraries(api_application
   ${catkin_LIBRARIES}
+  libopencv_core.so
+  # libopencv_imgproc.so libopencv_calib3d.so libcvblob.so libopencv_highgui.so
 )
 
-add_dependencies(api_application_node api_application_generate_messages_cpp)
+add_dependencies(api_application api_application_generate_messages_cpp)
 
 #############
 ## Install ##

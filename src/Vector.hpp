@@ -7,7 +7,7 @@ namespace kitrokopter {
  */
 class Vector {
 	private:
-		const double x, y, z;
+		double x, y, z;
 
 	public:
 		/**
