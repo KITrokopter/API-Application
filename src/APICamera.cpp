@@ -35,44 +35,6 @@ APICamera::~APICamera()
     }
 }
 
-void buildInitializationRequest(std::vector<APIQuadcopter> &quadcopters, camera_application::InitializeCameraService &service)
-{
-    for (std::vector<APIQuadcopter>::iterator it = quadcopters.begin(); it != quadcopters.end();
-    ++it) {
-        service.request.quadCopterIds.push_back(it->getId());
-	std::vector<CV_HSV> colorRange = it->getColorRange();
-        service.request.hsvColorRanges.push_back(colorRange.at(0));
-        service.request.hsvColorRanges.push_back(colorRange.at(1));
-    }
-}
-
-/**
- * Initializes the camera with the given quadcopters.
- *
- * Initializing a camera means transmitting quadcopter color ranges.
- *
- * @param quadcopters The quadcopters.
- */
-void APICamera::initialize(std::vector<APIQuadcopter> quadcopters)
-{
-    // Send InitializeCameraService message
-    camera_application::InitializeCameraService service;
-    buildInitializationRequest(quadcopters, service);
-
-    std::stringstream serviceName;
-    std::stringstream err;
-    serviceName << "InitializeCameraService" << id;
-    if (ros::service::call(serviceName.str(), service)) {
-	if (service.response.error != 0) {
-	    err << "Service '" << serviceName << "' returned error: " << service.response.error;
-	    throw new std::runtime_error(err.str());
-	}
-    } else {
-	err << "Could not call service '" << serviceName << "'.";
-	throw new std::runtime_error(err.str());
-    }
-}
-
 /**
  * Starts the calibration process.
  *

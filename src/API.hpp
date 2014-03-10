@@ -100,7 +100,6 @@ namespace kitrokopter {
 	std::vector<int> positionIds;
 	
 	std::map <uint32_t, APIQuadcopter> quadcopters;
-	std::map <uint32_t, APICamera> cameras;
 	
 	APIFormation formation;
     };

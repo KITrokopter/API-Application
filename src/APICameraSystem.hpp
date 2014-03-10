@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <cstdint.h>
 #include <opencv2/core/core.hpp>
 
 #include "APICamera.hpp"
@@ -35,7 +36,7 @@ class APICameraSystem {
 		int getCalibrationPictureCount();
 
 	private:
-		std::vector<APICamera> cameras;
+		std::map <uint32_t, APICamera> cameras;
 };
 
 }
