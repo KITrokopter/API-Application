@@ -124,7 +124,10 @@ target_link_libraries(api_application
   # libopencv_imgproc.so libopencv_calib3d.so libcvblob.so libopencv_highgui.so
 )
 
-add_dependencies(api_application api_application_generate_messages_cpp)
+add_dependencies(
+    api_application api_application_generate_messages_cpp
+    quadcopter_application quadcopter_application_generate_messages_cpp
+)
 
 #############
 ## Install ##

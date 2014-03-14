@@ -50,6 +50,8 @@ class APIQuadcopter {
 
 		void addQuadcopterListener(APIQuadcopterListener*);
 		void removeQuadcopterListener(APIQuadcopterListener*);
+                
+                void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
 
 
 	private:

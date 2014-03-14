@@ -17,28 +17,31 @@ API::API(int argc, char **argv)
     
     this->controllers = std::vector<int>(1);
     this->positions = std::vector<int>(5);
+    this->cameraSystem = new APICameraSystem();
     
     ros::init(argc, argv, "api_server");
-    ros::NodeHandle n;
+    ros::NodeHandle this->nodeHandle;
     ros::ServiceServer service = n.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
     ros::spin();
 }
 
 /**
- * Get the APIQuadcopter with the corresponding id 
+ * Get a pointer to the APIQuadcopter with the corresponding id 
  * or a null pointer if there is no such APIQuadcopter.
  * 
  * @param id the APIQuadcopter's id
  * @return the APIQuadcopter with this id or a null pointer if there is no such APIQuadcopter
  */
-APIQuadcopter getQuadcpoter(int id) {
+APIQuadcopter* API::getQuadcpoter(int id) {
     if (this->quadcopters.find(id) != this->quadcopters.end()) {
-	return this->quadcopters[id];
+	return &this->quadcopters[id];
     } else {
 	return NULL;
     }
 }
+
+
 
 /**
  * Removes the APIQuadcopter with the corresponding id.
@@ -46,7 +49,7 @@ APIQuadcopter getQuadcpoter(int id) {
  * @param id the APIQuadcopter's id
  * @return whether there was a APIQuadcopter with this id to remove
  */
-bool removeQuadcopter(int id) {
+bool API::removeQuadcopter(int id) {
     if (this->quadcopters.find(id) != this->quadcopters.end()) {
 	quadcopters.erase(id);
 	return true;
@@ -60,7 +63,7 @@ bool removeQuadcopter(int id) {
  *
  * @return array of channels
  */ 
-int[] scanChannels() {
+int[] API::scanChannels() {
    return this->quadcopters.begin().scanChannels(); 
 }
 
@@ -89,6 +92,13 @@ void API::announce(api_application::Announce::Request &req, api_application::Ann
 	    return 1;
     }
     ROS_INFO("Registered new module with type %d and id %d", req.type, res.id);
+}
+
+/**
+ * Initializes the cameras
+ */
+void API::initializeCameras() {
+    this->camera
 }
 
 /**
@@ -128,6 +138,23 @@ std::vector<APIQuadcopter> API::getQuadcopters() {
 std::vector<APIQuadcopter> API::getQuadcoptersFlying() {
     
 }
+
+/**
+ * Add a quadcopter to the API.
+ * Throws an exception if there is already a quadcopter with this id.
+ * 
+ * @param quadcopter th equadcopter to add
+ */
+void API::addQuadcopter(APIQuadcopter quadcopter) {
+    if (this->quadcopters.find(id) == this->quadcopters.end()) {
+        throw new std::runtime_error("quadcopter id already in use");
+    } else {
+        this->quadcopters.insert(std::pair<uint32_t,APIQuadcopter>(quadcopter.getId,quadcopter));
+    }
+    ros::NodeHandle n;
+    ros::Subscriber sub = n.subscribe("quadcopter_status", 1, this->quadcopters[quadcopter.getId].statusCallback);
+}
+
 
 
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <cstdint.h>
 #include <opencv2/core/core.hpp>
 
 #include "ros/ros.h"
@@ -22,7 +23,7 @@ class APICamera {
 
 	public:
 
-		APICamera();
+		APICamera(uint32_t newId;
 		~APICamera();
 
 		void initialize(std::vector<APIQuadcopter> quadcopters);
@@ -56,7 +57,7 @@ class APICamera {
 		APICalibrationData *calibration;
 		bool calibrated;
 		std::vector<cv::Mat*> calibrationImages;
-		int id;
+		uint32_t id;
 		static const int VERTICAL_DETECTION_ANGLE;
 		static const int HORIZONTAL_DETECTION_ANGLE;
 

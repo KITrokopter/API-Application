@@ -3,11 +3,20 @@
 using namespace kitrokopter;
 
 /**
+ * Constructs an APICameraSystem.
+ */
+APICamerasystem::APICameraSystem()
+{
+    
+}
+
+/**
  * Initialize the camera modules
  * 
  * @param quadcopters The quadcopters which will be tracked.
  */
-void API::initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters) {
+void API::initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters)
+{
     camera_application::InitializeCameraService message = buildInitMessage(quadcopters);
     
     std::vector<uint32_t> cameraIds;
@@ -16,15 +25,18 @@ void API::initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters) {
     std::stringstream sstm;
     std::stringstream err;
     
-    for (int i = 0; i < cameraIds.size(); i++) {
+    for (int i = 0; i < cameraIds.size(); i++)
+    {
 	//empty the stringstream
 	sstm.str("");
 	sstm << "InitializeCameraService" << cameraIds[i];
 	//copy the original message to be able to use the response
 	camera_application::InitializeCameraService messageCopy = message;
 
-	if (ros::service::call(sstm.str(), messageCopy)) {
-	    if (messageCopy.response.error != 0) {
+	if (ros::service::call(sstm.str(), messageCopy))
+        {
+	    if (messageCopy.response.error != 0)
+            {
 		err << "Service '" << serviceName << "' returned error: " << messageCopy.response.error;
 		throw new std::runtime_error(err.str());
 	    }
@@ -35,7 +47,8 @@ void API::initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters) {
     }
 }
 
-camera_application::InitializeCameraService APICameraSystem::buildInitMessage(std::map<uint32_t, APIQuadcopter> quadcopters) {
+camera_application::InitializeCameraService APICameraSystem::buildInitMessage(std::map<uint32_t, APIQuadcopter> quadcopters)
+{
     camera_application::InitializeCameraService message;
     message.request.header.stamp = ros::Time::now();
     
@@ -135,15 +148,19 @@ std::vector<APICamera*> APICameraSystem::getUncalibratedCameras()
 }
 
 template <typename M, typename V> 
-void MapKeysToVec(const  M & m, V & v) {
-    for(typename M::const_iterator it = m.begin(); it != m.end(); ++it) {
+void MapKeysToVec(const  M & m, V & v)
+{
+    for(typename M::const_iterator it = m.begin(); it != m.end(); ++it)
+    {
 	v.push_back(it->first);
     }
 }
 
 template <typename M, typename V> 
-void MapValuesToVec(const  M & m, V & v) {
-    for(typename M::const_iterator it = m.begin(); it != m.end(); ++it) {
+void MapValuesToVec(const  M & m, V & v)
+{
+    for(typename M::const_iterator it = m.begin(); it != m.end(); ++it)
+    {
 	v.push_back(it->second);
     }
 }

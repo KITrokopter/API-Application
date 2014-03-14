@@ -12,11 +12,14 @@ using namespace kitrokopter;
 
 /**
  * Constructs an APICamera.
+ * 
+ * @param newId the cameras id
  */
-APICamera::APICamera() : calibrated(false),
+APICamera::APICamera(uint32_t newId) : calibrated(false),
 			 calibration(NULL)
 {
     ros::NodeHandle nh;
+    this->id = newId;
     nh.subscribe("Picture", 1, &APICamera::handlePicture, this);
 }
 
