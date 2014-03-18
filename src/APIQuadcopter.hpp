@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <cstdint>
+#include <stdint.h>
 
 #include "Vector.hpp"
 #include "APIQuadcopterListener.hpp"
