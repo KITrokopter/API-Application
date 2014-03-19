@@ -40,12 +40,11 @@ void APICameraSystem::initializeCameras(std::map<uint32_t, APIQuadcopter> quadco
         {
 	    if (messageCopy.response.error != 0)
             {
-		err << "Service '" << serviceName << "' returned error: " << messageCopy.response.error;
+		err << "InitializeCameraService" << " returned error: " << messageCopy.response.error;
 		throw new std::runtime_error(err.str());
 	    }
 	} else {
-	    err << "Could not call service '" << serviceName << "'.";
-	    throw new std::runtime_error(err.str());
+            throw new std::runtime_error("Could not call InitializeCameraService");
 	}
     }
 }
