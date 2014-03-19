@@ -20,7 +20,7 @@ APICameraSystem::APICameraSystem()
  */
 void APICameraSystem::initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters)
 {
-    camera_application::InitializeCameraService message = this.buildInitMessage(quadcopters);
+    camera_application::InitializeCameraService message = this->buildInitMessage(quadcopters);
     
     std::vector<uint32_t> cameraIds;
     MapKeysToVec(this->cameras, cameraIds);
