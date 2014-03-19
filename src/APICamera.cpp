@@ -38,6 +38,11 @@ APICamera::~APICamera()
     }
 }
 
+int APICamera::getId()
+{
+    return this->id;
+}
+
 /**
  * Starts the calibration process.
  *

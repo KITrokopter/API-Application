@@ -29,6 +29,7 @@ class APICamera {
 		void initialize(std::vector<APIQuadcopter> quadcopters);
 
 		cv::Mat getImage();
+                int getId();
 
 		/* Calibration */
 		void startCalibration(int imageAmount, int waitingTime, const CalibrationBoard &board);
