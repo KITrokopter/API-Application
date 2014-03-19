@@ -1,8 +1,5 @@
 #include "APICameraSystem.hpp"
 
-// Messages
-#include "camera_application/InitializeCameraService.h"
-
 using namespace kitrokopter;
 
 /**

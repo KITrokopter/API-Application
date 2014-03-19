@@ -6,6 +6,9 @@
 
 #include "APICamera.hpp"
 
+// Messages
+#include "camera_application/InitializeCameraService.h"
+
 namespace kitrokopter {
 
 class APICameraSystem {
@@ -38,6 +41,7 @@ class APICameraSystem {
 
 	private:
 		std::map <uint32_t, APICamera> cameras;
+                camera_application::InitializeCameraService APICameraSystem::buildInitMessage(std::map<uint32_t, APIQuadcopter> quadcopters);
 };
 
 }
