@@ -64,10 +64,10 @@ camera_application::InitializeCameraService APICameraSystem::buildInitMessage(st
     
     uint32_t colorRanges[quadcopterIds.size()];
     for (int i = 0; i < quadcopterIds.size(); i++) {
-        colorRanges[2*i] = this->quadcopters.get[i].getColorRange()[0];
-        colorRanges[2*i+1] = this->quadcopters.get[i].getColorRange()[1];
+        colorRanges[2*i] = quadcopters.get[i].getColorRange()[0];
+        colorRanges[2*i+1] = quadcopters.get[i].getColorRange()[1];
     }
-    message.request.hsvColorRanges = hsvColorRanges[quadcopterIds.size()]
+    message.request.hsvColorRanges = colorRanges[quadcopterIds.size()];
     return message;
 }
 
