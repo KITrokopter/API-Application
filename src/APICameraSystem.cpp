@@ -63,9 +63,10 @@ camera_application::InitializeCameraService APICameraSystem::buildInitMessage(st
     message.request.quadCopterIds = quadcopterIds;
     
     std::vector<uint32_t> colorRanges;
-    for (int i = 0; i < quadcopterIds.size(); i++) {
-        colorRanges.push_back([i].getColorRange()[0]);
-        colorRanges.push_back([i].getColorRange()[1]);
+    for (int i = 0; i < quadcopterIds.size(); i++)
+    {
+        colorRanges.push_back(quadcopters[i].getColorRange()[0]);
+        colorRanges.push_back(quadcopters[i].getColorRange()[1]);
     }
     message.request.hsvColorRanges = colorRanges;
     return message;
