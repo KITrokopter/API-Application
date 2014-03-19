@@ -20,7 +20,10 @@ void APICameraSystem::initializeCameras(std::map<uint32_t, APIQuadcopter> quadco
     camera_application::InitializeCameraService message = this->buildInitMessage(quadcopters);
     
     std::vector<uint32_t> cameraIds;
-    MapKeysToVec(&this->cameras, &cameraIds);
+    for(std::map<uint32_t, APIQuadcopter>::const_iterator it = quadcopters.begin(); it != quadcopters.end(); ++it)
+    {
+        cameraIds.push_back(it->first);
+    }
     
     std::stringstream sstm;
     std::stringstream err;
@@ -145,20 +148,4 @@ std::vector<APICamera*> APICameraSystem::getUncalibratedCameras()
 	}
     }
     return result;
-}
-
-template <typename M, typename V> void MapKeysToVec(const  M & m, V & v)
-{
-    for(typename M::const_iterator it = m.begin(); it != m.end(); ++it)
-    {
-	v.push_back(it->first);
-    }
-}
-
-template <typename M, typename V> void MapValuesToVec(const  M & m, V & v)
-{
-    for(typename M::const_iterator it = m.begin(); it != m.end(); ++it)
-    {
-	v.push_back(it->second);
-    }
 }
