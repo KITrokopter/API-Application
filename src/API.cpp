@@ -17,7 +17,7 @@ API::API(int argc, char **argv)
     //this->formation = NULL;
     this->controllers = std::vector<int>(1);
     this->positions = std::vector<int>(5);
-    this->cameraSystem = new APICameraSystem();
+    this->cameraSystem = APICameraSystem();
     
     ros::init(argc, argv, "api_server");
     ros::NodeHandle this->nodeHandle;
