@@ -11,7 +11,8 @@ namespace kitrokopter {
 class APICameraSystem {
 
 	public:
-
+                APICameraSystem();
+                
 		/* Initialization */
 		void initializeCameras(std::vector<APIQuadcopter> quadcopters);
 
