@@ -60,7 +60,7 @@ camera_application::InitializeCameraService APICameraSystem::buildInitMessage(st
         quadcopterIds.push_back(it->first);
     }
     
-    message.request.quadCopterIds = &quadcopterIds;
+    message.request.quadCopterIds = quadcopterIds;
     
     uint32_t message.request.hsvColorRanges[quadcopterIds.size()];
     for (int i = 0; i < quadcopterIds.size(); i++) {
