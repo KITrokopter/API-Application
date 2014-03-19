@@ -20,7 +20,7 @@ void APICameraSystem::initializeCameras(std::map<uint32_t, APIQuadcopter> quadco
     camera_application::InitializeCameraService message = this->buildInitMessage(quadcopters);
     
     std::vector<uint32_t> cameraIds;
-    for(std::map<uint32_t, APIQuadcopter>::const_iterator it = quadcopters.begin(); it != quadcopters.end(); ++it)
+    for(std::map<uint32_t, APICamera>::const_iterator it = this->cameras.begin(); it != this->cameras.end(); ++it)
     {
         cameraIds.push_back(it->first);
     }
@@ -54,8 +54,12 @@ camera_application::InitializeCameraService APICameraSystem::buildInitMessage(st
     camera_application::InitializeCameraService message;
     message.request.header.stamp = ros::Time::now();
     
-    std::vector<uint32_t> quadcopterIdsVector;
-    MapKeysToVec(this->quadcopters, quadcopterIdsVector);
+    std::vector<uint32_t> quadcopterIds;
+    for(std::map<uint32_t, APIQuadcopter>::const_iterator it = quadcopters.begin(); it != quadcopters.end(); ++it)
+    {
+        quadcopterIds.push_back(it->first);
+    }
+    
     message.request.quadCopterIds = &quadcopterIdsVector;
     
     uint32_t message.request.hsvColorRanges[quadcopterIdsVector.size()];
