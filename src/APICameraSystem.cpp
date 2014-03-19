@@ -40,7 +40,7 @@ void APICameraSystem::initializeCameras(std::map<uint32_t, APIQuadcopter> quadco
         {
 	    if (messageCopy.response.error != 0)
             {
-		err << "InitializeCameraService" << " returned error: " << messageCopy.response.error;
+		err << "InitializeCameraService returned error: " << messageCopy.response.error;
 		throw new std::runtime_error(err.str());
 	    }
 	} else {
