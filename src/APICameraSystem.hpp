@@ -22,7 +22,7 @@ class APICameraSystem {
 		/* Camera getters */
 		APICamera* getCamera(int id);
 		int getCameraAmount();
-		std::vector<APICamera> getCameras();
+                std::map <uint32_t, APICamera> getCameras();
 		
 		/* Camera setters */
 		void addCamera(APICamera camera);

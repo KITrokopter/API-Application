@@ -97,9 +97,9 @@ int APICameraSystem::getCameraAmount()
 }
 
 /**
- * @return A vector with all cameras.
+ * @return A map with all cameras.
  */
-std::vector<APICamera> APICameraSystem::getCameras()
+std::map <uint32_t, APICamera> APICameraSystem::getCameras()
 {
     return cameras;
 }
