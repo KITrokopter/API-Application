@@ -41,7 +41,7 @@ class APICameraSystem {
 
 	private:
 		std::map <uint32_t, APICamera> cameras;
-                camera_application::InitializeCameraService APICameraSystem::buildInitMessage(std::map<uint32_t, APIQuadcopter> quadcopters);
+                camera_application::InitializeCameraService buildInitMessage(std::map<uint32_t, APIQuadcopter> quadcopters);
 };
 
 }
