@@ -1,11 +1,14 @@
 #include "APICameraSystem.hpp"
 
+// Messages
+#include "camera_application/InitializeCameraService.h"
+
 using namespace kitrokopter;
 
 /**
  * Constructs an APICameraSystem.
  */
-APICamerasystem::APICameraSystem()
+APICameraSystem::APICameraSystem()
 {
     
 }
@@ -15,7 +18,7 @@ APICamerasystem::APICameraSystem()
  * 
  * @param quadcopters The quadcopters which will be tracked.
  */
-void API::initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters)
+void APICameraSystem::initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters)
 {
     camera_application::InitializeCameraService message = buildInitMessage(quadcopters);
     

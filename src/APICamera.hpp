@@ -23,7 +23,7 @@ class APICamera {
 
 	public:
 
-		APICamera(uint32_t newId;
+		APICamera(uint32_t newId);
 		~APICamera();
 
 		void initialize(std::vector<APIQuadcopter> quadcopters);
