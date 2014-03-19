@@ -67,7 +67,7 @@ camera_application::InitializeCameraService APICameraSystem::buildInitMessage(st
         colorRanges[2*i] = quadcopters[i].getColorRange()[0];
         colorRanges[2*i+1] = quadcopters[i].getColorRange()[1];
     }
-    message.request.hsvColorRanges = colorRanges[quadcopterIds.size()];
+    message.request.hsvColorRanges = colorRanges;
     return message;
 }
 
