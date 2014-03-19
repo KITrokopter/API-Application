@@ -14,7 +14,7 @@ class APICameraSystem {
                 APICameraSystem();
                 
 		/* Initialization */
-                void initializeCamerasstd::map<uint32_t, APIQuadcopter> quadcopters);
+                void initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters);
 
 		/* Camera getters */
 		APICamera* getCamera(int id);
