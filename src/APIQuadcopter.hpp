@@ -7,6 +7,7 @@
 #include "APIQuadcopterListener.hpp"
 #include "ros/ros.h"
 #include <ros/console.h>
+#include "quadcopter_application/quadcopter_status.h"
 
 namespace kitrokopter {
 
@@ -17,7 +18,7 @@ class APIQuadcopter {
 		
 		int getId();
 		
-		int[] scanChannels();
+		int* scanChannels();
 		bool connectOnChannel();
 		
 		uint8_t getChannel();
@@ -33,12 +34,12 @@ class APIQuadcopter {
 
 		bool isTracked();
 
-		uint32_t[2] getColorRange();
-		float32 getLinkQuality();
+		uint32_t* getColorRange();
+		float getLinkQuality();
 
-		float32 getStabilizerRollData();
-		float32 getStabilizerPitchData();
-		float32 getStabilizerYawData();
+		float getStabilizerRollData();
+		float getStabilizerPitchData();
+		float getStabilizerYawData();
 
 		void setSelectedForFlight(bool select);
 		bool isSelectedForFlight();
@@ -64,15 +65,15 @@ class APIQuadcopter {
 		int currentAcceleration;
 		Vector currentPosition;
 		Vector currentOrientation;
-		float32 linkQuality;
+		float linkQuality;
 		int targetSpeed;
 		int targetAcceleration;
 		Vector targetPostion;
 		Vector targetOrientation;
 
-		float32 stabilizerRollData;
-		float32 stabilizerPitchData;
-		float32 stabilizerYawData;
+		float stabilizerRollData;
+		float stabilizerPitchData;
+		float stabilizerYawData;
 
 };
 
