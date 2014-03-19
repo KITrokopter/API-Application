@@ -14,7 +14,7 @@ using namespace kitrokopter;
 API::API(int argc, char **argv)
 {
     this->idCounter = 0;
-    
+    this->formation = NULL;
     this->controllers = std::vector<int>(1);
     this->positions = std::vector<int>(5);
     this->cameraSystem = new APICameraSystem();

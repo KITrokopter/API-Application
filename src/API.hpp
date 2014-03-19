@@ -52,7 +52,7 @@ namespace kitrokopter {
 	std::vector<APIQuadcopter> getQuadcoptersInFormation();
 	std::vector<APIQuadcopter> getQuadcoptersNotInFormation();
 	
-	int[] scanChannels();
+	int* scanChannels();
 	
 	/* Quadcopter amount */
 	int getQuadcopterAmount();
