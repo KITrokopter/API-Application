@@ -15,8 +15,8 @@ API::API(int argc, char **argv)
 {
     this->idCounter = 0;
     //this->formation = NULL;
-    this->controllers = std::vector<int>(1);
-    this->positions = std::vector<int>(5);
+    this->controllerIds = std::vector<int>(1);
+    this->positionIds = std::vector<int>(5);
     this->cameraSystem = APICameraSystem();
     
     ros::init(argc, argv, "api_server");
