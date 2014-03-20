@@ -20,8 +20,7 @@ API::API(int argc, char **argv)
     this->cameraSystem = APICameraSystem();
     
     ros::init(argc, argv, "api_server");
-    ros::NodeHandle this->nodeHandle;
-    ros::ServiceServer service = n.advertiseService("announce", &API::announce, this);
+    ros::ServiceServer service = this->nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
     ros::spin();
 }
@@ -63,7 +62,7 @@ bool API::removeQuadcopter(int id) {
  *
  * @return array of channels
  */ 
-int[] API::scanChannels() {
+int* API::scanChannels() {
    return this->quadcopters.begin().scanChannels(); 
 }
 
@@ -75,7 +74,7 @@ void API::announce(api_application::Announce::Request &req, api_application::Ann
     res.id = idCounter++;
     switch (req.type) {
 	case 0:
-	    this->cameraIds.push_back(res.id);
+	    this->cameraSystem.addCamera(APICamera(res.id));
 	    break;
 	case 1:
 	    this->quadcopters[res.id] = new APIQuadcopter(res.id);
