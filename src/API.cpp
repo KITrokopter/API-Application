@@ -20,7 +20,7 @@ API::API(int argc, char **argv)
     this->cameraSystem = APICameraSystem();
     
     ros::init(argc, argv, "api_server");
-    ros::ServiceServer service = this->nodeHandle.advertiseService("announce", &API::announce, this);
+    ros::ServiceServer service = this->nodeHandle.advertiseService("announce", &API::announce);
     ROS_INFO("Ready to deliver IDs.");
     ros::spin();
 }
