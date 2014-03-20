@@ -98,7 +98,7 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
  * Initializes the cameras
  */
 void API::initializeCameras() {
-    this->camera
+
 }
 
 /**
