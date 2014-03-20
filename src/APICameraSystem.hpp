@@ -34,8 +34,8 @@ class APICameraSystem {
 
 		/* Calibration getters */
 		bool isCalibrated();
-		std::vector<APICamera> getCalibratedCameras();
-		std::vector<APICamera> getUncalibratedCameras();
+		std::vector<APICamera*> getCalibratedCameras();
+		std::vector<APICamera*> getUncalibratedCameras();
 		std::vector< std::vector<cv::Mat> > getCalibrationPictures();
 		int getCalibrationPictureCount();
 
