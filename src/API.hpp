@@ -36,21 +36,21 @@ namespace kitrokopter {
 	
 	/* Cameras */
 	APICameraSystem getCameraSystem();
-	std::vector<APICamera> getCameras();
-	std::vector<APICamera> getCalibratedCameras();
-	std::vector<APICamera> getUncalibratedCameras();
+	std::vector<APICamera*> getCameras();
+	std::vector<APICamera*> getCalibratedCameras();
+	std::vector<APICamera*> getUncalibratedCameras();
 	int getCameraAmount();
 	int getCalibratedCameraAmount();
 	int getUncalibratedCameraAmount();
 	
 	/* Quadcopter getters */
-	std::vector<APIQuadcopter> getQuadcopters();
-	std::vector<APIQuadcopter> getQuadcoptersFlying();
-	std::vector<APIQuadcopter> getQuadcoptersOnGround();
-	std::vector<APIQuadcopter> getQuadcoptersTracked();
-	std::vector<APIQuadcopter> getQuadcoptersUntracked();
-	std::vector<APIQuadcopter> getQuadcoptersInFormation();
-	std::vector<APIQuadcopter> getQuadcoptersNotInFormation();
+	std::vector<APIQuadcopter*> getQuadcopters();
+	std::vector<APIQuadcopter*> getQuadcoptersFlying();
+	std::vector<APIQuadcopter*> getQuadcoptersOnGround();
+	std::vector<APIQuadcopter*> getQuadcoptersTracked();
+	std::vector<APIQuadcopter*> getQuadcoptersUntracked();
+	std::vector<APIQuadcopter*> getQuadcoptersInFormation();
+	std::vector<APIQuadcopter*> getQuadcoptersNotInFormation();
 	
 	int* scanChannels();
 	
