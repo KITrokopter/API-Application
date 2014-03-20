@@ -96,7 +96,6 @@ namespace kitrokopter {
 
 	//the ids of modules by category
 	std::vector<int> controllerIds;
-	std::vector<int> controllerIds;
 	std::vector<int> positionIds;
 
 	APICameraSystem cameraSystem;
