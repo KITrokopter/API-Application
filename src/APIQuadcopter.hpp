@@ -14,6 +14,7 @@ namespace kitrokopter {
 class APIQuadcopter {
 
 	public:
+		APIQuadcopter();
 		APIQuadcopter(int newid);
 		
 		int getId();
