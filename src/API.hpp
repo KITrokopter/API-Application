@@ -20,7 +20,7 @@ namespace kitrokopter {
 	
 	API(int argc, char **argv);
 	
-	void announce(
+	bool announce(
 	    api_application::Announce::Request &req,
 	    api_application::Announce::Response &res);
 	
