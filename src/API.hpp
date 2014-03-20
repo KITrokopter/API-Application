@@ -27,7 +27,7 @@ namespace kitrokopter {
 	void initializeCameras();
 	
 	/* Quadcopter mutation */
-	APIQuadcopter* getQuadcpoter(int id)
+	APIQuadcopter* getQuadcpoter(int id);
 	bool removeQuadcopter(int id);
 	
 	/* Formation */
