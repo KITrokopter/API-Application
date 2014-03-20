@@ -66,7 +66,7 @@ namespace kitrokopter {
 	/* message listeners */
 	void addMessageListener(APIMessageListener*);
 	void removeMessageListener(APIMessageListener*);
-	
+
 	/* Launch / Land */
 	void launchQuadcopters(int height);
 	double getLaunchProgress();

@@ -130,7 +130,7 @@ std::vector<APIQuadcopter*> API::getQuadcopters() {
     std::vector<APIQuadcopter*> result;
     for (std::map<uint32_t, APIQuadcopter>::const_iterator it =
     			this->quadcopters.begin(); it != this->quadcopters.end(); ++it) {
-    		result.push_back(it->second);
+    		result.push_back(&it->second);
     }
     return result;
 }
@@ -141,25 +141,6 @@ std::vector<APIQuadcopter*> API::getQuadcopters() {
 std::vector<APIQuadcopter*> API::getQuadcoptersFlying() {
     
 }
-
-/**
- * Add a quadcopter to the API.
- * Throws an exception if there is already a quadcopter with this id.
- * 
- * @param quadcopter th equadcopter to add
- */
-void API::addQuadcopter(APIQuadcopter quadcopter) {
-    if (this->quadcopters.find(id) == this->quadcopters.end()) {
-        throw new std::runtime_error("quadcopter id already in use");
-    } else {
-        this->quadcopters.insert(std::pair<uint32_t,APIQuadcopter>(quadcopter.getId,quadcopter));
-    }
-    ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("quadcopter_status", 1, this->quadcopters[quadcopter.getId].statusCallback);
-}
-
-
-
 
 int main(int argc, char** argv)
 {
