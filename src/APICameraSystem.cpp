@@ -123,7 +123,7 @@ std::vector<APICamera*> APICameraSystem::getCalibratedCameras() {
 	std::vector<APICamera*> result;
 	for (std::map<uint32_t, APICamera>::iterator it = cameras.begin();
 			it != cameras.end(); ++it) {
-		if (it->second->isCalibrated()) {
+		if (*it->second.isCalibrated()) {
 			result.push_back(&it->second);
 		}
 	}
@@ -139,7 +139,7 @@ std::vector<APICamera*> APICameraSystem::getUncalibratedCameras() {
 	std::vector<APICamera*> result;
 	for (std::map<uint32_t, APICamera>::iterator it = cameras.begin();
 			it != cameras.end(); ++it) {
-		if (!it->second->isCalibrated()) {
+		if (*it->second.isCalibrated()) {
 			result.push_back(&it->second);
 		}
 	}
