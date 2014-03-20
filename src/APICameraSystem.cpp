@@ -112,10 +112,10 @@ std::map <uint32_t, APICamera> APICameraSystem::getCameras()
  */
 void APICameraSystem::addCamera(APICamera camera)
 {
-    if (this->cameras.find(camera.getId)) {
+    if (this->cameras.find(camera.getId())) {
 	throw new std::runtime_error("camera id already in use");
     } else {
-	this->cameras.insert(std::pair<uint32_t,APICamera>(camera.getId,camera));
+	this->cameras.insert(std::pair<uint32_t,APICamera>(camera.getId(),camera));
     }
 }
 
