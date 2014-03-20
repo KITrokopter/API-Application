@@ -63,7 +63,7 @@ bool API::removeQuadcopter(int id) {
  * @return array of channels
  */ 
 int* API::scanChannels() {
-   return this->quadcopters.begin->second.scanChannels();
+   return this->quadcopters.begin()->second.scanChannels();
 }
 
 /**
