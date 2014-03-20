@@ -21,7 +21,7 @@ API::API(int argc, char **argv)
     
     ros::init(argc, argv, "api_server");
     ros::NodeHandle n;
-        ros::ServiceServer service = n.advertiseService("announce", &API::announce, this);
+    ros::ServiceServer service = n.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
     ros::spin();
 }
