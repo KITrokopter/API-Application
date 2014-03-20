@@ -63,7 +63,7 @@ bool API::removeQuadcopter(int id) {
  * @return array of channels
  */ 
 int* API::scanChannels() {
-   return this->quadcopters.begin().scanChannels(); 
+   return this->quadcopters.begin.scanChannels();
 }
 
 /**
@@ -77,13 +77,13 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
 	    this->cameraSystem.addCamera(APICamera(res.id));
 	    break;
 	case 1:
-	    this->quadcopters[res.id] = new APIQuadcopter(res.id);
+	    this->quadcopters[res.id] = APIQuadcopter(res.id);
 	    break;
 	case 2:
 	    this->controllerIds.push_back(res.id);
 	    break;
 	case 3:
-	    this->positionsIds.push_back(res.id);
+	    this->positionIds.push_back(res.id);
 	    break;
 	default:
 	    ROS_ERROR("Malformed register attempt!");

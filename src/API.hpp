@@ -27,7 +27,7 @@ namespace kitrokopter {
 	void initializeCameras();
 	
 	/* Quadcopter mutation */
-	APIQuadcopter getQuadcopter(int id);
+	APIQuadcopter* getQuadcopter(int id);
 	bool removeQuadcopter(int id);
 	
 	/* Formation */
@@ -95,8 +95,7 @@ namespace kitrokopter {
 	ros::NodeHandle nodeHandle;
 
 	//the ids of modules by category
-	std::vector<int> controllers;
-	std::vector<int> positions;
+	std::vector<int> controllerIds;
 	std::vector<int> controllerIds;
 	std::vector<int> positionIds;
 
