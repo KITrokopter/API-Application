@@ -127,7 +127,7 @@ APIFormation API::getFormation() {
  * @return vector of all quadcopters
  */
 std::vector<APIQuadcopter*> API::getQuadcopters() {
-    std::vector<APIQuadcopter> result;
+    std::vector<APIQuadcopter*> result;
     for (std::map<uint32_t, APIQuadcopter>::const_iterator it =
     			this->quadcopters.begin(); it != this->quadcopters.end(); ++it) {
     		result.push_back(&it->second);

@@ -3,8 +3,8 @@
 
 using namespace kitrokopter;
 
-void APIQuadcopter::APIQuadcopter(int id) {
-    this->id = id;
+void APIQuadcopter::APIQuadcopter(int newid) {
+    this->id = newid;
     this->selectedForFlight = true;
     std::stringstream sstm;
     sstm << "api_quadcopter_" << id;
