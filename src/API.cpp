@@ -2,7 +2,6 @@
 #include "ros/ros.h"
 #include <ros/console.h>
 #include <map>
-#include <vector>
 
 using namespace kitrokopter;
 
@@ -128,7 +127,7 @@ APIFormation API::getFormation() {
  * @return vector of all quadcopters
  */
 std::vector<APIQuadcopter> API::getQuadcopters() {
-    std:vector<APIQuadcopter> result;
+    std::vector<APIQuadcopter> result;
     MapToVec(this->quadcopters, result);
     return result;
 }
