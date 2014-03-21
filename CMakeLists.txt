@@ -127,6 +127,8 @@ target_link_libraries(api_application
 add_dependencies(
     api_application api_application_generate_messages_cpp
     quadcopter_application quadcopter_application_generate_messages_cpp
+    camera_application_generate_messages_cpp
+    control_application_generate_messages_cpp
 )
 
 #############
