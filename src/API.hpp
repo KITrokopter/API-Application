@@ -92,7 +92,6 @@ namespace kitrokopter {
 	
     private:
 	int idCounter;
-	ros::NodeHandle nodeHandle;
 
 	//the ids of modules by category
 	std::vector<int> controllerIds;
