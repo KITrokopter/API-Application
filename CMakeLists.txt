@@ -102,11 +102,11 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+file(GLOB API_SOURCES src/*.cpp)
+
 # Declare a cpp library
 add_library(api_application
-  src/API.cpp
-  src/APICamera.cpp
-  src/APICameraSystem.cpp
+  ${API_SOURCES}
 )
 
 ## Declare a cpp executable
