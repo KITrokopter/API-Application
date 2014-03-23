@@ -14,12 +14,12 @@ namespace kitrokopter {
 class APIQuadcopter {
 
 	public:
-		APIQuadcopter();
-		APIQuadcopter(int newid);
+		APIQuadcopter() {}
+		APIQuadcopter(int newid) {}
 		
 		int getId();
 		
-		int* scanChannels();
+		int* scanChannels() { return NULL; }
 		bool connectOnChannel();
 		
 		uint8_t getChannel();
@@ -35,7 +35,7 @@ class APIQuadcopter {
 
 		bool isTracked();
 
-		uint32_t* getColorRange();
+		uint32_t* getColorRange() { return NULL; }
 		float getLinkQuality();
 
 		float getStabilizerRollData();

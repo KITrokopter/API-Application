@@ -17,7 +17,7 @@ class Vector {
 		 * @param y The second coordinate.
 		 * @param z The third coordinate.
 		 */
-		Vector(double x, double y, double z) : x(x), y(y), z(z) {}
+		Vector(double x = 0, double y = 0, double z = 0) : x(x), y(y), z(z) {}
 
 		/**
 		 * @return The first coordinate.

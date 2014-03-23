@@ -22,7 +22,7 @@ namespace kitrokopter {
 class APICamera {
 
 	public:
-		APICamera();
+		APICamera() {}
 		APICamera(uint32_t newId);
 		~APICamera();
 
