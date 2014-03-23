@@ -3,16 +3,12 @@
 
 using namespace kitrokopter;
 
-void APIQuadcopter::APIQuadcopter(int newid) {
+APIQuadcopter::APIQuadcopter(int newid) {
     this->id = newid;
     this->selectedForFlight = true;
     std::stringstream sstm;
-    sstm << "api_quadcopter_" << id;
-    ros::init(argc, argv, sstm.str());
-    //empty the stringstream
-    sstm.str("");
     sstm << "quadcopter_status_" << id;
-    ros::Subscriber sub = nh.subscribe(sstm.str(), 1, statusCallback);  
+    ros::Subscriber sub = nodeHandle.subscribe(sstm.str(), 1, &APIQuadcopter::statusCallback, this);  
 }
 
 /**
@@ -20,7 +16,8 @@ void APIQuadcopter::APIQuadcopter(int newid) {
  *
  * @return array of channels
  */ 
-uint8[] scanChannels() {
+/* TODO: Fix code
+uint8_t[] APIQuadcopter::scanChannels() {
     std::stringstream sstm;
     sstm << "search_links_" << id;
     ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::search_links>(sstm.str());
@@ -34,6 +31,7 @@ uint8[] scanChannels() {
 	return true;
     }
 }
+*/
 
 /**
  * Connect to a quadcopter on the given channel.
@@ -41,6 +39,7 @@ uint8[] scanChannels() {
  * @param channel the channel to connect on
  * @return whether the connection attempt was successfully
  */ 
+/* TODO: Fix code
 bool APIQuadcopter::connectOnChannel(uint8 channel) {
     this->channel = channel;
     std::stringstream sstm;
@@ -56,6 +55,7 @@ bool APIQuadcopter::connectOnChannel(uint8 channel) {
 	return true;
     }
 }
+*/
 
 /**
  * Get the id of the corresponding quadcopter module.
@@ -71,13 +71,14 @@ int APIQuadcopter::getId() {
  * 
  * @return the channel
  */
-uint8 APIQuadcopter::getChannel() {
-    return this->channel();
+uint8_t APIQuadcopter::getChannel() {
+    return channel;
 }
 
 /**
  * Performs a short start of the motors to be able to identify the quadcopter.
  */
+/* TODO: Fix code
 void APIQuadcopter::blink() {
     std::stringstream sstm;
     sstm << "blink_" << id;
@@ -89,6 +90,7 @@ void APIQuadcopter::blink() {
 	return 1;
     }
 }
+*/
 
 /**
  * Set the color range for tracking this quadcopter.
@@ -97,7 +99,8 @@ void APIQuadcopter::blink() {
  * @param max the upper bound
  */
 void APIQuadcopter::setColorRange(uint32_t min, uint32_t max) {
-    this->colorRange = {min, max};
+    colorRange[0] = min;
+    colorRange[1] = max;
 }
 
 /**
@@ -106,7 +109,7 @@ void APIQuadcopter::setColorRange(uint32_t min, uint32_t max) {
  * @param range[2] lower bound, upper bound
  */
 void APIQuadcopter::setColorRange(uint32_t range[2]) {
-    this->colorRange = range;
+   setColorRange(range[0], range[1]);
 }
 
 /**
@@ -114,7 +117,7 @@ void APIQuadcopter::setColorRange(uint32_t range[2]) {
  * 
  * @return the color range
  */
-uint32_t[2] APIQuadcopter::getColorRange() {
+uint32_t* APIQuadcopter::getColorRange() {
     return this->colorRange;
 }
 
@@ -141,20 +144,41 @@ void APIQuadcopter::setSelectedForFlight(bool select) {
  * 
  * @return the link quality
  */
-float32 getLinkQuality() {
+float APIQuadcopter::getLinkQuality() {
     return this->linkQuality;
 }
 
 void APIQuadcopter::statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg) {
-    ROS_INFO("Got new data (linkquality, roll, pitch, yaw): %f, %f, %f, %f",
-	     msg->link_quality,
-	     msg->stabilizer_roll
-	     msg->stabilizer_pitch
-	     msg->stabilizer_yaw
-	    );
+    /* ROS_INFO("Got new data (linkquality, roll, pitch, yaw): %f, %f, %f, %f", */
+	     /* msg->link_quality, */
+	     /* msg->stabilizer_roll */
+	     /* msg->stabilizer_pitch */
+	     /* msg->stabilizer_yaw */
+	    /* ); */
     this->linkQuality = msg->link_quality;
     this->stabilizerRollData = msg->stabilizer_roll;
     this->stabilizerPitchData = msg->stabilizer_pitch;
     this->stabilizerYawData = msg->stabilizer_yaw;
+}
+
+bool APIQuadcopter::isTracked()
+{
+   // TODO
+   return false;
+}
+
+float APIQuadcopter::getStabilizerRollData()
+{
+   return stabilizerRollData;
+}
+
+float APIQuadcopter::getStabilizerPitchData()
+{
+   return stabilizerPitchData;
+}
+
+float APIQuadcopter::getStabilizerYawData()
+{
+   return stabilizerYawData;
 }
 

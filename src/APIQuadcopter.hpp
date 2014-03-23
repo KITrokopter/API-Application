@@ -15,12 +15,12 @@ class APIQuadcopter {
 
 	public:
 		APIQuadcopter() {}
-		APIQuadcopter(int newid) {}
+		APIQuadcopter(int newid);
 		
 		int getId();
 		
 		int* scanChannels() { return NULL; }
-		bool connectOnChannel();
+		bool connectOnChannel() { return false; }
 		
 		uint8_t getChannel();
 
@@ -35,7 +35,7 @@ class APIQuadcopter {
 
 		bool isTracked();
 
-		uint32_t* getColorRange() { return NULL; }
+		uint32_t* getColorRange();
 		float getLinkQuality();
 
 		float getStabilizerRollData();
