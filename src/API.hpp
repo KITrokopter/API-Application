@@ -19,6 +19,7 @@ namespace kitrokopter {
     public:
 	
 	API(int argc, char **argv);
+	~API();
 	
 	bool announce(
 	    api_application::Announce::Request &req,
@@ -92,6 +93,7 @@ namespace kitrokopter {
 	
     private:
 	int idCounter;
+	ros::AsyncSpinner *spinner;
 
 	//the ids of modules by category
 	std::vector<int> controllerIds;

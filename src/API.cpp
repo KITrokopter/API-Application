@@ -23,7 +23,16 @@ API::API(int argc, char **argv)
     ros::NodeHandle nodeHandle;
     nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
-    ros::spin();
+    spinner = new ros::AsyncSpinner(1);
+    spinner->start();
+}
+
+/**
+ * Destructs the API, stopping the ROS spinner.
+ */
+API::~API()
+{
+   delete spinner;
 }
 
 /**
