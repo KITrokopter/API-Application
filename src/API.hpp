@@ -69,7 +69,8 @@ namespace kitrokopter {
 	void removeMessageListener(APIMessageListener*);
 
 	/* Launch / Land */
-	void launchQuadcopters(int height);
+	// TODO
+	void launchQuadcopters(int height) {}
 	double getLaunchProgress();
 	bool quadcoptersLaunched();
 	void landQuadcopters();
