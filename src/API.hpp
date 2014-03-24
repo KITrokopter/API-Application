@@ -36,7 +36,7 @@ namespace kitrokopter {
 	APIFormation getFormation();
 	
 	/* Cameras */
-	APICameraSystem getCameraSystem();
+	APICameraSystem* getCameraSystem();
 	std::vector<APICamera*> getCameras();
 	std::vector<APICamera*> getCalibratedCameras();
 	std::vector<APICamera*> getUncalibratedCameras();

@@ -131,6 +131,11 @@ APIFormation API::getFormation() {
     return this->formation;
 }
 
+APICameraSystem* API::getCameraSystem()
+{
+   return &cameraSystem;
+}
+
 /**
  * Get a vector of all quadcopters.
  * 
