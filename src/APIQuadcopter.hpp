@@ -50,8 +50,9 @@ class APIQuadcopter {
 
 		void blink();
 
-		void addQuadcopterListener(APIQuadcopterListener*);
-		void removeQuadcopterListener(APIQuadcopterListener*);
+		// TODO
+		void addQuadcopterListener(APIQuadcopterListener*) {}
+		void removeQuadcopterListener(APIQuadcopterListener*) {}
                 
                 void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
 

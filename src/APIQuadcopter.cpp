@@ -78,8 +78,8 @@ uint8_t APIQuadcopter::getChannel() {
 /**
  * Performs a short start of the motors to be able to identify the quadcopter.
  */
-/* TODO: Fix code
 void APIQuadcopter::blink() {
+/* TODO: Fix code
     std::stringstream sstm;
     sstm << "blink_" << id;
     ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::blink>(sstm.str());
@@ -89,8 +89,8 @@ void APIQuadcopter::blink() {
 	ROS_ERROR("Failed to blink.");
 	return 1;
     }
-}
 */
+}
 
 /**
  * Set the color range for tracking this quadcopter.
