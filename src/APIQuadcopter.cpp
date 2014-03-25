@@ -141,8 +141,27 @@ void APIQuadcopter::setSelectedForFlight(bool select) {
  * 
  * @return the link quality
  */
-float32 getLinkQuality() {
+float getLinkQuality() {
     return this->linkQuality;
+}
+
+/**
+ * Get the current acceleration.
+ * 
+ * @return current acceleration
+ */
+float getCurrentAcceleration() {
+    return (this->currentSpeedValues[1] - this->currentSpeedValues[0]) / (this->currentSpeedTimestamps[1] - this->currentSpeedTimestamps[0]);
+}
+
+/**
+ * Get the current acceleration.
+ * 
+ * @return current acceleration
+ */
+float getCurrentSpeed() {
+    //return the newest current speed value
+    return this->currentSpeedValues[1];
 }
 
 void APIQuadcopter::statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg) {

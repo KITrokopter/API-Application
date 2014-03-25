@@ -93,10 +93,10 @@ int APICameraSystem::getCameraAmount() {
 }
 
 /**
- * @return A map with all cameras.
+ * @return A pointer to the map with all cameras.
  */
-std::map<uint32_t, APICamera> APICameraSystem::getCameras() {
-	return cameras;
+std::map<uint32_t, APICamera>* APICameraSystem::getCameras() {
+	return &cameras;
 }
 
 /**

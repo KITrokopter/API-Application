@@ -45,8 +45,9 @@ namespace kitrokopter {
 	
 	/* Quadcopter getters */
 	std::vector<APIQuadcopter*> getQuadcopters();
-	std::vector<APIQuadcopter*> getQuadcoptersFlying();
-	std::vector<APIQuadcopter*> getQuadcoptersOnGround();
+	std::vector<APIQuadcopter*> getQuadcoptersSelectedForFlight();
+	std::vector<APIQuadcopter*> getQuadcoptersNotSelectedForFlight();
+        /* TODO: Also selectors for quadcopters currently flying or on the ground? */
 	std::vector<APIQuadcopter*> getQuadcoptersTracked();
 	std::vector<APIQuadcopter*> getQuadcoptersUntracked();
 	std::vector<APIQuadcopter*> getQuadcoptersInFormation();

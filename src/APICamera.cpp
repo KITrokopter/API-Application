@@ -75,6 +75,9 @@ void APICamera::setCalibrationData(APICalibrationData data)
 	*calibration = data;
     else
 	calibration = new APICalibrationData(data);
+    /**
+     * TODO: Can we do this now? Is there a hardware id?
+     */
 }
 
 /**
@@ -99,6 +102,10 @@ bool APICamera::isCalibrated()
 void APICamera::deleteCalibration()
 {
     calibrated = false;
+    
+    /**
+     * TODO: Is there something to send to the camera?
+     */
 }
 
 /**
@@ -175,8 +182,13 @@ void APICamera::sendPictureSendingActivation(bool active)
 
 cv::Mat* msgToMat(camera_application::Picture::_image_type data)
 {
+    /*
+     * TODO: Is there a possibility to make the size of the image variable?
+     * this hardcoded thing is pretty ugly...
+     */
     cv::Mat *mat = new cv::Mat(cv::Size(640, 480), CV_8UC3);
-    for (size_t i = 0; i < (640 * 480 * 3); i++) {
+    //640 * 480 * 3 = 921600
+    for (size_t i = 0; i < (921600); i++) {
 	mat->data[i] = data[i];
     }
     return mat;
