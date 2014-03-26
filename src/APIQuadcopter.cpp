@@ -1,6 +1,7 @@
 #include "APIQuadcopter.hpp"
 #include "quadcopter_application/search_links.h"
 #include "quadcopter_application/open_link.h"
+#include "quadcopter_application/blink.h"
 #include <sstream>
 
 using namespace kitrokopter;
@@ -80,17 +81,15 @@ uint8_t APIQuadcopter::getChannel() {
  * Performs a short start of the motors to be able to identify the quadcopter.
  */
 void APIQuadcopter::blink() {
-	/* TODO: Fix code
 	 std::stringstream sstm;
 	 sstm << "blink_" << id;
 	 ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::blink>(sstm.str());
 	 quadcopter_application::blink srv;
 	 srv.request.header.stamp = ros::Time::now();
 	 if (!client.call(srv) || srv.response.error != 0) {
-	 ROS_ERROR("Failed to blink.");
-	 return 1;
+		 ROS_ERROR("Failed to blink.");
+		 return 1;
 	 }
-	 */
 }
 
 /**
