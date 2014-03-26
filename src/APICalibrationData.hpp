@@ -11,13 +11,13 @@ namespace kitrokopter {
         
     public:
         
-        APICalibrationData(uint32_t newCameraId, uint64_t newCameraHardwareId, bool createdByCamera, double[9] intrinsics, double[4] distortion);
+        APICalibrationData(uint32_t newCameraId, uint64_t newCameraHardwareId, bool createdByCamera, double* intrinsics, double* distortion);
         
         uint32_t getCameraId;
         uint64_t getCameraHardwareId;
         bool isCreatedByCamera();
-        double[9] getIntrinsics();
-        double[4] getDistortion();
+        double* getIntrinsics();
+        double* getDistortion();
         
     private:
         /*
@@ -29,8 +29,8 @@ namespace kitrokopter {
          */
         uint64_t cameraHardwareId;
         bool createdByCamera;
-        double[9] intrinsics;
-        double[4] distortion;
+        double* intrinsics;
+        double* distortion;
     };
     
 }
