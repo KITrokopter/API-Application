@@ -24,12 +24,11 @@ uint8_t* APIQuadcopter::scanChannels() {
     ros::ServiceClient client = nodeHandle.serviceClient<quadcopter_application::search_links>(sstm.str());
     quadcopter_application::search_links srv;
     srv.request.header.stamp = ros::Time::now();
-    srv.request.channel = this->channel();
     if (!client.call(srv)) {
 	ROS_ERROR("Failed to scan channels.");
-	return 
+        return NULL;
     } else {
-	return true;
+        return srv.response.channels;
     }
 }
 */
