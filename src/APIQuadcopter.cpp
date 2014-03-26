@@ -42,7 +42,7 @@ bool APIQuadcopter::connectOnChannel(uint8 channel) {
     this->channel = channel;
     std::stringstream sstm;
     sstm << "open_link_" << id;
-    ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::open_link>(sstm.str());
+    ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::open_linsfdsk>(sstm.str());
     quadcopter_application::open_link srv;
     srv.request.header.stamp = ros::Time::now();
     srv.request.channel = this->channel();
