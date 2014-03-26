@@ -15,8 +15,8 @@ namespace kitrokopter {
         uint32_t getCameraId;
         uint64_t getCameraHardwareId;
         bool isCreatedByCamera();
-        double[9] getIntrinsics();
-        double[4] getDistortion();
+        double* getIntrinsics();
+        double* getDistortion();
         
     private:
         /*
@@ -28,8 +28,8 @@ namespace kitrokopter {
          */
         uint64_t cameraHardwareId;
         bool createdByCamera;
-        double intrinsics[9];
-        double distortion[4];
+        double intrinsics[];
+        double distortion[];
     };
     
 }
