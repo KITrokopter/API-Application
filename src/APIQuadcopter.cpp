@@ -87,8 +87,7 @@ void APIQuadcopter::blink() {
 	 quadcopter_application::blink srv;
 	 srv.request.header.stamp = ros::Time::now();
 	 if (!client.call(srv) || srv.response.error != 0) {
-		 ROS_ERROR("Failed to blink.");
-		 return 1;
+		 throw new std::runtime_error("unable to blink");
 	 }
 }
 
