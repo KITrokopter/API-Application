@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdint.h>
+#include <stdint.h>
 #include <vector>
 
 #include "Vector.hpp"
@@ -19,40 +19,44 @@ namespace kitrokopter {
     public:
 	
 	API(int argc, char **argv);
+	~API();
 	
-	void announce(
+	bool announce(
 	    api_application::Announce::Request &req,
 	    api_application::Announce::Response &res);
 	
 	void initializeCameras();
+	bool initializeQuadcopters();
 	
 	/* Quadcopter mutation */
-	APIQuadcopter getQuadcopter(int id);
+	APIQuadcopter* getQuadcpoter(int id);
 	bool removeQuadcopter(int id);
 	
 	/* Formation */
 	void setFormation(APIFormation formation);
-	APIFormation getFormation();
+	APIFormation* getFormation();
 	
 	/* Cameras */
-	APICameraSystem getCameraSystem();
-	std::vector<APICamera> getCameras();
-	std::vector<APICamera> getCalibratedCameras();
-	std::vector<APICamera> getUncalibratedCameras();
+	APICameraSystem* getCameraSystem();
+	std::vector<APICamera*> getCameras();
+	std::vector<APICamera*> getCalibratedCameras();
+	std::vector<APICamera*> getUncalibratedCameras();
 	int getCameraAmount();
 	int getCalibratedCameraAmount();
 	int getUncalibratedCameraAmount();
 	
 	/* Quadcopter getters */
-	std::vector<APIQuadcopter> getQuadcopters();
-	std::vector<APIQuadcopter> getQuadcoptersFlying();
-	std::vector<APIQuadcopter> getQuadcoptersOnGround();
-	std::vector<APIQuadcopter> getQuadcoptersTracked();
-	std::vector<APIQuadcopter> getQuadcoptersUntracked();
-	std::vector<APIQuadcopter> getQuadcoptersInFormation();
-	std::vector<APIQuadcopter> getQuadcoptersNotInFormation();
+	std::vector<APIQuadcopter*> getQuadcopters();
+	std::vector<APIQuadcopter*> getQuadcoptersSelectedForFlight();
+	std::vector<APIQuadcopter*> getQuadcoptersNotSelectedForFlight();
+        /* TODO: Also selectors for quadcopters currently flying or on the ground? */
+	std::vector<APIQuadcopter*> getQuadcoptersTracked();
+	std::vector<APIQuadcopter*> getQuadcoptersUntracked();
+	std::vector<APIQuadcopter*> getQuadcoptersInFormation();
+	std::vector<APIQuadcopter*> getQuadcoptersNotInFormation();
 	
-	int[] scanChannels();
+        std::vector<uint8_t> scanChannels();
+        bool initializeQuadcopers();
 	
 	/* Quadcopter amount */
 	int getQuadcopterAmount();
@@ -66,14 +70,16 @@ namespace kitrokopter {
 	/* message listeners */
 	void addMessageListener(APIMessageListener*);
 	void removeMessageListener(APIMessageListener*);
-	
+
 	/* Launch / Land */
-	void launchQuadcopters(int height);
+	// TODO
+	void launchQuadcopters(int height) {}
 	double getLaunchProgress();
 	bool quadcoptersLaunched();
 	void landQuadcopters();
 	
-	void shutdownSystem();
+	// TODO
+	void shutdownSystem() {}
 	
 	/* Settings */
 	Cuboid getMaximumOperatingArea();
@@ -92,16 +98,15 @@ namespace kitrokopter {
 	
     private:
 	int idCounter;
-	
+	ros::AsyncSpinner *spinner;
+
 	//the ids of modules by category
-	std::vector<int> controllers;
-	std::vector<int> positions;
 	std::vector<int> controllerIds;
 	std::vector<int> positionIds;
-	
+
+	APICameraSystem cameraSystem;
 	std::map <uint32_t, APIQuadcopter> quadcopters;
-	std::map <uint32_t, APICamera> cameras;
-	
+
 	APIFormation formation;
     };
 }

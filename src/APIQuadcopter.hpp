@@ -1,44 +1,51 @@
 #pragma once
 
 #include <vector>
-#include <cstdint>
+#include <stdint.h>
+#include <vector>
 
 #include "Vector.hpp"
 #include "APIQuadcopterListener.hpp"
 #include "ros/ros.h"
 #include <ros/console.h>
+#include "quadcopter_application/quadcopter_status.h"
 
 namespace kitrokopter {
 
 class APIQuadcopter {
 
 	public:
-		APIQuadcopter(int id);
+		APIQuadcopter() {}
+		APIQuadcopter(int newid);
 		
 		int getId();
 		
-		int[] scanChannels();
-		bool connectOnChannel();
+		std::vector<uint8_t> scanChannels();
+                bool connectOnChannel(uint8_t channel);
 		
 		uint8_t getChannel();
 
+                /* TODO: Where do I get this? */
 		Vector getTargetOrientation();
 		Vector getTargetPosition();
 		Vector getTargetSpeed();
+                
 		Vector getTargetAcceleration();
 		Vector getCurrentOrientation();
 		Vector getCurrentPosition();
-		Vector getCurrentSpeed();
-		Vector getCurrentAcceleration();
+                
+                /* TODO: It seems like there is no topic for this, so the api has to calculate it by itself. */
+		float getCurrentSpeed();
+		float getCurrentAcceleration();
 
 		bool isTracked();
 
-		uint32_t[2] getColorRange();
-		float32 getLinkQuality();
+		uint32_t* getColorRange();
+		float getLinkQuality();
 
-		float32 getStabilizerRollData();
-		float32 getStabilizerPitchData();
-		float32 getStabilizerYawData();
+		float getStabilizerRollData();
+		float getStabilizerPitchData();
+		float getStabilizerYawData();
 
 		void setSelectedForFlight(bool select);
 		bool isSelectedForFlight();
@@ -48,8 +55,11 @@ class APIQuadcopter {
 
 		void blink();
 
-		void addQuadcopterListener(APIQuadcopterListener*);
-		void removeQuadcopterListener(APIQuadcopterListener*);
+		// TODO
+		void addQuadcopterListener(APIQuadcopterListener*) {}
+		void removeQuadcopterListener(APIQuadcopterListener*) {}
+
+		void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
 
 
 	private:
@@ -58,19 +68,21 @@ class APIQuadcopter {
 		int id;
 		uint8_t channel;
 		uint32_t colorRange[2];
-		int currentSpeed;
-		int currentAcceleration;
-		Vector currentPosition;
+		float currentSpeedValues[2];
+		uint32_t currentSpeedTimestamps[2];
+		float currentAcceleration;
+		Vector currentPositionValues[2];
+		uint32_t currentPositionTimestamps[2];
 		Vector currentOrientation;
-		float32 linkQuality;
-		int targetSpeed;
-		int targetAcceleration;
+		float linkQuality;
+		float targetSpeed;
+		float targetAcceleration;
 		Vector targetPostion;
 		Vector targetOrientation;
 
-		float32 stabilizerRollData;
-		float32 stabilizerPitchData;
-		float32 stabilizerYawData;
+		float stabilizerRollData;
+		float stabilizerPitchData;
+		float stabilizerYawData;
 
 };
 

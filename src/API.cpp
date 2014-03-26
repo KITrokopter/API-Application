@@ -14,31 +14,43 @@ using namespace kitrokopter;
 API::API(int argc, char **argv)
 {
     this->idCounter = 0;
-    
-    this->controllers = std::vector<int>(1);
-    this->positions = std::vector<int>(5);
+    //this->formation = NULL;
+    this->controllerIds = std::vector<int>(1);
+    this->positionIds = std::vector<int>(5);
+    this->cameraSystem = APICameraSystem();
     
     ros::init(argc, argv, "api_server");
-    ros::NodeHandle n;
-    ros::ServiceServer service = n.advertiseService("announce", &API::announce, this);
+    ros::NodeHandle nodeHandle;
+    nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
-    ros::spin();
+    spinner = new ros::AsyncSpinner(1);
+    spinner->start();
 }
 
 /**
- * Get the APIQuadcopter with the corresponding id 
+ * Destructs the API, stopping the ROS spinner.
+ */
+API::~API()
+{
+   delete spinner;
+}
+
+/**
+ * Get a pointer to the APIQuadcopter with the corresponding id 
  * or a null pointer if there is no such APIQuadcopter.
  * 
  * @param id the APIQuadcopter's id
  * @return the APIQuadcopter with this id or a null pointer if there is no such APIQuadcopter
  */
-APIQuadcopter getQuadcpoter(int id) {
+APIQuadcopter* API::getQuadcpoter(int id) {
     if (this->quadcopters.find(id) != this->quadcopters.end()) {
-	return this->quadcopters[id];
+	return &this->quadcopters[id];
     } else {
 	return NULL;
     }
 }
+
+
 
 /**
  * Removes the APIQuadcopter with the corresponding id.
@@ -46,7 +58,7 @@ APIQuadcopter getQuadcpoter(int id) {
  * @param id the APIQuadcopter's id
  * @return whether there was a APIQuadcopter with this id to remove
  */
-bool removeQuadcopter(int id) {
+bool API::removeQuadcopter(int id) {
     if (this->quadcopters.find(id) != this->quadcopters.end()) {
 	quadcopters.erase(id);
 	return true;
@@ -60,75 +72,76 @@ bool removeQuadcopter(int id) {
  *
  * @return array of channels
  */ 
-int[] scanChannels() {
-   return this->quadcopters.begin().scanChannels(); 
+std::vector<uint8_t> API::scanChannels() {
+   if (this->quadcopters.size() == 0) {
+       throw new std::runtime_error("no quadcopter module to scan with");
+   }
+   return this->quadcopters.begin()->second.scanChannels();
+}
+
+/**
+ * Scan for all available quadcopters and distribute them to the quadcopter modules.
+ * 
+ * @return whether the function was able to distribute all quadcopter channels or or give all quadcopter modules a channel.
+ */
+bool API::initializeQuadcopters() {
+    if (this->quadcopters.size() == 0) {
+        return false;
+    }
+    std::vector<uint8_t> channels = this->scanChannels();
+    if (channels.size() == 0){
+        return false;
+    }
+    int max;
+    if (this->quadcopters.size() > channels.size()) {
+    	max = channels.size();
+    } else {
+    	max = this->quadcopters.size();
+    }
+    std::map<uint32_t, APIQuadcopter>::iterator quadIt = this->quadcopters.begin();
+    for (int i = 0; i < max; i++)
+    {
+    	if (quadIt->second.connectOnChannel(channels[i]) == false)
+    	{
+    		return false;
+    	}
+    	quadIt++;
+    }
 }
 
 /**
  * Function to be called when the announce service is invoked.
  */
-void API::announce(api_application::Announce::Request &req, api_application::Announce::Response &res)
+bool API::announce(api_application::Announce::Request &req, api_application::Announce::Response &res)
 {
     res.id = idCounter++;
     switch (req.type) {
 	case 0:
-	    this->cameraIds.push_back(res.id);
+	    this->cameraSystem.addCamera(APICamera(res.id));
 	    break;
 	case 1:
-	    this->quadcopters[res.id] = new APIQuadcopter(res.id);
+	    this->quadcopters[res.id] = APIQuadcopter(res.id);
 	    break;
 	case 2:
 	    this->controllerIds.push_back(res.id);
 	    break;
 	case 3:
-	    this->positionsIds.push_back(res.id);
+	    this->positionIds.push_back(res.id);
 	    break;
 	default:
 	    ROS_ERROR("Malformed register attempt!");
 	    res.id = -1;
-	    return 1;
+	    return false;
     }
     ROS_INFO("Registered new module with type %d and id %d", req.type, res.id);
+    return true;
 }
 
 /**
- * Initialize the camera modules
+ * Initializes the cameras
  */
 void API::initializeCameras() {
-    ros::NodeHandle n;
-    
-    camera_application::InitializeCameraService message;
-    message.request.header.stamp = ros::Time::now();
-    
-    std::vector<uint32_t> quadcopterIdsVector;
-    MapKeysToVec(this->quadcopters, quadcopterIdsVector);
-    message.request.quadCopterIds = &quadcopterIdsVector;
-    
-    uint32_t hsvColorRanges[quadcopterIdsVector.size()];
-    for (int i = 0; i < quadcopterIdsVector.size(); i++) {
-	hsvColorRanges[2*i] = this->quadcopters.get[i].getColorRange()[0];
-	hsvColorRanges[2*i+1] = this->quadcopters.get[i].getColorRange()[1];
-    }
-    
-    std::vector<uint32_t> cameraIds;
-    MapKeysToVec(this->cameras, cameraIds);
-    
-    std::stringstream sstm;
-    
-    for (int i = 0; i < cameraIds.size(); i++) {
-	//empty the stringstream
-	sstm.str("");
-	sstm << "InitializeCameraService" << this->cameraIds[i];
-	//copy the original message to be able to use the response
-	camera_application::InitializeCameraService messageCopy = message;
-	ros::ServiceClient client = n.serviceClient<camera_application::InitializeCameraService>(sstm.str();
-	
-	if (client.call(messageCopy) && messageCopy.response.error = 0) {
-	    ROS_INFO("Initialized camera %d", this->cameraIds[i])
-	} else {
-	    ROS_ERROR("Error while initializing camera %d", this->cameraIds[i]);
-	}
-    }
+
 }
 
 /**
@@ -147,8 +160,13 @@ void API::setFormation(APIFormation newFormation) {
  * 
  * @return the formation
  */
-APIFormation API::getFormation() {
-    return this->formation;
+APIFormation* API::getFormation() {
+    return &this->formation;
+}
+
+APICameraSystem* API::getCameraSystem()
+{
+   return &cameraSystem;
 }
 
 /**
@@ -156,20 +174,51 @@ APIFormation API::getFormation() {
  * 
  * @return vector of all quadcopters
  */
-std::vector<APIQuadcopter> API::getQuadcopters() {
-    std:vector<APIQuadcopter> result;
-    MapToVec(this->quadcopters, result);
+std::vector<APIQuadcopter*> API::getQuadcopters() {
+    std::vector<APIQuadcopter*> result;
+    for (std::map<uint32_t, APIQuadcopter>::iterator it =
+    			this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
+    {
+    		result.push_back(&it->second);
+    }
     return result;
 }
 
 /**
- * TODO
+ * Get all quadcopters which are selected to fly in formation.
+ * 
+ * @return a vector of pointers to the quadcopters
  */
-std::vector<APIQuadcopter> API::getQuadcoptersFlying() {
-    
+std::vector<APIQuadcopter*> API::getQuadcoptersSelectedForFlight() {
+    std::vector<APIQuadcopter*> result;
+    for (std::map<uint32_t, APIQuadcopter>::iterator it =
+        this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
+    {
+        if (it->second.isSelectedForFlight())
+        {
+            result.push_back(&it->second);
+        }
+    }
+    return result;
 }
 
-
+/**
+ * Get all quadcopters which are selected to fly in formation.
+ * 
+ * @return a vector of pointers to the quadcopters
+ */
+std::vector<APIQuadcopter*> API::getQuadcoptersNotSelectedForFlight() {
+    std::vector<APIQuadcopter*> result;
+    for (std::map<uint32_t, APIQuadcopter>::iterator it =
+        this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
+    {
+        if (!it->second.isSelectedForFlight())
+        {
+            result.push_back(&it->second);
+        }
+    }
+    return result;
+}
 
 int main(int argc, char** argv)
 {
@@ -184,16 +233,14 @@ int main(int argc, char** argv)
     std::cout << "API Application successfully terminated" << std::endl;
 }
 
-template <typename M, typename V> 
-void MapKeysToVec(const  M & m, V & v) {
-    for(typename M::const_iterator it = m.begin(); it != m.end(); ++it) {
-	v.push_back(it->first);
-    }
-}
-
-template <typename M, typename V> 
-void MapValuesToVec(const  M & m, V & v) {
-    for(typename M::const_iterator it = m.begin(); it != m.end(); ++it) {
-	v.push_back(it->second);
-    }
+std::vector<APICamera*> API::getCameras()
+{
+	std::map<uint32_t, APICamera> *cameras = cameraSystem.getCameras();
+	std::vector<APICamera*> result;
+	
+	for (std::map<uint32_t, APICamera>::iterator it = cameras->begin(); it != cameras->end(); it++) {
+		result.push_back(&(it->second));
+	}
+	
+	return result;
 }

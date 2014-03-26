@@ -7,7 +7,7 @@ namespace kitrokopter {
 class APIFormation {
 
 	public:
-
+                APIFormation() {};
 		APIFormation(int quadcopterAmount, Vector *quadcopterPositions);
 
 		int getQuadcopterAmount();
