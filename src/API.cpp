@@ -72,8 +72,40 @@ bool API::removeQuadcopter(int id) {
  *
  * @return array of channels
  */ 
-int* API::scanChannels() {
+std::vector<uint8_t> API::scanChannels() {
+   if (this->quadcopters.size == 0) {
+       throw new std::runtime_error("no quadcopter module to scan with");
+   }
    return this->quadcopters.begin()->second.scanChannels();
+}
+
+/**
+ * Scan for all available quadcopters and distribute them to the quadcopter modules.
+ * 
+ * @return whether the function was able to distribute all quadcopter channels or or give all quadcopter modules a channel.
+ */
+bool initializeQuadcopters() {
+    if (this->quadcopters.size() == 0) {
+        return false;
+    }
+    std::vector<uint8_t> channels = this.scanChannels();
+    if (channels.size() == 0){
+        return false;
+    }
+    if (this->quadcopters.size() > channels.size()) {
+    	int max = channels.size();
+    } else {
+    	int max = this->quadcopters.size();
+    }
+    std::map<uint32_t, APIQuadcopter>::iterator quadIt = this->quadcopters.begin();
+    for (int i = 0; i < max; i++)
+    {
+    	if (quadIt->second.connectOnChannel(channels[i]) == false)
+    	{
+    		return false;
+    	}
+    	quadIt++;
+    }
 }
 
 /**

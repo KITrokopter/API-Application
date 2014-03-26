@@ -21,7 +21,7 @@ class APIQuadcopter {
 		int getId();
 		
 		std::vector<uint8_t> scanChannels();
-		bool connectOnChannel() { return false; }
+                bool connectOnChannel(uint8_t channel);
 		
 		uint8_t getChannel();
 
