@@ -1,4 +1,5 @@
 #include "APIQuadcopter.hpp"
+#include "quadcopter_application/search_links.h"
 #include <sstream>
 
 using namespace kitrokopter;
