@@ -19,7 +19,7 @@ class APIQuadcopter {
 		
 		int getId();
 		
-		int* scanChannels() { return NULL; }
+		int* scanChannels();
 		bool connectOnChannel() { return false; }
 		
 		uint8_t getChannel();
