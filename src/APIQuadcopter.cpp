@@ -38,7 +38,6 @@ uint8_t[] APIQuadcopter::scanChannels() {
  * @param channel the channel to connect on
  * @return whether the connection attempt was successfully
  */ 
-/* TODO: Fix code
 bool APIQuadcopter::connectOnChannel(uint8 channel) {
     this->channel = channel;
     std::stringstream sstm;
@@ -54,7 +53,6 @@ bool APIQuadcopter::connectOnChannel(uint8 channel) {
 	return true;
     }
 }
-*/
 
 /**
  * Get the id of the corresponding quadcopter module.
