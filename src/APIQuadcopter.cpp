@@ -198,3 +198,12 @@ float APIQuadcopter::getStabilizerYawData() {
 	return stabilizerYawData;
 }
 
+Vector APIQuadcopter::getCurrentOrientation()
+{
+	return currentOrientation;
+}
+
+Vector APIQuadcopter::getCurrentPosition()
+{
+	return currentPositionValues[0];
+}

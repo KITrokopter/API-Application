@@ -232,3 +232,15 @@ int main(int argc, char** argv)
     
     std::cout << "API Application successfully terminated" << std::endl;
 }
+
+std::vector<APICamera*> API::getCameras()
+{
+	std::map<uint32_t, APICamera> *cameras = cameraSystem.getCameras();
+	std::vector<APICamera*> result;
+	
+	for (std::map<uint32_t, APICamera>::iterator it = cameras->begin(); it != cameras->end(); it++) {
+		result.push_back(&(it->second));
+	}
+	
+	return result;
+}
