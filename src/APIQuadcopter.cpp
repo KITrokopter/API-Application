@@ -153,7 +153,7 @@ float APIQuadcopter::getLinkQuality() {
  * 
  * @return current acceleration
  */
-float getCurrentAcceleration() {
+float APIQuadcopter::getCurrentAcceleration() {
     return (this->currentSpeedValues[1] - this->currentSpeedValues[0]) / (this->currentSpeedTimestamps[1] - this->currentSpeedTimestamps[0]);
 }
 
@@ -162,7 +162,7 @@ float getCurrentAcceleration() {
  * 
  * @return current acceleration
  */
-float getCurrentSpeed() {
+float APIQuadcopter::getCurrentSpeed() {
     //return the newest current speed value
     return this->currentSpeedValues[1];
 }

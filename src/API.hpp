@@ -33,7 +33,7 @@ namespace kitrokopter {
 	
 	/* Formation */
 	void setFormation(APIFormation formation);
-	APIFormation getFormation();
+	APIFormation* getFormation();
 	
 	/* Cameras */
 	APICameraSystem* getCameraSystem();
