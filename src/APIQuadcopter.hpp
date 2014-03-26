@@ -14,13 +14,13 @@ namespace kitrokopter {
 class APIQuadcopter {
 
 	public:
-		APIQuadcopter();
+		APIQuadcopter() {}
 		APIQuadcopter(int newid);
 		
 		int getId();
 		
-		int* scanChannels();
-		bool connectOnChannel();
+		int* scanChannels() { return NULL; }
+		bool connectOnChannel() { return false; }
 		
 		uint8_t getChannel();
 
@@ -54,8 +54,9 @@ class APIQuadcopter {
 
 		void blink();
 
-		void addQuadcopterListener(APIQuadcopterListener*);
-		void removeQuadcopterListener(APIQuadcopterListener*);
+		// TODO
+		void addQuadcopterListener(APIQuadcopterListener*) {}
+		void removeQuadcopterListener(APIQuadcopterListener*) {}
                 
                 void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
 

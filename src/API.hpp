@@ -19,6 +19,7 @@ namespace kitrokopter {
     public:
 	
 	API(int argc, char **argv);
+	~API();
 	
 	bool announce(
 	    api_application::Announce::Request &req,
@@ -35,7 +36,7 @@ namespace kitrokopter {
 	APIFormation getFormation();
 	
 	/* Cameras */
-	APICameraSystem getCameraSystem();
+	APICameraSystem* getCameraSystem();
 	std::vector<APICamera*> getCameras();
 	std::vector<APICamera*> getCalibratedCameras();
 	std::vector<APICamera*> getUncalibratedCameras();
@@ -69,7 +70,8 @@ namespace kitrokopter {
 	void removeMessageListener(APIMessageListener*);
 
 	/* Launch / Land */
-	void launchQuadcopters(int height);
+	// TODO
+	void launchQuadcopters(int height) {}
 	double getLaunchProgress();
 	bool quadcoptersLaunched();
 	void landQuadcopters();
@@ -93,7 +95,7 @@ namespace kitrokopter {
 	
     private:
 	int idCounter;
-	ros::NodeHandle nodeHandle;
+	ros::AsyncSpinner *spinner;
 
 	//the ids of modules by category
 	std::vector<int> controllerIds;

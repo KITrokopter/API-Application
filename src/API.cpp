@@ -20,9 +20,19 @@ API::API(int argc, char **argv)
     this->cameraSystem = APICameraSystem();
     
     ros::init(argc, argv, "api_server");
-    this->nodeHandle.advertiseService("announce", &API::announce, this);
+    ros::NodeHandle nodeHandle;
+    nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
-    ros::spin();
+    spinner = new ros::AsyncSpinner(1);
+    spinner->start();
+}
+
+/**
+ * Destructs the API, stopping the ROS spinner.
+ */
+API::~API()
+{
+   delete spinner;
 }
 
 /**
@@ -119,6 +129,11 @@ void API::setFormation(APIFormation newFormation) {
  */
 APIFormation* API::getFormation() {
     return &this->formation;
+}
+
+APICameraSystem* API::getCameraSystem()
+{
+   return &cameraSystem;
 }
 
 /**
