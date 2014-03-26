@@ -84,7 +84,7 @@ std::vector<uint8_t> API::scanChannels() {
  * 
  * @return whether the function was able to distribute all quadcopter channels or or give all quadcopter modules a channel.
  */
-bool initializeQuadcopters() {
+bool API::initializeQuadcopters() {
     if (this->quadcopters.size() == 0) {
         return false;
     }
