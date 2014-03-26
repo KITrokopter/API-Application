@@ -24,12 +24,15 @@ class APICamera {
 	public:
 		APICamera() {}
 		APICamera(uint32_t newId);
+                APICamera(uint32_t newId, uint64_t newHardwareId)
 		~APICamera();
 
 		void initialize(std::vector<APIQuadcopter> quadcopters);
 
 		cv::Mat getImage();
-                int getId();
+                uint32_t getId();
+                uint64_t getHardwareId();
+                
 
 		/* Calibration */
 		void startCalibration(int imageAmount, int waitingTime, const CalibrationBoard &board);
@@ -39,6 +42,7 @@ class APICamera {
 		void setCalibrationData(APICalibrationData data);
 		APICalibrationData* const getCalibrationData();
 		bool isCalibrated();
+                
 		void deleteCalibration();
 
 		Vector getPosition();
@@ -59,6 +63,7 @@ class APICamera {
 		bool calibrated;
 		std::vector<cv::Mat*> calibrationImages;
 		uint32_t id;
+                uint64_t hardwareId;
 		static const int VERTICAL_DETECTION_ANGLE;
 		static const int HORIZONTAL_DETECTION_ANGLE;
 

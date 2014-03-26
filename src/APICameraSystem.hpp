@@ -22,13 +22,17 @@ class APICameraSystem {
 		/* Camera getters */
 		APICamera* getCamera(int id);
 		int getCameraAmount();
-                std::map <uint32_t, APICamera> getCameras();
+                std::map <uint32_t, APICamera>* getCameras();
 		
 		/* Camera setters */
 		void addCamera(APICamera camera);
 
 		/* Calibration */
 		void startCalibration();
+                /*
+                 * TODO: How is this to be implemented?
+                 * What has to be done by the API?
+                 */
 		bool takeCalibrationPicture();
 		void calculateCalibration();
 

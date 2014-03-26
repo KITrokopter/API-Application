@@ -127,8 +127,8 @@ void API::setFormation(APIFormation newFormation) {
  * 
  * @return the formation
  */
-APIFormation API::getFormation() {
-    return this->formation;
+APIFormation* API::getFormation() {
+    return &this->formation;
 }
 
 APICameraSystem* API::getCameraSystem()
@@ -144,17 +144,47 @@ APICameraSystem* API::getCameraSystem()
 std::vector<APIQuadcopter*> API::getQuadcopters() {
     std::vector<APIQuadcopter*> result;
     for (std::map<uint32_t, APIQuadcopter>::iterator it =
-    			this->quadcopters.begin(); it != this->quadcopters.end(); ++it) {
+    			this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
+    {
     		result.push_back(&it->second);
     }
     return result;
 }
 
 /**
- * TODO
+ * Get all quadcopters which are selected to fly in formation.
+ * 
+ * @return a vector of pointers to the quadcopters
  */
-std::vector<APIQuadcopter*> API::getQuadcoptersFlying() {
-    
+std::vector<APIQuadcopter*> API::getQuadcoptersSelectedForFlight() {
+    std::vector<APIQuadcopter*> result;
+    for (std::map<uint32_t, APIQuadcopter>::iterator it =
+        this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
+    {
+        if (it->second.isSelectedForFlight())
+        {
+            result.push_back(&it->second);
+        }
+    }
+    return result;
+}
+
+/**
+ * Get all quadcopters which are selected to fly in formation.
+ * 
+ * @return a vector of pointers to the quadcopters
+ */
+std::vector<APIQuadcopter*> API::getQuadcoptersNotSelectedForFlight() {
+    std::vector<APIQuadcopter*> result;
+    for (std::map<uint32_t, APIQuadcopter>::iterator it =
+        this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
+    {
+        if (!it->second.isSelectedForFlight())
+        {
+            result.push_back(&it->second);
+        }
+    }
+    return result;
 }
 
 int main(int argc, char** argv)

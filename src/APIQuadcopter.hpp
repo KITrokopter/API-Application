@@ -24,14 +24,18 @@ class APIQuadcopter {
 		
 		uint8_t getChannel();
 
+                /* TODO: Where do I get this? */
 		Vector getTargetOrientation();
 		Vector getTargetPosition();
 		Vector getTargetSpeed();
+                
 		Vector getTargetAcceleration();
 		Vector getCurrentOrientation();
 		Vector getCurrentPosition();
-		Vector getCurrentSpeed();
-		Vector getCurrentAcceleration();
+                
+                /* TODO: It seems like there is no topic for this, so the api has to calculate it by itself. */
+		float getCurrentSpeed();
+		float getCurrentAcceleration();
 
 		bool isTracked();
 
@@ -63,13 +67,15 @@ class APIQuadcopter {
 		int id;
 		uint8_t channel;
 		uint32_t colorRange[2];
-		int currentSpeed;
-		int currentAcceleration;
-		Vector currentPosition;
+		float currentSpeedValues[2];
+                uint32_t currentSpeedTimestamps[2];
+		float currentAcceleration;
+		Vector currentPositionValues[2];
+                uint32_t currentPositionTimestamps[2];
 		Vector currentOrientation;
 		float linkQuality;
-		int targetSpeed;
-		int targetAcceleration;
+		float targetSpeed;
+		float targetAcceleration;
 		Vector targetPostion;
 		Vector targetOrientation;
 
