@@ -73,7 +73,7 @@ bool API::removeQuadcopter(int id) {
  * @return array of channels
  */ 
 std::vector<uint8_t> API::scanChannels() {
-   if (this->quadcopters.size == 0) {
+   if (this->quadcopters.size() == 0) {
        throw new std::runtime_error("no quadcopter module to scan with");
    }
    return this->quadcopters.begin()->second.scanChannels();
@@ -88,7 +88,7 @@ bool API::initializeQuadcopters() {
     if (this->quadcopters.size() == 0) {
         return false;
     }
-    std::vector<uint8_t> channels = this.scanChannels();
+    std::vector<uint8_t> channels = this->scanChannels();
     if (channels.size() == 0){
         return false;
     }

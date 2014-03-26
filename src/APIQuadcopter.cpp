@@ -49,7 +49,7 @@ bool APIQuadcopter::connectOnChannel(uint8_t channel) {
 			< quadcopter_application::open_link > (sstm.str());
 	quadcopter_application::open_link srv;
 	srv.request.header.stamp = ros::Time::now();
-	srv.request.channel = this->channel();
+	srv.request.channel = this->channel;
 	if (!client.call(srv) || srv.response.error != 0) {
 		ROS_ERROR("Failed to connect on channel.");
 		return false;
@@ -73,7 +73,7 @@ int APIQuadcopter::getId() {
  * @return the channel
  */
 uint8_t APIQuadcopter::getChannel() {
-	return channel;
+	return this->channel;
 }
 
 /**
