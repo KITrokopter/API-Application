@@ -76,7 +76,8 @@ namespace kitrokopter {
 	bool quadcoptersLaunched();
 	void landQuadcopters();
 	
-	void shutdownSystem();
+	// TODO
+	void shutdownSystem() {}
 	
 	/* Settings */
 	Cuboid getMaximumOperatingArea();
