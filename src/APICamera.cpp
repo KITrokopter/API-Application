@@ -38,7 +38,7 @@ APICamera::~APICamera()
     }
 }
 
-int APICamera::getId()
+uint32_t APICamera::getId()
 {
     return this->id;
 }

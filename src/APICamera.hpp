@@ -24,7 +24,7 @@ class APICamera {
 	public:
 		APICamera() {}
 		APICamera(uint32_t newId);
-                APICamera(uint32_t newId, uint64_t newHardwareId)
+                APICamera(uint32_t newId, uint64_t newHardwareId);
 		~APICamera();
 
 		void initialize(std::vector<APIQuadcopter> quadcopters);
