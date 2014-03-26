@@ -1,5 +1,6 @@
 #include "APIQuadcopter.hpp"
 #include "quadcopter_application/search_links.h"
+#include "quadcopter_application/open_link.h"
 #include <sstream>
 
 using namespace kitrokopter;
@@ -17,7 +18,7 @@ APIQuadcopter::APIQuadcopter(int newid) {
  *
  * @return array of channels
  */ 
-uint8_t* APIQuadcopter::scanChannels() {
+std::vector<uint8_t> APIQuadcopter::scanChannels() {
     std::stringstream sstm;
     sstm << "search_links_" << id;
     ros::NodeHandle nodeHandle;
@@ -43,7 +44,7 @@ bool APIQuadcopter::connectOnChannel(uint8 channel) {
     this->channel = channel;
     std::stringstream sstm;
     sstm << "open_link_" << id;
-    ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::open_linsfdsk>(sstm.str());
+    ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::open_link>(sstm.str());
     quadcopter_application::open_link srv;
     srv.request.header.stamp = ros::Time::now();
     srv.request.channel = this->channel();
