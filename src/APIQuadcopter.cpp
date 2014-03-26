@@ -27,12 +27,11 @@ std::vector<uint8_t> APIQuadcopter::scanChannels() {
     srv.request.header.stamp = ros::Time::now();
     if (!client.call(srv)) {
 	ROS_ERROR("Failed to scan channels.");
-        return NULL;
+        return;
     } else {
         return srv.response.channels;
     }
 }
-*/
 
 /**
  * Connect to a quadcopter on the given channel.
