@@ -92,10 +92,11 @@ bool initializeQuadcopters() {
     if (channels.size() == 0){
         return false;
     }
+    int max;
     if (this->quadcopters.size() > channels.size()) {
-    	int max = channels.size();
+    	max = channels.size();
     } else {
-    	int max = this->quadcopters.size();
+    	max = this->quadcopters.size();
     }
     std::map<uint32_t, APIQuadcopter>::iterator quadIt = this->quadcopters.begin();
     for (int i = 0; i < max; i++)
