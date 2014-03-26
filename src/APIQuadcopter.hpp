@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <stdint.h>
+#include <vector>
 
 #include "Vector.hpp"
 #include "APIQuadcopterListener.hpp"
@@ -19,8 +20,8 @@ class APIQuadcopter {
 		
 		int getId();
 		
-		int* scanChannels() { return NULL; }
-		bool connectOnChannel() { return false; }
+		std::vector<uint8_t> scanChannels();
+                bool connectOnChannel(uint8_t channel);
 		
 		uint8_t getChannel();
 

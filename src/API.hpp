@@ -26,6 +26,7 @@ namespace kitrokopter {
 	    api_application::Announce::Response &res);
 	
 	void initializeCameras();
+	bool initializeQuadcopters();
 	
 	/* Quadcopter mutation */
 	APIQuadcopter* getQuadcpoter(int id);
@@ -54,7 +55,8 @@ namespace kitrokopter {
 	std::vector<APIQuadcopter*> getQuadcoptersInFormation();
 	std::vector<APIQuadcopter*> getQuadcoptersNotInFormation();
 	
-	int* scanChannels();
+        std::vector<uint8_t> scanChannels();
+        bool initializeQuadcopers();
 	
 	/* Quadcopter amount */
 	int getQuadcopterAmount();

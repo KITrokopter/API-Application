@@ -12,7 +12,6 @@ namespace kitrokopter {
     public:
         
         APICalibrationData(uint32_t newCameraId, uint64_t newCameraHardwareId, bool createdByCamera, double intrinsics[9], double distortion[4]);
-        
         uint32_t getCameraId;
         uint64_t getCameraHardwareId;
         bool isCreatedByCamera();
@@ -29,8 +28,8 @@ namespace kitrokopter {
          */
         uint64_t cameraHardwareId;
         bool createdByCamera;
-        double intrinsics[9];
-        double distortion[4];
+        double intrinsics[];
+        double distortion[];
     };
     
 }
