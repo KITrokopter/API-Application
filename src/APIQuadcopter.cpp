@@ -16,7 +16,7 @@ APIQuadcopter::APIQuadcopter(int newid) {
  *
  * @return array of channels
  */ 
-uint8_t[] APIQuadcopter::scanChannels() {
+uint8_t* APIQuadcopter::scanChannels() {
     std::stringstream sstm;
     sstm << "search_links_" << id;
     ros::ServiceClient client = this->nodeHandle.serviceClient<quadcopter_application::search_links>(sstm.str());
