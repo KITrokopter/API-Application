@@ -99,6 +99,7 @@ namespace kitrokopter {
     private:
 	int idCounter;
 	ros::AsyncSpinner *spinner;
+        ros::ServiceServer announceService;
 
 	//the ids of modules by category
 	std::vector<int> controllerIds;
