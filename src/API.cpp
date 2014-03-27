@@ -151,6 +151,7 @@ void API::initializeCameras() {
  */
 void API::setFormation(APIFormation newFormation) {
     this->formation = newFormation;
+    //TODO: Send formation
 }
 
 
@@ -208,6 +209,24 @@ std::vector<APIQuadcopter*> API::getQuadcoptersSelectedForFlight() {
  * @return a vector of pointers to the quadcopters
  */
 std::vector<APIQuadcopter*> API::getQuadcoptersNotSelectedForFlight() {
+    std::vector<APIQuadcopter*> result;
+    for (std::map<uint32_t, APIQuadcopter>::iterator it =
+        this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
+    {
+        if (!it->second.isSelectedForFlight())
+        {
+            result.push_back(&it->second);
+        }
+    }
+    return result;
+}
+
+/**
+ * Get all quadcopters which are selected to fly in formation.
+ * 
+ * @return a vector of pointers to the quadcopters
+ */
+std::vector<APICamera*> API::getCameras() {
     std::vector<APIQuadcopter*> result;
     for (std::map<uint32_t, APIQuadcopter>::iterator it =
         this->quadcopters.begin(); it != this->quadcopters.end(); ++it)

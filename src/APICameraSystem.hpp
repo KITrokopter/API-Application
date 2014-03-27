@@ -38,6 +38,7 @@ class APICameraSystem {
 
 		/* Calibration getters */
 		bool isCalibrated();
+                std::vector<APICamera*> getCameras();
 		std::vector<APICamera*> getCalibratedCameras();
 		std::vector<APICamera*> getUncalibratedCameras();
 		std::vector< std::vector<cv::Mat> > getCalibrationPictures();
@@ -46,6 +47,7 @@ class APICameraSystem {
 	private:
 		std::map <uint32_t, APICamera> cameras;
                 camera_application::InitializeCameraService buildInitMessage(std::map<uint32_t, APIQuadcopter> quadcopters);
+                
 };
 
 }
