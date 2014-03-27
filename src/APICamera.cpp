@@ -205,3 +205,8 @@ void APICamera::handlePicture(const camera_application::Picture::Ptr &msg)
 	calibrationImages.push_back(msgToMat(msg->image));
     }
 }
+
+Vector APICamera::getPosition()
+{
+	return position;
+}

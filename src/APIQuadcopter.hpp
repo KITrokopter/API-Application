@@ -58,8 +58,8 @@ class APIQuadcopter {
 		// TODO
 		void addQuadcopterListener(APIQuadcopterListener*) {}
 		void removeQuadcopterListener(APIQuadcopterListener*) {}
-                
-                void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
+
+		void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
 
 
 	private:
@@ -69,10 +69,10 @@ class APIQuadcopter {
 		uint8_t channel;
 		uint32_t colorRange[2];
 		float currentSpeedValues[2];
-                uint32_t currentSpeedTimestamps[2];
+		uint32_t currentSpeedTimestamps[2];
 		float currentAcceleration;
 		Vector currentPositionValues[2];
-                uint32_t currentPositionTimestamps[2];
+		uint32_t currentPositionTimestamps[2];
 		Vector currentOrientation;
 		float linkQuality;
 		float targetSpeed;

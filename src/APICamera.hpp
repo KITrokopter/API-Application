@@ -74,6 +74,7 @@ class APICamera {
 		// ROS Subscribers
 		ros::Subscriber pictureSubscriber;
 
+		Vector position;
 };
 
 }

@@ -14,25 +14,25 @@ namespace kitrokopter {
 class APICameraSystem {
 
 	public:
-                APICameraSystem();
+		APICameraSystem();
                 
 		/* Initialization */
-                void initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters);
+		void initializeCameras(std::map<uint32_t, APIQuadcopter> quadcopters);
 
 		/* Camera getters */
 		APICamera* getCamera(int id);
 		int getCameraAmount();
-                std::map <uint32_t, APICamera>* getCameras();
+		std::map <uint32_t, APICamera>* getCameras();
 		
 		/* Camera setters */
 		void addCamera(APICamera camera);
 
 		/* Calibration */
 		void startCalibration();
-                /*
-                 * TODO: How is this to be implemented?
-                 * What has to be done by the API?
-                 */
+		/*
+		 * TODO: How is this to be implemented?
+		 * What has to be done by the API?
+		 */
 		bool takeCalibrationPicture();
 		void calculateCalibration();
 
