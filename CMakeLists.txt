@@ -109,9 +109,11 @@ add_library(api_application
   ${API_SOURCES}
 )
 
-add_executable(api_application
+add_executable(api_application_node
   ${API_SOURCES}
 )
+
+target_link_libraries(api_application_node api_application)
 
 ## Declare a cpp executable
 # add_executable(api_application_node src/api_application_node.cpp)
