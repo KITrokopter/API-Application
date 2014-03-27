@@ -227,16 +227,7 @@ std::vector<APIQuadcopter*> API::getQuadcoptersNotSelectedForFlight() {
  * @return a vector of pointers to the quadcopters
  */
 std::vector<APICamera*> API::getCameras() {
-    std::vector<APIQuadcopter*> result;
-    for (std::map<uint32_t, APIQuadcopter>::iterator it =
-        this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
-    {
-        if (!it->second.isSelectedForFlight())
-        {
-            result.push_back(&it->second);
-        }
-    }
-    return result;
+    return this->cameraSystem.getCamerasAsVector();
 }
 
 int main(int argc, char** argv)
@@ -250,16 +241,4 @@ int main(int argc, char** argv)
     }
     
     std::cout << "API Application successfully terminated" << std::endl;
-}
-
-std::vector<APICamera*> API::getCameras()
-{
-	std::map<uint32_t, APICamera> *cameras = cameraSystem.getCameras();
-	std::vector<APICamera*> result;
-	
-	for (std::map<uint32_t, APICamera>::iterator it = cameras->begin(); it != cameras->end(); it++) {
-		result.push_back(&(it->second));
-	}
-	
-	return result;
 }
