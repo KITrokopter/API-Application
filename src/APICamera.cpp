@@ -201,8 +201,13 @@ void APICamera::handlePicture(const camera_application::Picture::Ptr &msg)
 {
     if (msg->ID != this->id) return;
     if (msg->calibrationImage) {
-	// Save the image.
-	calibrationImages.push_back(msgToMat(msg->image));
+      	cv::Mat* image = msgToMat(msg->image);
+        this->lastImage = *image;
+        //call the listeners
+        for (std::vector<APIImageListener*>::iterator it = imageListeners.begin(); it != imageListeners::end(); ++it) {
+            it->imageReceived(*msgToMat);
+        }
+        delete image;
     }
 }
 

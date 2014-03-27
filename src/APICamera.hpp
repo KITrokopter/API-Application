@@ -62,6 +62,7 @@ class APICamera {
 		APICalibrationData *calibration;
 		bool calibrated;
 		std::vector<cv::Mat*> calibrationImages;
+                cv::Mat lastImage;
 		uint32_t id;
                 uint64_t hardwareId;
 		static const int VERTICAL_DETECTION_ANGLE;
