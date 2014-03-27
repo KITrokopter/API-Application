@@ -204,8 +204,8 @@ void APICamera::handlePicture(const camera_application::Picture::Ptr &msg)
       	cv::Mat* image = msgToMat(msg->image);
         this->lastImage = *image;
         //call the listeners
-        for (std::vector<APIImageListener*>::iterator it = imageListeners.begin(); it != imageListeners::end(); ++it) {
-            it->imageReceived(*msgToMat);
+        for (std::vector<APIImageListener*>::iterator it = imageListeners.begin(); it != imageListeners.end(); ++it) {
+            (*it)->imageReceived(*image);
         }
         delete image;
     }

@@ -95,9 +95,16 @@ int APICameraSystem::getCameraAmount() {
 }
 
 /**
+ * @return A pointer to the map of cameras.
+ */
+std::map<uint32_t, APICamera>* APICameraSystem::getCamerasAsMap() {
+    return &this->cameras;
+}
+
+/**
  * @return A vector of pointers to the cameras.
  */
-std::vector<APICamera*> APICameraSystem::getCameras() {
+std::vector<APICamera*> APICameraSystem::getCamerasAsVector() {
     std::vector<APICamera*> result;
     for (std::map<uint32_t, APICamera>::iterator it = cameras.begin();
          it != cameras.end(); ++it) {
