@@ -18,7 +18,7 @@ namespace kitrokopter {
 	
     public:
 	
-	API(int argc, char **argv);
+	API(int argc, char **argv, bool sync = false);
 	~API();
 	
 	bool announce(

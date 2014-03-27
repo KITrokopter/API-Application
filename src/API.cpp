@@ -10,8 +10,9 @@ using namespace kitrokopter;
  * 
  * @param argc remapping arguments from the command line for ros
  * @param argv remapping arguments from the command line for ros
+ * @param sync whether to do blocking ROS spinning
  */
-API::API(int argc, char **argv)
+API::API(int argc, char **argv, bool sync)
 {
     this->idCounter = 0;
     //this->formation = NULL;
@@ -23,8 +24,12 @@ API::API(int argc, char **argv)
     ros::NodeHandle nodeHandle;
     nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
-    spinner = new ros::AsyncSpinner(1);
-    spinner->start();
+    if (sync) {
+       ros::spin();
+    } else {
+       spinner = new ros::AsyncSpinner(1);
+       spinner->start();
+    }
 }
 
 /**
@@ -230,15 +235,3 @@ std::vector<APICamera*> API::getCameras() {
     return this->cameraSystem.getCamerasAsVector();
 }
 
-int main(int argc, char** argv)
-{
-    new API(argc, argv);
-    ros::shutdown();
-    
-    // Wait for ros to shutdown.
-    while (ros::ok()) {
-	usleep(10000);
-    }
-    
-    std::cout << "API Application successfully terminated" << std::endl;
-}

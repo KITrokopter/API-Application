@@ -110,7 +110,7 @@ add_library(api_application
 )
 
 add_executable(api_application_node
-  ${API_SOURCES}
+  main.cpp
 )
 
 target_link_libraries(api_application_node api_application)
