@@ -22,7 +22,7 @@ API::API(int argc, char **argv, bool sync)
     
     ros::init(argc, argv, "api_server");
     ros::NodeHandle nodeHandle;
-    nodeHandle.advertiseService("announce", &API::announce, this);
+    ros::ServiceServer service = nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
     if (sync) {
        ros::spin();
