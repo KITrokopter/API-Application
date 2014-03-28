@@ -209,13 +209,13 @@ Vector APIQuadcopter::getCurrentSpeed() {
 
 void APIQuadcopter::statusCallback(
     const quadcopter_application::quadcopter_status::ConstPtr &msg) {
-    this->linkQuality = msg->link_quality;
+    this->linkQuality = (*msg)->link_quality;
     printf("1");
-    this->stabilizerRollData = msg->stabilizer_roll;
+    this->stabilizerRollData = (*msg)->stabilizer_roll;
     printf("2");
-    this->stabilizerPitchData = msg->stabilizer_pitch;
+    this->stabilizerPitchData = (*msg)->stabilizer_pitch;
     printf("3");
-    this->stabilizerYawData = msg->stabilizer_yaw;
+    this->stabilizerYawData = (*msg)->stabilizer_yaw;
     printf("4");
 }
     
