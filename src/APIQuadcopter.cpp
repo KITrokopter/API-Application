@@ -212,8 +212,10 @@ void APIQuadcopter::statusCallback(
     this->linkQuality = msg->link_quality;
     this->stabilizerRollData = msg->stabilizer_roll;
     ROS_INFO("Got data: %f\n", msg->stabilizer_roll);
+    ROS_INFO("Logged data: %f\n", this->getStabilizerRollData());
     this->stabilizerPitchData = msg->stabilizer_pitch;
     this->stabilizerYawData = msg->stabilizer_yaw;
+    this->batteryStatus = msg->battery_status;
 }
     
     bool APIQuadcopter::isTracked() {
@@ -221,15 +223,15 @@ void APIQuadcopter::statusCallback(
     }
     
     float APIQuadcopter::getStabilizerRollData() {
-        return stabilizerRollData;
+        return this->stabilizerRollData;
     }
     
     float APIQuadcopter::getStabilizerPitchData() {
-        return stabilizerPitchData;
+        return this->stabilizerPitchData;
     }
     
     float APIQuadcopter::getStabilizerYawData() {
-        return stabilizerYawData;
+        return this->stabilizerYawData;
     }
     
     Vector APIQuadcopter::getCurrentOrientation()
