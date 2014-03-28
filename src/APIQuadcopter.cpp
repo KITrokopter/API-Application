@@ -31,7 +31,7 @@ APIQuadcopter::APIQuadcopter(int newid) :
     std::stringstream sstm;
     sstm << "quadcopter_status_" << id;
     ros::NodeHandle nodeHandle;
-    ros::Subscriber sub = nodeHandle.subscribe(sstm.str(), 1,
+    this->sub = nodeHandle.subscribe(sstm.str(), 1,
                                                &APIQuadcopter::statusCallback, this);
 }
 
