@@ -209,11 +209,14 @@ Vector APIQuadcopter::getCurrentSpeed() {
 
 void APIQuadcopter::statusCallback(
     const quadcopter_application::quadcopter_status::ConstPtr &msg) {
-    ROS_INFO("Got new data (linkquality, roll, pitch, yaw): %f, %f, %f, %f", msg->link_quality, msg->stabilizer_roll, msg->stabilizer_pitch, msg->stabilizer_yaw);
     this->linkQuality = msg->link_quality;
+    printf("1");
     this->stabilizerRollData = msg->stabilizer_roll;
+    printf("2");
     this->stabilizerPitchData = msg->stabilizer_pitch;
+    printf("3");
     this->stabilizerYawData = msg->stabilizer_yaw;
+    printf("4");
 }
     
     bool APIQuadcopter::isTracked() {
