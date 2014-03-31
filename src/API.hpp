@@ -29,7 +29,7 @@ namespace kitrokopter {
 	bool initializeQuadcopters();
 	
 	/* Quadcopter mutation */
-	APIQuadcopter* getQuadcpoter(int id);
+	APIQuadcopter* getQuadcopter(int id);
 	bool removeQuadcopter(int id);
 	
 	/* Formation */

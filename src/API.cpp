@@ -47,7 +47,7 @@ API::~API()
  * @param id the APIQuadcopter's id
  * @return the APIQuadcopter with this id or a null pointer if there is no such APIQuadcopter
  */
-APIQuadcopter* API::getQuadcpoter(int id) {
+APIQuadcopter* API::getQuadcopter(int id) {
     if (this->quadcopters.find(id) != this->quadcopters.end()) {
 	return &this->quadcopters[id];
     } else {
