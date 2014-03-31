@@ -211,8 +211,6 @@ void APIQuadcopter::statusCallback(
     const quadcopter_application::quadcopter_status::ConstPtr &msg) {
     this->linkQuality = msg->link_quality;
     this->stabilizerRollData = msg->stabilizer_roll;
-    ROS_INFO("Got data: %f\n", msg->stabilizer_roll);
-    ROS_INFO("Logged data: %f\n", this->getStabilizerRollData());
     this->stabilizerPitchData = msg->stabilizer_pitch;
     this->stabilizerYawData = msg->stabilizer_yaw;
     this->batteryStatus = msg->battery_status;
