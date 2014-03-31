@@ -126,6 +126,7 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
 	    break;
 	case 1:
 	    this->quadcopters[res.id] = APIQuadcopter(res.id);
+	    this->quadcopters[res.id].listen();
 	    break;
 	case 2:
 	    this->controllerIds.push_back(res.id);

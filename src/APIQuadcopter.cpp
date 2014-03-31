@@ -28,6 +28,15 @@ APIQuadcopter::APIQuadcopter(int newid) :
     stabilizerYawData(0.0),
     batteryStatus(0.0)
 {
+}
+
+/**
+ * Starts listening to the Quadcopter's ROS topic.
+ *
+ * This method should only be called once.
+ */
+void APIQuadcopter::listen()
+{
     std::stringstream sstm;
     sstm << "quadcopter_status_" << id;
     ros::NodeHandle nodeHandle;

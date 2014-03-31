@@ -17,6 +17,8 @@ class APIQuadcopter {
 	public:
 		APIQuadcopter() {}
 		APIQuadcopter(int newid);
+
+		void listen();
 		
 		int getId();
 		
@@ -63,11 +65,6 @@ class APIQuadcopter {
 
 		void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
                 
-                float stabilizerRollData;
-                float stabilizerPitchData;
-                float stabilizerYawData;
-                float batteryStatus;
-                float linkQuality;
 	private:
 		ros::Subscriber sub;
 		bool selectedForFlight;
@@ -85,6 +82,13 @@ class APIQuadcopter {
 		float targetAcceleration;
 		Vector targetPosition;
 		Vector targetOrientation;		
+
+                float stabilizerRollData;
+                float stabilizerPitchData;
+                float stabilizerYawData;
+                float batteryStatus;
+                float linkQuality;
+
 };
 
 }
