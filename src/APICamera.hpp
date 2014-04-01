@@ -53,6 +53,7 @@ class APICamera {
 
 		void addImageListener(APIImageListener*);
 		void removeImageListener(APIImageListener*);
+		void sendPictureSendingActivation(bool active);
 
 		void addCameraListener(APICameraListener*);
 		void removeCameraListener(APICameraListener*);
@@ -60,7 +61,6 @@ class APICamera {
 	private:
 		void setPosition(double x, double y, double z);
 
-		void sendPictureSendingActivation(bool active);
 		void handlePicture(const camera_application::Picture::Ptr &msg);
 
 		APICalibrationData *calibration;
