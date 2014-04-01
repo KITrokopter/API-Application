@@ -48,6 +48,14 @@ void APICamera::listen()
 }
 
 /**
+ * Sets the camera's position.
+ */
+void APICamera::setPosition(double x, double y, double z)
+{
+    position = Vector(x, y, z);
+}
+
+/**
  * Sets calibration data.
  *
  * @param data The calibration data to set.

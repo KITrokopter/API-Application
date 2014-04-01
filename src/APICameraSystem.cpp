@@ -183,7 +183,21 @@ void APICameraSystem::calculateCalibration()
     ros::ServiceClient client = nodeHandle.serviceClient<control_application::CalculateCalibration>("CalculateCalibration");
     control_application::CalculateCalibration srv;
     if (client.call(srv)) {
-	// TODO: Do something with srv.response
+	auto res = srv.response;
+	uint32_t id;
+	double x, y, z;
+	for (int i = 0; i < res.IDs.size(); ++i) {
+	    id = res.IDs[i];
+	    x = res.cameraXPositions[i];
+	    y = res.cameraYPositions[i];
+	    z = res.cameraZPositions[i];
+	    auto cam = getCamera(id);
+	    if (cam) {
+		cam->setPosition(x, y, z);
+	    } else {
+		ROS_ERROR("Calibrated invalid camera #%d.", (int)id);
+	    }
+	}
     } else {
 	ROS_ERROR("Could not call CalculateCalibration.");
     }
