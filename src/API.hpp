@@ -87,19 +87,12 @@ class APIMessageListener;
 	bool quadcoptersLaunched();
 	void landQuadcopters();
 	
-	// TODO
-	void shutdownSystem() {}
+        void startSystem();
+	void shutdownSystem();
 	
 	/* Settings */
 	Cuboid getMaximumOperatingArea();
 	bool setOperatingArea(Cuboid);
-	int getMaximumHorizontalSpeed();
-	int getMaximumVerticalSpeed();
-	int getMaximumHorizontalAcceleration();
-	int getMaximumVerticalAcceleration();
-	void setReceiveTargetMovementData(bool);
-	void setReceiveActualMovementData(bool);
-	void setReceiveQuadcopterState(bool);
 	
 	/* Movement */
 	void moveFormation(Vector);
@@ -114,6 +107,8 @@ class APIMessageListener;
 	//the ids of modules by category
 	std::vector<int> controllerIds;
 	std::vector<int> positionIds;
+        
+        void sendSystemSignal(uint8_t signal);
 
 	APICameraSystem cameraSystem;
 	std::map <uint32_t, APIQuadcopter> quadcopters;

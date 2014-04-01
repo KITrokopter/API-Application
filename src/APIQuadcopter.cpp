@@ -194,7 +194,7 @@ float APIQuadcopter::getBatteryStatus() {
 /**
  * Get the current acceleration as a vector.
  * 
- * @return current acceleration
+ * @return current acceleration in mm/s²
  */
 Vector APIQuadcopter::getCurrentAcceleration() {
     if (this->currentSpeedTimestamps[1] - this->currentSpeedTimestamps[0] == 0)
@@ -213,9 +213,9 @@ Vector APIQuadcopter::getCurrentAcceleration() {
 }
 
 /**
- * Get the current acceleration.
+ * Get the current speed as vector.
  * 
- * @return current acceleration
+ * @return current speed in mm/s
  */
 Vector APIQuadcopter::getCurrentSpeed() {
     //return the newest current speed value
@@ -309,12 +309,19 @@ float APIQuadcopter::getStabilizerYawData()
     return this->stabilizerYawData;
 }
 
-
+/**
+ * TODO: control_application does not provide any info yet
+ */
 Vector APIQuadcopter::getCurrentOrientation()
 {
     return currentOrientation;
 }
 
+/**
+ * Get the current position of the quadcopter
+ * 
+ * @return vector of the current position - lengths are in mm
+ */
 Vector APIQuadcopter::getCurrentPosition()
 {
     return currentPositionValues[1];
