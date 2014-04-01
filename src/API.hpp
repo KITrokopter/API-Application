@@ -6,13 +6,15 @@
 #include "Vector.hpp"
 #include "APIQuadcopter.hpp"
 #include "APIFormation.hpp"
-#include "APICamera.hpp"
 #include "APICameraSystem.hpp"
-#include "APIMessageListener.hpp"
 
 #include "api_application/Announce.h"
 
 namespace kitrokopter {
+
+class APICamera;
+class APIMessageListener;
+
     
     class API {
 	

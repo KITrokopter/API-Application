@@ -3,6 +3,8 @@
 #include <ros/console.h>
 #include <map>
 
+#include "APICamera.hpp"
+
 using namespace kitrokopter;
 
 /**
