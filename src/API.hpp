@@ -6,19 +6,21 @@
 #include "Vector.hpp"
 #include "APIQuadcopter.hpp"
 #include "APIFormation.hpp"
-#include "APICamera.hpp"
 #include "APICameraSystem.hpp"
-#include "APIMessageListener.hpp"
 
 #include "api_application/Announce.h"
 
 namespace kitrokopter {
+
+class APICamera;
+class APIMessageListener;
+
     
     class API {
 	
     public:
 	
-	API(int argc, char **argv);
+	API(int argc, char **argv, bool sync = false);
 	~API();
 	
 	bool announce(
@@ -29,7 +31,7 @@ namespace kitrokopter {
 	bool initializeQuadcopters();
 	
 	/* Quadcopter mutation */
-	APIQuadcopter* getQuadcpoter(int id);
+	APIQuadcopter* getQuadcopter(int id);
 	bool removeQuadcopter(int id);
 	
 	/* Formation */
@@ -99,6 +101,7 @@ namespace kitrokopter {
     private:
 	int idCounter;
 	ros::AsyncSpinner *spinner;
+        ros::ServiceServer announceService;
 
 	//the ids of modules by category
 	std::vector<int> controllerIds;

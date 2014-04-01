@@ -18,9 +18,7 @@ using namespace kitrokopter;
 APICamera::APICamera(uint32_t newId) : calibrated(false),
 			 calibration(NULL)
 {
-    ros::NodeHandle nh;
     this->id = newId;
-    nh.subscribe("Picture", 1, &APICamera::handlePicture, this);
 }
 
 /**
@@ -41,6 +39,12 @@ APICamera::~APICamera()
 uint32_t APICamera::getId()
 {
     return this->id;
+}
+
+void APICamera::listen()
+{
+    ros::NodeHandle nh;
+    pictureSubscriber = nh.subscribe("Picture", 1, &APICamera::handlePicture, this);
 }
 
 /**
@@ -201,8 +205,13 @@ void APICamera::handlePicture(const camera_application::Picture::Ptr &msg)
 {
     if (msg->ID != this->id) return;
     if (msg->calibrationImage) {
-	// Save the image.
-	calibrationImages.push_back(msgToMat(msg->image));
+      	cv::Mat* image = msgToMat(msg->image);
+        this->lastImage = *image;
+        //call the listeners
+        for (std::vector<APIImageListener*>::iterator it = imageListeners.begin(); it != imageListeners.end(); ++it) {
+            (*it)->imageReceived(*image);
+        }
+        delete image;
     }
 }
 

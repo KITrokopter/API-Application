@@ -17,13 +17,15 @@ class APIQuadcopter {
 	public:
 		APIQuadcopter() {}
 		APIQuadcopter(int newid);
+
+		void listen();
 		
 		int getId();
 		
 		std::vector<uint8_t> scanChannels();
                 bool connectOnChannel(uint8_t channel);
 		
-		uint8_t getChannel();
+		int getChannel();
 
                 /* TODO: Where do I get this? */
 		Vector getTargetOrientation();
@@ -35,8 +37,8 @@ class APIQuadcopter {
 		Vector getCurrentPosition();
                 
                 /* TODO: It seems like there is no topic for this, so the api has to calculate it by itself. */
-		float getCurrentSpeed();
-		float getCurrentAcceleration();
+		Vector getCurrentSpeed();
+		Vector getCurrentAcceleration();
 
 		bool isTracked();
 
@@ -46,6 +48,8 @@ class APIQuadcopter {
 		float getStabilizerRollData();
 		float getStabilizerPitchData();
 		float getStabilizerYawData();
+                
+                float getBatteryStatus();
 
 		void setSelectedForFlight(bool select);
 		bool isSelectedForFlight();
@@ -60,29 +64,30 @@ class APIQuadcopter {
 		void removeQuadcopterListener(APIQuadcopterListener*) {}
 
 		void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
-
-
+                
 	private:
-		ros::NodeHandle nodeHandle;
+		ros::Subscriber sub;
 		bool selectedForFlight;
 		int id;
-		uint8_t channel;
+		int channel;
 		uint32_t colorRange[2];
-		float currentSpeedValues[2];
+		Vector currentSpeedValues[2];
 		uint32_t currentSpeedTimestamps[2];
-		float currentAcceleration;
+		Vector currentAcceleration;
 		Vector currentPositionValues[2];
 		uint32_t currentPositionTimestamps[2];
 		Vector currentOrientation;
-		float linkQuality;
+		
 		float targetSpeed;
 		float targetAcceleration;
-		Vector targetPostion;
-		Vector targetOrientation;
+		Vector targetPosition;
+		Vector targetOrientation;		
 
-		float stabilizerRollData;
-		float stabilizerPitchData;
-		float stabilizerYawData;
+                float stabilizerRollData;
+                float stabilizerPitchData;
+                float stabilizerYawData;
+                float batteryStatus;
+                float linkQuality;
 
 };
 

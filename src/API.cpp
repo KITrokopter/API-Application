@@ -3,6 +3,8 @@
 #include <ros/console.h>
 #include <map>
 
+#include "APICamera.hpp"
+
 using namespace kitrokopter;
 
 /**
@@ -10,8 +12,9 @@ using namespace kitrokopter;
  * 
  * @param argc remapping arguments from the command line for ros
  * @param argv remapping arguments from the command line for ros
+ * @param sync whether to do blocking ROS spinning
  */
-API::API(int argc, char **argv)
+API::API(int argc, char **argv, bool sync)
 {
     this->idCounter = 0;
     //this->formation = NULL;
@@ -21,10 +24,14 @@ API::API(int argc, char **argv)
     
     ros::init(argc, argv, "api_server");
     ros::NodeHandle nodeHandle;
-    nodeHandle.advertiseService("announce", &API::announce, this);
+    announceService = nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
-    spinner = new ros::AsyncSpinner(1);
-    spinner->start();
+    if (sync) {
+       ros::spin();
+    } else {
+       spinner = new ros::AsyncSpinner(1);
+       spinner->start();
+    }
 }
 
 /**
@@ -42,7 +49,7 @@ API::~API()
  * @param id the APIQuadcopter's id
  * @return the APIQuadcopter with this id or a null pointer if there is no such APIQuadcopter
  */
-APIQuadcopter* API::getQuadcpoter(int id) {
+APIQuadcopter* API::getQuadcopter(int id) {
     if (this->quadcopters.find(id) != this->quadcopters.end()) {
 	return &this->quadcopters[id];
     } else {
@@ -121,6 +128,7 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
 	    break;
 	case 1:
 	    this->quadcopters[res.id] = APIQuadcopter(res.id);
+	    this->quadcopters[res.id].listen();
 	    break;
 	case 2:
 	    this->controllerIds.push_back(res.id);
@@ -151,6 +159,7 @@ void API::initializeCameras() {
  */
 void API::setFormation(APIFormation newFormation) {
     this->formation = newFormation;
+    //TODO: Send formation
 }
 
 
@@ -220,27 +229,12 @@ std::vector<APIQuadcopter*> API::getQuadcoptersNotSelectedForFlight() {
     return result;
 }
 
-int main(int argc, char** argv)
-{
-    new API(argc, argv);
-    ros::shutdown();
-    
-    // Wait for ros to shutdown.
-    while (ros::ok()) {
-	usleep(10000);
-    }
-    
-    std::cout << "API Application successfully terminated" << std::endl;
+/**
+ * Get all quadcopters which are selected to fly in formation.
+ * 
+ * @return a vector of pointers to the quadcopters
+ */
+std::vector<APICamera*> API::getCameras() {
+    return this->cameraSystem.getCamerasAsVector();
 }
 
-std::vector<APICamera*> API::getCameras()
-{
-	std::map<uint32_t, APICamera> *cameras = cameraSystem.getCameras();
-	std::vector<APICamera*> result;
-	
-	for (std::map<uint32_t, APICamera>::iterator it = cameras->begin(); it != cameras->end(); it++) {
-		result.push_back(&(it->second));
-	}
-	
-	return result;
-}

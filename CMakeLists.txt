@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(api_application)
 
+SET (CMAKE_CXX_FLAGS "-std=c++11")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -108,6 +110,12 @@ file(GLOB API_SOURCES src/*.cpp)
 add_library(api_application
   ${API_SOURCES}
 )
+
+add_executable(api_application_node
+  main.cpp
+)
+
+target_link_libraries(api_application_node api_application)
 
 ## Declare a cpp executable
 # add_executable(api_application_node src/api_application_node.cpp)

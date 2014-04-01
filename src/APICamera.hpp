@@ -27,6 +27,7 @@ class APICamera {
                 APICamera(uint32_t newId, uint64_t newHardwareId);
 		~APICamera();
 
+		void listen();
 		void initialize(std::vector<APIQuadcopter> quadcopters);
 
 		cv::Mat getImage();
@@ -62,6 +63,7 @@ class APICamera {
 		APICalibrationData *calibration;
 		bool calibrated;
 		std::vector<cv::Mat*> calibrationImages;
+                cv::Mat lastImage;
 		uint32_t id;
                 uint64_t hardwareId;
 		static const int VERTICAL_DETECTION_ANGLE;

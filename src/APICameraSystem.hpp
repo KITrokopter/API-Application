@@ -22,7 +22,7 @@ class APICameraSystem {
 		/* Camera getters */
 		APICamera* getCamera(int id);
 		int getCameraAmount();
-		std::map <uint32_t, APICamera>* getCameras();
+		std::map <uint32_t, APICamera>* getCamerasAsMap();
 		
 		/* Camera setters */
 		void addCamera(APICamera camera);
@@ -38,6 +38,7 @@ class APICameraSystem {
 
 		/* Calibration getters */
 		bool isCalibrated();
+                std::vector<APICamera*> getCamerasAsVector();
 		std::vector<APICamera*> getCalibratedCameras();
 		std::vector<APICamera*> getUncalibratedCameras();
 		std::vector< std::vector<cv::Mat> > getCalibrationPictures();
@@ -46,6 +47,7 @@ class APICameraSystem {
 	private:
 		std::map <uint32_t, APICamera> cameras;
                 camera_application::InitializeCameraService buildInitMessage(std::map<uint32_t, APIQuadcopter> quadcopters);
+                
 };
 
 }

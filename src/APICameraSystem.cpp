@@ -1,4 +1,6 @@
 #include "APICameraSystem.hpp"
+#include "camera_application/InitializeCameraService.h"
+#include "control_application/TakeCalibrationPicture.h"
 
 using namespace kitrokopter;
 
@@ -93,10 +95,22 @@ int APICameraSystem::getCameraAmount() {
 }
 
 /**
- * @return A pointer to the map with all cameras.
+ * @return A pointer to the map of cameras.
  */
-std::map<uint32_t, APICamera>* APICameraSystem::getCameras() {
-	return &cameras;
+std::map<uint32_t, APICamera>* APICameraSystem::getCamerasAsMap() {
+    return &this->cameras;
+}
+
+/**
+ * @return A vector of pointers to the cameras.
+ */
+std::vector<APICamera*> APICameraSystem::getCamerasAsVector() {
+    std::vector<APICamera*> result;
+    for (std::map<uint32_t, APICamera>::iterator it = cameras.begin();
+         it != cameras.end(); ++it) {
+        result.push_back(&it->second);
+    }
+    return result;
 }
 
 /**
@@ -106,12 +120,14 @@ std::map<uint32_t, APICamera>* APICameraSystem::getCameras() {
  * @param camera the camera
  */
 void APICameraSystem::addCamera(APICamera camera) {
-	if (this->cameras.find(camera.getId()) == this->cameras.end()) {
-		throw new std::runtime_error("camera id already in use");
-	} else {
-		this->cameras.insert(
-				std::pair<uint32_t, APICamera>(camera.getId(), camera));
-	}
+    if (this->cameras.find(camera.getId()) != this->cameras.end()) {
+	throw new std::runtime_error("camera id already in use");
+    } else {
+	uint32_t id = camera.getId();
+	this->cameras.insert(
+		std::pair<uint32_t, APICamera>(id, camera));
+	this->cameras[id].listen();
+    }
 }
 
 /**
@@ -128,6 +144,11 @@ std::vector<APICamera*> APICameraSystem::getCalibratedCameras() {
 		}
 	}
 	return result;
+}
+
+bool APICameraSystem::takeCalibrationPicture() {
+    control_application::TakeCalibrationPicture message;
+    message.request.header.stamp = ros::Time::now();
 }
 
 /**
