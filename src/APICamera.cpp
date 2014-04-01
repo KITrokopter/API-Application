@@ -191,15 +191,13 @@ cv::Mat* msgToMat(camera_application::Picture::_image_type data)
 void APICamera::handlePicture(const camera_application::Picture::Ptr &msg)
 {
     if (msg->ID != this->id) return;
-    if (msg->calibrationImage) {
-      	cv::Mat* image = msgToMat(msg->image);
-        this->lastImage = *image;
-        //call the listeners
-        for (std::vector<APIImageListener*>::iterator it = imageListeners.begin(); it != imageListeners.end(); ++it) {
-            (*it)->imageReceived(*image);
-        }
-        delete image;
+    cv::Mat* image = msgToMat(msg->image);
+    this->lastImage = *image;
+    //call the listeners
+    for (std::vector<APIImageListener*>::iterator it = imageListeners.begin(); it != imageListeners.end(); ++it) {
+       (*it)->imageReceived(*image);
     }
+    delete image;
 }
 
 Vector APICamera::getPosition()
