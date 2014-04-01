@@ -36,7 +36,6 @@ class APICamera {
                 
 
 		/* Calibration */
-		void startCalibration(int imageAmount, int waitingTime, const CalibrationBoard &board);
 		int getCalibrationImageCount();
 		std::vector<cv::Mat> getAllCalibrationImages();
 		cv::Mat getCalibrationImage(int number);
