@@ -16,4 +16,4 @@
 *.a
 
 # Anjuta
-.anjuta*
+*.anjuta*
