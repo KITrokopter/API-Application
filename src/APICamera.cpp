@@ -48,24 +48,11 @@ void APICamera::listen()
 }
 
 /**
- * Starts the calibration process.
- *
- * @param imageAmount The number of pictures to take.
- * @param waitingTime The time to wait between images in ms.
+ * Sets the camera's position.
  */
-void APICamera::startCalibration(int imageAmount, int waitingTime, const CalibrationBoard &board)
+void APICamera::setPosition(double x, double y, double z)
 {
-    ros::NodeHandle nh;
-    ros::Publisher pub = nh.advertise<camera_application::CalibrateCamera>("CalibrateCamera", 1);
-    camera_application::CalibrateCamera msg;
-    msg.ID = this->id;
-    msg.imageAmount = imageAmount;
-    msg.imageDelay = waitingTime;
-    msg.boardWidth = board.width;
-    msg.boardHeight = board.height;
-    msg.boardRectangleWidth = board.rectangleWidth;
-    msg.boardRectangleHeight = board.rectangleHeight;
-    pub.publish(msg);
+    position = Vector(x, y, z);
 }
 
 /**

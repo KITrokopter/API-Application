@@ -1,6 +1,8 @@
 #include "APICameraSystem.hpp"
 #include "camera_application/InitializeCameraService.h"
+#include "control_application/StartCalibration.h"
 #include "control_application/TakeCalibrationPicture.h"
+#include "control_application/CalculateCalibration.h"
 
 using namespace kitrokopter;
 
@@ -146,9 +148,59 @@ std::vector<APICamera*> APICameraSystem::getCalibratedCameras() {
 	return result;
 }
 
-bool APICameraSystem::takeCalibrationPicture() {
-    control_application::TakeCalibrationPicture message;
-    message.request.header.stamp = ros::Time::now();
+bool APICameraSystem::startCalibration(const CalibrationBoard &board)
+{
+    ros::NodeHandle nodeHandle;
+    ros::ServiceClient client = nodeHandle.serviceClient<control_application::StartCalibration>("StartCalibration");
+    control_application::StartCalibration srv;
+    srv.request.chessboardWidth = board.horizontalNumber;
+    srv.request.chessboardHeight = board.verticalNumber;
+    srv.request.chessboardRealWidth = board.rectangleWidth;
+    srv.request.chessboardRealHeight = board.rectangleHeight;
+    if (client.call(srv)) {
+	return srv.response.ok;
+    } else {
+	ROS_ERROR("Could not call StartCalibration.");
+	return false;
+    }
+}
+
+int APICameraSystem::takeCalibrationPictures() {
+    ros::NodeHandle nodeHandle;
+    ros::ServiceClient client = nodeHandle.serviceClient<control_application::TakeCalibrationPicture>("TakeCalibrationPicture");
+    control_application::TakeCalibrationPicture srv;
+    if (client.call(srv)) {
+	return srv.response.images.size();
+    } else {
+	ROS_ERROR("Could not call TakeCalibrationPicture.");
+	return 0;
+    }
+}
+
+void APICameraSystem::calculateCalibration()
+{
+    ros::NodeHandle nodeHandle;
+    ros::ServiceClient client = nodeHandle.serviceClient<control_application::CalculateCalibration>("CalculateCalibration");
+    control_application::CalculateCalibration srv;
+    if (client.call(srv)) {
+	auto res = srv.response;
+	uint32_t id;
+	double x, y, z;
+	for (int i = 0; i < res.IDs.size(); ++i) {
+	    id = res.IDs[i];
+	    x = res.cameraXPositions[i];
+	    y = res.cameraYPositions[i];
+	    z = res.cameraZPositions[i];
+	    auto cam = getCamera(id);
+	    if (cam) {
+		cam->setPosition(x, y, z);
+	    } else {
+		ROS_ERROR("Calibrated invalid camera #%d.", (int)id);
+	    }
+	}
+    } else {
+	ROS_ERROR("Could not call CalculateCalibration.");
+    }
 }
 
 /**

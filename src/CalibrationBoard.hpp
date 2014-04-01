@@ -10,21 +10,19 @@ class CalibrationBoard {
 	/**
 	 * Creates a calibration board with the given dimensions.
 	 *
-	 * The board's width/height is measured from a single field in.
-	 *
-	 * @param wdt The board's width.
-	 * @param hgt The board's height.
+	 * @param hnum The number of horizontal fields.
+	 * @param vnum The number of vertical fields.
 	 * @param boardRectWidth The width of a single field.
 	 * @param boardRectHeight The height of a single field.
 	 */
-	CalibrationBoard(uint32_t wdt, uint32_t hgt, float boardRectWidth, float boardRectHeight) :
-	   width(wdt),
-	   height(hgt),
+	CalibrationBoard(uint32_t hnum, uint32_t vnum, float boardRectWidth, float boardRectHeight) :
+	   horizontalNumber(hnum),
+	   verticalNumber(vnum),
 	   rectangleWidth(boardRectWidth),
 	   rectangleHeight(boardRectHeight)
 	{}
 
-	const uint32_t width, height;
+	const uint32_t horizontalNumber, verticalNumber;
 	const float rectangleWidth, rectangleHeight;
 
 };

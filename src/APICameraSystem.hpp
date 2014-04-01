@@ -28,12 +28,8 @@ class APICameraSystem {
 		void addCamera(APICamera camera);
 
 		/* Calibration */
-		void startCalibration();
-		/*
-		 * TODO: How is this to be implemented?
-		 * What has to be done by the API?
-		 */
-		bool takeCalibrationPicture();
+		bool startCalibration(const CalibrationBoard &board);
+		int takeCalibrationPictures();
 		void calculateCalibration();
 
 		/* Calibration getters */

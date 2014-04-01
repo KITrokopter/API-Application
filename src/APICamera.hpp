@@ -19,7 +19,10 @@
 
 namespace kitrokopter {
 
+class APICameraSystem;
+
 class APICamera {
+	friend class APICameraSystem;
 
 	public:
 		APICamera() {}
@@ -36,7 +39,6 @@ class APICamera {
                 
 
 		/* Calibration */
-		void startCalibration(int imageAmount, int waitingTime, const CalibrationBoard &board);
 		int getCalibrationImageCount();
 		std::vector<cv::Mat> getAllCalibrationImages();
 		cv::Mat getCalibrationImage(int number);
@@ -56,6 +58,7 @@ class APICamera {
 		void removeCameraListener(APICameraListener*);
 
 	private:
+		void setPosition(double x, double y, double z);
 
 		void sendPictureSendingActivation(bool active);
 		void handlePicture(const camera_application::Picture::Ptr &msg);
