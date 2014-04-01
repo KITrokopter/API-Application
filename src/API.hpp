@@ -19,6 +19,10 @@ class APIMessageListener;
     class API {
 	
     public:
+	enum SystemSignals {
+            STARTUP = 1,
+            SHUTDOWN
+	};
 	
 	API(int argc, char **argv, bool sync = false);
 	~API();
@@ -29,6 +33,9 @@ class APIMessageListener;
 	
 	void initializeCameras();
 	bool initializeQuadcopters();
+        
+        void startSystem();
+        void shutdownSystem();
 	
 	/* Quadcopter mutation */
 	APIQuadcopter* getQuadcopter(int id);
@@ -102,6 +109,7 @@ class APIMessageListener;
 	int idCounter;
 	ros::AsyncSpinner *spinner;
         ros::ServiceServer announceService;
+        ros::Publisher systemPublisher;
 
 	//the ids of modules by category
 	std::vector<int> controllerIds;

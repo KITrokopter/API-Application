@@ -26,6 +26,10 @@ API::API(int argc, char **argv, bool sync)
     ros::NodeHandle nodeHandle;
     announceService = nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
+    
+    systemPublisher = nodeHandle.advertise<api_application::System>("System", 1);
+    ROS_INFO("Ready to send system signals.");
+    
     if (sync) {
        ros::spin();
     } else {
@@ -40,6 +44,32 @@ API::API(int argc, char **argv, bool sync)
 API::~API()
 {
    delete spinner;
+}
+
+/**
+ * Start the system
+ */
+void API::startSystem() {
+    this->sendSystemSignal(STARTUP);
+}
+
+/**
+ * Shutdown the system
+ */
+void API::shutdownSystem() {
+    this->sendSystemSignal(SHUTDOWN);
+}
+
+/**
+ * Send a system signal.
+ * 
+ * @param signal the signal to send 
+ */
+void sendSystemSignal(uint8_t signal) {
+    api_application::System message;
+    message.header.stamp = ros::Time::now();
+    message.command = signal;
+    systemPublisher.publish(message);
 }
 
 /**
@@ -237,4 +267,3 @@ std::vector<APIQuadcopter*> API::getQuadcoptersNotSelectedForFlight() {
 std::vector<APICamera*> API::getCameras() {
     return this->cameraSystem.getCamerasAsVector();
 }
-

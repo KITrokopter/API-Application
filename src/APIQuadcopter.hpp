@@ -58,7 +58,7 @@ class APIQuadcopter {
 		void setColorRange(uint32_t range[2]);
 
 		void blink();
-
+                
 		// TODO
 		void addQuadcopterListener(APIQuadcopterListener*) {}
 		void removeQuadcopterListener(APIQuadcopterListener*) {}
@@ -88,6 +88,8 @@ class APIQuadcopter {
                 float stabilizerYawData;
                 float batteryStatus;
                 float linkQuality;
+                
+                void updateSpeed();
 
 };
 

@@ -42,6 +42,11 @@ void APIQuadcopter::listen()
     ros::NodeHandle nodeHandle;
     this->sub = nodeHandle.subscribe(sstm.str(), 1,
                                                &APIQuadcopter::statusCallback, this);
+    sstm.str("");
+    sstm << "quadcopter_position_" << id;
+    ros::NodeHandle nodeHandle;
+    this->sub = nodeHandle.subscribe(sstm.str(), 1,
+                                     &APIQuadcopter::positionCallback, this);
 }
 
 /**
@@ -202,6 +207,7 @@ Vector APIQuadcopter::getCurrentAcceleration() {
         / (this->currentSpeedTimestamps[1] - this->currentSpeedTimestamps[0]);
         double z = (this->currentSpeedValues[1].getZ() - this->currentSpeedValues[0].getZ())
         / (this->currentSpeedTimestamps[1] - this->currentSpeedTimestamps[0]);
+        return Vector(x, y, z);
         
     }
 }
@@ -216,6 +222,9 @@ Vector APIQuadcopter::getCurrentSpeed() {
     return this->currentSpeedValues[1];
 }
 
+/**
+ * Callback for the quadcopters own sensor values.
+ */
 void APIQuadcopter::statusCallback(
     const quadcopter_application::quadcopter_status::ConstPtr &msg) {
     this->linkQuality = msg->link_quality;
@@ -224,29 +233,89 @@ void APIQuadcopter::statusCallback(
     this->stabilizerYawData = msg->stabilizer_yaw;
     this->batteryStatus = msg->battery_status;
 }
-    
-    bool APIQuadcopter::isTracked() {
-        return !(this->currentPositionValues[1].getX() == -1.0 && this->currentPositionValues[1].getY() == -1.0 && this->currentPositionValues[1].getZ() == -1.0);
-    }
-    
-    float APIQuadcopter::getStabilizerRollData() {
-        return this->stabilizerRollData;
-    }
-    
-    float APIQuadcopter::getStabilizerPitchData() {
-        return this->stabilizerPitchData;
-    }
-    
-    float APIQuadcopter::getStabilizerYawData() {
-        return this->stabilizerYawData;
-    }
-    
-    Vector APIQuadcopter::getCurrentOrientation()
+
+/**
+ * Callback for the quadcopters position.
+ * 
+ * @param &msg the received message
+ */
+void APIQuadcopter::positionCallback(const control_application::CurrentPosition::COnstPtr &msg)
+{
+    this->currentPositionValues[0] = this->currentPositionValues[0];
+    this->currentPositionValues[1] = Vector(msg->x, msg->y, msg->z);
+    this->currentPositionTimestamps[0] = this->currentPositionTimestamps[1];
+    this->currentPositionTimestamps[1] = this->header.stamp;
+    this->updateSpeed();
+}
+
+/**
+ * Update the speed value by the current position values.
+ */
+void APIQuadcopter::updateSpeed()
+{
+    if (this->currentPositionTimestamps[1] - this->currentPositionTimestamps[0] != 0)
     {
-        return currentOrientation;
-    }
+        this->currentSpeedValues[0] = this->currentSpeedValues[1];
+        this->currentSpeedTimestamps[0] = this->currentSpeedTimestamps[1];
+        double x = (this->currentPositionValues[1].getX() - this->currentPositionValues[0].getX())
+        / (this->currentPositionTimestamps[1] - this->currentPositionTimestamps[0]);
+        double y = (this->currentPositionValues[1].getY() - this->currentPositionValues[0].getY())
+        / (this->currentPositionTimestamps[1] - this->currentPositionTimestamps[0]);
+        double z = (this->currentPositionValues[1].getZ() - this->currentPositionValues[0].getZ())
+        / (this->currentPositionTimestamps[1] - this->currentPositionTimestamps[0]);
     
-    Vector APIQuadcopter::getCurrentPosition()
-    {
-        return currentPositionValues[1];
+        this->currentSpeedValues[1] = Vector(x, y, z);
+        this->currentSpeedTimestamps[1] = (int) (this->currentPositionTimestamps[0] + this->currentPositionTimestamps[1]) / 2;
     }
+}    
+
+/**
+ * Whether this quadcopter is currently tracked.
+ * 
+ * @return whether this quadcopter i scurrently tracked
+ */
+bool APIQuadcopter::isTracked()
+{
+    return !(this->currentPositionValues[1].getX() == -1.0 && this->currentPositionValues[1].getY() == -1.0 && this->currentPositionValues[1].getZ() == -1.0);
+}
+
+/**
+ * The current roll value from the quadcopter sensors.
+ * 
+ * @return the roll value
+ */
+float APIQuadcopter::getStabilizerRollData()
+{
+    return this->stabilizerRollData;
+}
+
+/**
+ * The current pitch value from the quadcopter sensors.
+ * 
+ * @return the pitch value
+ */
+float APIQuadcopter::getStabilizerPitchData()
+{
+    return this->stabilizerPitchData;
+}
+
+/**
+ * The current yaw value from the quadcopter sensors.
+ * 
+ * @return the yaw value
+ */
+float APIQuadcopter::getStabilizerYawData()
+{
+    return this->stabilizerYawData;
+}
+
+
+Vector APIQuadcopter::getCurrentOrientation()
+{
+    return currentOrientation;
+}
+
+Vector APIQuadcopter::getCurrentPosition()
+{
+    return currentPositionValues[1];
+}
