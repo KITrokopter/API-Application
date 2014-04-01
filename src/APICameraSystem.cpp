@@ -120,12 +120,14 @@ std::vector<APICamera*> APICameraSystem::getCamerasAsVector() {
  * @param camera the camera
  */
 void APICameraSystem::addCamera(APICamera camera) {
-	if (this->cameras.find(camera.getId()) != this->cameras.end()) {
-		throw new std::runtime_error("camera id already in use");
-	} else {
-		this->cameras.insert(
-				std::pair<uint32_t, APICamera>(camera.getId(), camera));
-	}
+    if (this->cameras.find(camera.getId()) != this->cameras.end()) {
+	throw new std::runtime_error("camera id already in use");
+    } else {
+	uint32_t id = camera.getId();
+	this->cameras.insert(
+		std::pair<uint32_t, APICamera>(id, camera));
+	this->cameras[id].listen();
+    }
 }
 
 /**

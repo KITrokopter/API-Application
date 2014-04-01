@@ -27,6 +27,7 @@ class APICamera {
                 APICamera(uint32_t newId, uint64_t newHardwareId);
 		~APICamera();
 
+		void listen();
 		void initialize(std::vector<APIQuadcopter> quadcopters);
 
 		cv::Mat getImage();

@@ -18,9 +18,7 @@ using namespace kitrokopter;
 APICamera::APICamera(uint32_t newId) : calibrated(false),
 			 calibration(NULL)
 {
-    ros::NodeHandle nh;
     this->id = newId;
-    nh.subscribe("Picture", 1, &APICamera::handlePicture, this);
 }
 
 /**
@@ -41,6 +39,12 @@ APICamera::~APICamera()
 uint32_t APICamera::getId()
 {
     return this->id;
+}
+
+void APICamera::listen()
+{
+    ros::NodeHandle nh;
+    pictureSubscriber = nh.subscribe("Picture", 1, &APICamera::handlePicture, this);
 }
 
 /**
