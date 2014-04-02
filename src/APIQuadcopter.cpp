@@ -26,7 +26,8 @@ APIQuadcopter::APIQuadcopter(int newid) :
     stabilizerRollData(0.0),
     stabilizerPitchData(0.0),
     stabilizerYawData(0.0),
-    batteryStatus(0.0)
+    batteryStatus(0.0),
+    isTracked(false)
 {
 }
 
@@ -41,11 +42,16 @@ void APIQuadcopter::listen()
     sstm << "quadcopter_status_" << id;
     ros::NodeHandle nodeHandle;
     this->statusSubscriber = nodeHandle.subscribe(sstm.str(), 1,
-                                               &APIQuadcopter::statusCallback, this);
+                                     &APIQuadcopter::statusCallback, this);
     sstm.str("");
     sstm << "quadcopter_position_" << id;
     this->positionSubscriber = nodeHandle.subscribe(sstm.str(), 1,
                                      &APIQuadcopter::positionCallback, this);
+    
+    sstm.str("");
+    sstm << "quadcopter_is_tracked_" << id;
+    this->trackingSubscriber = nodeHandle.subscribe(sstm.str(), 1,
+                                     &APIQuadcopter::trackingCallback, this);
 }
 
 /**
@@ -95,7 +101,7 @@ bool APIQuadcopter::connectOnChannel(uint8_t channel) {
 /**
  * Get the id of the corresponding quadcopter module.
  *
- * @return the id
+ * @return the idposition
  */
 int APIQuadcopter::getId() {
     return this->id;
@@ -158,7 +164,7 @@ uint32_t* APIQuadcopter::getColorRange() {
  * Whether this quadcopter is selected to fly or to stay on the ground.
  * 
  * @return whether this quadcopter shall fly
- */
+ */position
 bool APIQuadcopter::isSelectedForFlight() {
     return this->selectedForFlight;
 }
@@ -249,6 +255,15 @@ void APIQuadcopter::positionCallback(const control_application::quadcopter_posit
 }
 
 /**
+ * Callback for the quadcopter's tracking status.
+ * 
+ * @param &msg the received message
+ */
+void APIQuadcopter::trackingCallback(const control_application::quadcopter_is_tracked::ConstPtr &msg) {
+    this->isTracked = msg->isTracked;
+}
+
+/**
  * Update the speed value by the current position values.
  */
 void APIQuadcopter::updateSpeed()
@@ -257,7 +272,6 @@ void APIQuadcopter::updateSpeed()
     {
         this->currentSpeedValues[0] = this->currentSpeedValues[1];
         this->currentSpeedTimestamps[0] = this->currentSpeedTimestamps[1];
-        //TODO: this might cause a problem when dividing a double by a unsigned double
         double x = (this->currentPositionValues[1].getX() - this->currentPositionValues[0].getX())
         / (this->currentPositionTimestamps[1] - this->currentPositionTimestamps[0]);
         double y = (this->currentPositionValues[1].getY() - this->currentPositionValues[0].getY())
@@ -277,7 +291,7 @@ void APIQuadcopter::updateSpeed()
  */
 bool APIQuadcopter::isTracked()
 {
-    return !(this->currentPositionValues[1].getX() == -1.0 && this->currentPositionValues[1].getY() == -1.0 && this->currentPositionValues[1].getZ() == -1.0);
+    return this->isTracked;
 }
 
 /**

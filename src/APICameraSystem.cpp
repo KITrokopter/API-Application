@@ -1,4 +1,7 @@
 #include "APICameraSystem.hpp"
+#include <cv_bridge/cv_bridge.h>
+
+//Messages
 #include "camera_application/InitializeCameraService.h"
 #include "control_application/StartCalibration.h"
 #include "control_application/TakeCalibrationPicture.h"
@@ -165,11 +168,30 @@ bool APICameraSystem::startCalibration(const CalibrationBoard &board)
     }
 }
 
+/**
+ * Take a picture which will be used for calibration.
+ * 
+ * @return the number of pictures which were good
+ */
 int APICameraSystem::takeCalibrationPictures() {
+    //TODO: Service needs to provide a number of good images
     ros::NodeHandle nodeHandle;
     ros::ServiceClient client = nodeHandle.serviceClient<control_application::TakeCalibrationPicture>("TakeCalibrationPicture");
     control_application::TakeCalibrationPicture srv;
-    if (client.call(srv)) {
+    if (client.call(srv))
+    {
+        cv_bridge::CvImagePtr cv_ptr;
+        for (int i = 0; i < res.IDs.size(); ++i)
+        {
+            auto cam = getCamera(srv.response.ids[i]);
+            try
+            {
+                cv_ptr = cv_bridge::toCvCopy(srv.response.images[i], sensor_msgs::image_encodings::BGR8);
+                cam.addCalibrationImage(*cv_ptr);
+            } catch (cv_bridge::Exception& e) {
+                ROS_ERROR("cv_bridge exception: %s", e.what());
+            }
+        }
 	return srv.response.images.size();
     } else {
 	ROS_ERROR("Could not call TakeCalibrationPicture.");
@@ -177,11 +199,14 @@ int APICameraSystem::takeCalibrationPictures() {
     }
 }
 
+/**
+ * Calculate the calibration after creating the calibration pictures
+ */
 void APICameraSystem::calculateCalibration()
 {
     ros::NodeHandle nodeHandle;
     ros::ServiceClient client = nodeHandle.serviceClient<control_application::CalculateCalibration>("CalculateCalibration");
-    control_application::CalculateCalibration srv;
+    control_application::Cal!(this->currentPositionValues[1].getX() == -1.0 && this->currentPositionValues[1].getY() == -1.0 && this->currentPositionValues[1].getZ() == -1.0);culateCalibration srv;
     if (client.call(srv)) {
 	auto res = srv.response;
 	uint32_t id;

@@ -8,6 +8,7 @@
 
 // Messages
 #include "camera_application/InitializeCameraService.h"
+#include "camera_application/Picture.h"
 
 namespace kitrokopter {
 

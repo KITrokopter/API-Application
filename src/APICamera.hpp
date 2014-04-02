@@ -40,8 +40,11 @@ class APICamera {
 
 		/* Calibration */
 		int getCalibrationImageCount();
+                
+                void addCalibrationImage(cv::Mat image);
 		std::vector<cv::Mat> getAllCalibrationImages();
 		cv::Mat getCalibrationImage(int number);
+                
 		void setCalibrationData(APICalibrationData data);
 		APICalibrationData* const getCalibrationData();
 		bool isCalibrated();

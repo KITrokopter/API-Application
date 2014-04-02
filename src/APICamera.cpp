@@ -83,6 +83,15 @@ APICalibrationData* const APICamera::getCalibrationData()
 }
 
 /**
+ * Add an calibration image. This will not send this image to the control_application.
+ * 
+ * @param image the image to add
+ */
+void addCalibrationImage(cv::Mat image) {
+    this->calibrationImages.push_back(image);
+}
+
+/**
  * @return Whether the camera is calibrated.
  */
 bool APICamera::isCalibrated()

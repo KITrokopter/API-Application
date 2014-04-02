@@ -10,6 +10,7 @@
 #include <ros/console.h>
 #include "quadcopter_application/quadcopter_status.h"
 #include "control_application/quadcopter_position.h"
+#include "control_application/quadcopter_is_tracked.h"
 
 namespace kitrokopter {
 
@@ -66,11 +67,13 @@ class APIQuadcopter {
 
 		void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
                 void positionCallback(const control_application::quadcopter_position::ConstPtr &msg);
+                void trackingCallback(const control_application::quadcopter_is_tracked::ConstPtr &msg);
                 
 	private:
 		ros::Subscriber statusSubscriber;
                 ros::Subscriber positionSubscriber;
 		bool selectedForFlight;
+                bool isTracked;
 		int id;
 		int channel;
 		uint32_t colorRange[2];
