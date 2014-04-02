@@ -31,9 +31,6 @@ APICamera::~APICamera()
 {
     if (calibration)
 	delete calibration;
-
-    // Delete calibration images.
-    delete calibrationImages;
 }
 
 uint32_t APICamera::getId()
@@ -93,7 +90,7 @@ void APICamera::addCalibrationImage(cv::Mat image) {
  * 
  * @return all images which were used for calibration
  */
-std::vector<cv::Mat> APICamera::getAlCalibrationImages() {
+std::vector<cv::Mat> APICamera::getAllCalibrationImages() {
     return this->calibrationImages;
 }
 

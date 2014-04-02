@@ -207,7 +207,7 @@ void APICameraSystem::calculateCalibration()
 {
     ros::NodeHandle nodeHandle;
     ros::ServiceClient client = nodeHandle.serviceClient<control_application::CalculateCalibration>("CalculateCalibration");
-    control_application::Cal!(this->currentPositionValues[1].getX() == -1.0 && this->currentPositionValues[1].getY() == -1.0 && this->currentPositionValues[1].getZ() == -1.0);culateCalibration srv;
+    control_application::CalculateCalibration srv;
     if (client.call(srv)) {
 	auto res = srv.response;
 	uint32_t id;
