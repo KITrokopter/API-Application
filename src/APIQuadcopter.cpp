@@ -260,7 +260,7 @@ void APIQuadcopter::positionCallback(const control_application::quadcopter_posit
  * @param &msg the received message
  */
 void APIQuadcopter::trackingCallback(const control_application::quadcopter_is_tracked::ConstPtr &msg) {
-    this->trackingStatus = msg->isTracked;
+    this->trackingStatus = msg->is_tracked;
 }
 
 /**

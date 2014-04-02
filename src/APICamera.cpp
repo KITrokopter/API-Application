@@ -92,6 +92,15 @@ void APICamera::addCalibrationImage(cv::Mat image) {
 }
 
 /**
+ * Get all calibration images
+ * 
+ * @return all images which were used for calibration
+ */
+std::vector<cv::Mat> APICamera::getAlCalibrationImages() {
+    return this->calibrationImages;
+}
+
+/**
  * @return Whether the camera is calibrated.
  */
 bool APICamera::isCalibrated()
