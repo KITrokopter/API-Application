@@ -87,7 +87,7 @@ APICalibrationData* const APICamera::getCalibrationData()
  * 
  * @param image the image to add
  */
-void addCalibrationImage(cv::Mat image) {
+void APICamera::addCalibrationImage(cv::Mat image) {
     this->calibrationImages.push_back(image);
 }
 

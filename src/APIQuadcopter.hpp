@@ -73,7 +73,7 @@ class APIQuadcopter {
 		ros::Subscriber statusSubscriber;
                 ros::Subscriber positionSubscriber;
 		bool selectedForFlight;
-                bool isTracked;
+                bool trackingStatus;
 		int id;
 		int channel;
 		uint32_t colorRange[2];

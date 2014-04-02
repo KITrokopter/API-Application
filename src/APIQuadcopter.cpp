@@ -27,7 +27,7 @@ APIQuadcopter::APIQuadcopter(int newid) :
     stabilizerPitchData(0.0),
     stabilizerYawData(0.0),
     batteryStatus(0.0),
-    isTracked(false)
+    trackingStatus(false)
 {
 }
 
@@ -260,7 +260,7 @@ void APIQuadcopter::positionCallback(const control_application::quadcopter_posit
  * @param &msg the received message
  */
 void APIQuadcopter::trackingCallback(const control_application::quadcopter_is_tracked::ConstPtr &msg) {
-    this->isTracked = msg->isTracked;
+    this->trackingStatus = msg->isTracked;
 }
 
 /**
@@ -291,7 +291,7 @@ void APIQuadcopter::updateSpeed()
  */
 bool APIQuadcopter::isTracked()
 {
-    return this->isTracked;
+    return this->trackingStatus;
 }
 
 /**
