@@ -90,7 +90,7 @@ catkin_package(
   INCLUDE_DIRS src
   LIBRARIES api_application
 # DEPENDS system_lib
-  CATKIN_DEPENDS roscpp std_msgs message_runtime
+  CATKIN_DEPENDS roscpp std_msgs message_runtime cv_bridge
 )
 
 ###########
