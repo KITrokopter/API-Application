@@ -15,8 +15,11 @@ using namespace kitrokopter;
  * 
  * @param newId the cameras id
  */
-APICamera::APICamera(uint32_t newId) : calibrated(false),
-			 calibration(NULL)
+APICamera::APICamera(uint32_t newId) :
+    calibrated(false),
+    calibration(NULL),
+    position(Vector()),
+    hardwareId(0)
 {
     this->id = newId;
 }
