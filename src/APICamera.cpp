@@ -33,10 +33,7 @@ APICamera::~APICamera()
 	delete calibration;
 
     // Delete calibration images.
-    for (std::vector<cv::Mat*>::iterator it = calibrationImages.begin(); it != calibrationImages.end();
-    ++it) {
-        delete *it;
-    }
+    delete calibrationImages;
 }
 
 uint32_t APICamera::getId()
