@@ -2,7 +2,6 @@
 #include "quadcopter_application/search_links.h"
 #include "quadcopter_application/open_link.h"
 #include "quadcopter_application/blink.h"
-#include "control_application/quadcopter_position.h"
 #include <sstream>
 #include "ros/ros.h"
 
