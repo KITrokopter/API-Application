@@ -10,7 +10,7 @@
 #include <ros/console.h>
 #include "quadcopter_application/quadcopter_status.h"
 #include "control_application/quadcopter_position.h"
-//Test
+
 namespace kitrokopter {
 
 class APIQuadcopter {
@@ -65,7 +65,7 @@ class APIQuadcopter {
 		void removeQuadcopterListener(APIQuadcopterListener*) {}
 
 		void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
-                void positionCallback(const control_application::quadcopter_position::COnstPtr &msg);
+                void positionCallback(const control_application::quadcopter_position::ConstPtr &msg);
                 
 	private:
 		ros::Subscriber statusSubscriber;

@@ -238,12 +238,12 @@ void APIQuadcopter::statusCallback(
  * 
  * @param &msg the received message
  */
-void APIQuadcopter::positionCallback(const control_application::quadcopter_position::COnstPtr &msg)
+void APIQuadcopter::positionCallback(const control_application::quadcopter_position::ConstPtr &msg)
 {
     this->currentPositionValues[0] = this->currentPositionValues[0];
     this->currentPositionValues[1] = Vector(msg->x, msg->y, msg->z);
     this->currentPositionTimestamps[0] = this->currentPositionTimestamps[1];
-    this->currentPositionTimestamps[1] = this->header.stamp;
+    this->currentPositionTimestamps[1] = msg->header.stamp;
     this->updateSpeed();
 }
 
