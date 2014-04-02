@@ -1,5 +1,6 @@
 #include "APICameraSystem.hpp"
 #include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/image_encodings.h>
 
 //Messages
 #include "camera_application/InitializeCameraService.h"
@@ -181,13 +182,13 @@ int APICameraSystem::takeCalibrationPictures() {
     if (client.call(srv))
     {
         cv_bridge::CvImagePtr cv_ptr;
-        for (int i = 0; i < res.IDs.size(); ++i)
+        for (int i = 0; i < srv.response.ids.size(); ++i)
         {
             auto cam = getCamera(srv.response.ids[i]);
             try
             {
                 cv_ptr = cv_bridge::toCvCopy(srv.response.images[i], sensor_msgs::image_encodings::BGR8);
-                cam.addCalibrationImage(*cv_ptr);
+                cam->addCalibrationImage(*cv_ptr);
             } catch (cv_bridge::Exception& e) {
                 ROS_ERROR("cv_bridge exception: %s", e.what());
             }
