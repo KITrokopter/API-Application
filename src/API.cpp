@@ -2,6 +2,7 @@
 #include "ros/ros.h"
 #include <ros/console.h>
 #include <map>
+#include "api_application/System.h"
 
 #include "APICamera.hpp"
 
@@ -65,11 +66,11 @@ void API::shutdownSystem() {
  * 
  * @param signal the signal to send 
  */
-void sendSystemSignal(uint8_t signal) {
+void API::sendSystemSignal(uint8_t signal) {
     api_application::System message;
     message.header.stamp = ros::Time::now();
     message.command = signal;
-    systemPublisher.publish(message);
+    this->systemPublisher.publish(message);
 }
 
 /**

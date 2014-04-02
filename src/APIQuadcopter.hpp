@@ -64,9 +64,11 @@ class APIQuadcopter {
 		void removeQuadcopterListener(APIQuadcopterListener*) {}
 
 		void statusCallback(const quadcopter_application::quadcopter_status::ConstPtr &msg);
+                void positionCallback(const control_application::quadcopter_position::COnstPtr &msg);
                 
 	private:
-		ros::Subscriber sub;
+		ros::Subscriber statusSubscriber;
+                ros::Subscriber positionSubscriber;
 		bool selectedForFlight;
 		int id;
 		int channel;

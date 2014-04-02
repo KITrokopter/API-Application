@@ -87,9 +87,6 @@ class APIMessageListener;
 	bool quadcoptersLaunched();
 	void landQuadcopters();
 	
-        void startSystem();
-	void shutdownSystem();
-	
 	/* Settings */
 	Cuboid getMaximumOperatingArea();
 	bool setOperatingArea(Cuboid);

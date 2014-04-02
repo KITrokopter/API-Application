@@ -2,6 +2,7 @@
 #include "quadcopter_application/search_links.h"
 #include "quadcopter_application/open_link.h"
 #include "quadcopter_application/blink.h"
+#include "control_application/quadcopter_position.h"
 #include <sstream>
 #include "ros/ros.h"
 
@@ -40,12 +41,11 @@ void APIQuadcopter::listen()
     std::stringstream sstm;
     sstm << "quadcopter_status_" << id;
     ros::NodeHandle nodeHandle;
-    this->sub = nodeHandle.subscribe(sstm.str(), 1,
+    this->statusSubscriber = nodeHandle.subscribe(sstm.str(), 1,
                                                &APIQuadcopter::statusCallback, this);
     sstm.str("");
     sstm << "quadcopter_position_" << id;
-    ros::NodeHandle nodeHandle;
-    this->sub = nodeHandle.subscribe(sstm.str(), 1,
+    this->positionSubscriber = nodeHandle.subscribe(sstm.str(), 1,
                                      &APIQuadcopter::positionCallback, this);
 }
 
@@ -239,7 +239,7 @@ void APIQuadcopter::statusCallback(
  * 
  * @param &msg the received message
  */
-void APIQuadcopter::positionCallback(const control_application::CurrentPosition::COnstPtr &msg)
+void APIQuadcopter::positionCallback(const control_application::quadcopter_position::COnstPtr &msg)
 {
     this->currentPositionValues[0] = this->currentPositionValues[0];
     this->currentPositionValues[1] = Vector(msg->x, msg->y, msg->z);
