@@ -72,6 +72,8 @@ class APIQuadcopter {
 	private:
 		ros::Subscriber statusSubscriber;
                 ros::Subscriber positionSubscriber;
+                ros::Subscriber trackingSubscriber;
+                
 		bool selectedForFlight;
                 bool trackingStatus;
 		int id;

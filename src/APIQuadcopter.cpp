@@ -164,7 +164,7 @@ uint32_t* APIQuadcopter::getColorRange() {
  * Whether this quadcopter is selected to fly or to stay on the ground.
  * 
  * @return whether this quadcopter shall fly
- */position
+ */
 bool APIQuadcopter::isSelectedForFlight() {
     return this->selectedForFlight;
 }
