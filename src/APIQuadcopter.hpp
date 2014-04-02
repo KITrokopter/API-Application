@@ -75,10 +75,10 @@ class APIQuadcopter {
 		int channel;
 		uint32_t colorRange[2];
 		Vector currentSpeedValues[2];
-		unsigned double currentSpeedTimestamps[2];
+		double currentSpeedTimestamps[2];
 		Vector currentAcceleration;
 		Vector currentPositionValues[2];
-		unsigned double currentPositionTimestamps[2];
+		double currentPositionTimestamps[2];
 		Vector currentOrientation;
 		
 		float targetSpeed;
