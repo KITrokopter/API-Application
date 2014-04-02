@@ -243,7 +243,7 @@ void APIQuadcopter::positionCallback(const control_application::quadcopter_posit
     this->currentPositionValues[0] = this->currentPositionValues[0];
     this->currentPositionValues[1] = Vector(msg->x, msg->y, msg->z);
     this->currentPositionTimestamps[0] = this->currentPositionTimestamps[1];
-    this->currentPositionTimestamps[1] = msg->header.stamp;
+    this->currentPositionTimestamps[1] = msg->header.stamp.toNsec();
     this->updateSpeed();
 }
 
@@ -256,6 +256,7 @@ void APIQuadcopter::updateSpeed()
     {
         this->currentSpeedValues[0] = this->currentSpeedValues[1];
         this->currentSpeedTimestamps[0] = this->currentSpeedTimestamps[1];
+        //TODO: this might cause a problem when dividing a double by a unsigned double
         double x = (this->currentPositionValues[1].getX() - this->currentPositionValues[0].getX())
         / (this->currentPositionTimestamps[1] - this->currentPositionTimestamps[0]);
         double y = (this->currentPositionValues[1].getY() - this->currentPositionValues[0].getY())
