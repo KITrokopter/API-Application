@@ -188,7 +188,7 @@ int APICameraSystem::takeCalibrationPictures() {
             try
             {
                 cv_ptr = cv_bridge::toCvCopy(srv.response.images[i], sensor_msgs::image_encodings::BGR8);
-                cam->addCalibrationImage(*cv_ptr);
+                cam->addCalibrationImage(cv_ptr->image);
             } catch (cv_bridge::Exception& e) {
                 ROS_ERROR("cv_bridge exception: %s", e.what());
             }
