@@ -44,6 +44,7 @@ class APIMessageListener;
 	/* Formation */
 	void setFormation(APIFormation formation);
 	APIFormation* getFormation();
+        void sendFormation();
 	
 	/* Cameras */
 	APICameraSystem* getCameraSystem();

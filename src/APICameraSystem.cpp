@@ -56,6 +56,11 @@ void APICameraSystem::initializeCameras(
 	}
 }
 
+/**
+ * Create the message to initialize the cameras.
+ * 
+ * @return the message
+ */
 camera_application::InitializeCameraService APICameraSystem::buildInitMessage(
 		std::map<uint32_t, APIQuadcopter> quadcopters) {
 	camera_application::InitializeCameraService message;
@@ -170,12 +175,12 @@ bool APICameraSystem::startCalibration(const CalibrationBoard &board)
 }
 
 /**
- * Take a picture which will be used for calibration.
+ * Take a picture which will be used for calibration and 
+ * return the cameras' ids which took a picture wth a chessboard in it
  * 
- * @return the number of pictures which were good
+ * @return the ids of the cameras which contain a chessboard
  */
-int APICameraSystem::takeCalibrationPictures() {
-    //TODO: Service needs to provide a number of good images
+std::vector<int> APICameraSystem::takeCalibrationPictures() {
     ros::NodeHandle nodeHandle;
     ros::ServiceClient client = nodeHandle.serviceClient<control_application::TakeCalibrationPicture>("TakeCalibrationPicture");
     control_application::TakeCalibrationPicture srv;
@@ -185,6 +190,7 @@ int APICameraSystem::takeCalibrationPictures() {
         for (int i = 0; i < srv.response.ids.size(); ++i)
         {
             auto cam = getCamera(srv.response.ids[i]);
+            //ros provides functions to convert the images to a cv:Mat
             try
             {
                 cv_ptr = cv_bridge::toCvCopy(srv.response.images[i], sensor_msgs::image_encodings::BGR8);
@@ -193,7 +199,7 @@ int APICameraSystem::takeCalibrationPictures() {
                 ROS_ERROR("cv_bridge exception: %s", e.what());
             }
         }
-	return srv.response.images.size();
+	return srv.response.containsChessboard();
     } else {
 	ROS_ERROR("Could not call TakeCalibrationPicture.");
 	return 0;
@@ -201,7 +207,8 @@ int APICameraSystem::takeCalibrationPictures() {
 }
 
 /**
- * Calculate the calibration after creating the calibration pictures
+ * Send the signal to calculate the calibration after creating the calibration pictures
+ * and retrieve the now calculated camera positions.
  */
 void APICameraSystem::calculateCalibration()
 {

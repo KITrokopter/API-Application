@@ -1,10 +1,12 @@
 #include "API.hpp"
+#include "APICamera.hpp"
 #include "ros/ros.h"
 #include <ros/console.h>
 #include <map>
-#include "api_application/System.h"
 
-#include "APICamera.hpp"
+//messages
+#include "api_application/System.h"
+#include "api_application/SetFormation.h"
 
 using namespace kitrokopter;
 
@@ -28,7 +30,10 @@ API::API(int argc, char **argv, bool sync)
     announceService = nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
     
-    systemPublisher = nodeHandle.advertise<api_application::System>("System", 1);
+    formationPublisher = nodeHandle.advertise<api_application::Formation>("System", 1);
+    ROS_INFO("Ready to send a formation.");
+    
+    systemPublisher = nodeHandle.advertise<api_application::System>("Formation", 1);
     ROS_INFO("Ready to send system signals.");
     
     if (sync) {
@@ -180,7 +185,14 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
  * Initializes the cameras
  */
 void API::initializeCameras() {
+    this->cameraSystem.initializeCameras(this->quadcopters)
+}
 
+/**
+ * Initializes the controller
+ */
+void API::initializeController() {
+    
 }
 
 /**
@@ -190,10 +202,27 @@ void API::initializeCameras() {
  */
 void API::setFormation(APIFormation newFormation) {
     this->formation = newFormation;
-    //TODO: Send formation
+    sendFormation();
 }
 
-
+/**
+ * Send the formation to the controller
+ */
+void API::sendFormation() {
+    api_application::Formation msg;
+    msg.header.stamp = ros::Time::now();
+    msg.distance = this->formation.getMinimumDistance();
+    msg.amount = this->formation.getQuadcopterAmount();
+    Vector positions = this->formation.getQuadcopterPositions();
+    for (std::vector<Vector*>::iterator it = positions.begin(); it != positions.end(); ++it)
+    {
+        msg.xPositions.push_back(it.getX());
+        msg.yPositions.push_back(it.getY());
+        msg.zPositions.push_back(it.getZ());
+    }
+     
+    
+}
 
 /**
  * Get the formation.
