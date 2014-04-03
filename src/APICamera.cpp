@@ -42,6 +42,7 @@ void APICamera::listen()
 {
     ros::NodeHandle nh;
     pictureSubscriber = nh.subscribe("Picture", 1, &APICamera::handlePicture, this);
+    pictureSendingActivationPublisher = nh.advertise<camera_application::PictureSendingActivation>("PictureSendingActivation", 1);
 }
 
 /**
@@ -178,12 +179,10 @@ void APICamera::removeCameraListener(APICameraListener *listener)
  */
 void APICamera::sendPictureSendingActivation(bool active)
 {
-    ros::NodeHandle nh;
-    ros::Publisher pub = nh.advertise<camera_application::PictureSendingActivation>("PictureSendingActivation", 1);
     camera_application::PictureSendingActivation msg;
     msg.ID = this->id;
     msg.active = active;
-    pub.publish(msg);
+    pictureSendingActivationPublisher.publish(msg);
 }
 
 cv::Mat* msgToMat(camera_application::Picture::_image_type data)

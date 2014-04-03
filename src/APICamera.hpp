@@ -81,6 +81,8 @@ class APICamera {
 
 		// ROS Subscribers
 		ros::Subscriber pictureSubscriber;
+                
+                ros::Publisher pictureSendingActivationPublisher;
 
 		Vector position;
 };
