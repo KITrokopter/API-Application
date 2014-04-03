@@ -94,13 +94,14 @@ class APIMessageListener;
 	
 	/* Movement */
 	void moveFormation(Vector);
-	void rotateFormation(Vector);
+	void rotateFormation();
 	
     private:
 	int idCounter;
 	ros::AsyncSpinner *spinner;
         ros::ServiceServer announceService;
         ros::Publisher systemPublisher;
+        ros::Publisher formationMovementPublisher;
 
 	//the ids of modules by category
 	std::vector<int> controllerIds;

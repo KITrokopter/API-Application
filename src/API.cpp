@@ -30,10 +30,13 @@ API::API(int argc, char **argv, bool sync)
     announceService = nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
     
-    formationPublisher = nodeHandle.advertise<api_application::Formation>("System", 1);
+    formationPublisher = nodeHandle.advertise<api_application::Formation>("Formation", 1);
     ROS_INFO("Ready to send a formation.");
     
-    systemPublisher = nodeHandle.advertise<api_application::System>("Formation", 1);
+    formationMovementPublisher = nodeHandle.advertise<api_application::MoveFormation>("MoveFormation", 1);
+    ROS_INFO("Ready to move a formation.");
+    
+    systemPublisher = nodeHandle.advertise<api_application::System>("System", 1);
     ROS_INFO("Ready to send system signals.");
     
     if (sync) {
@@ -323,4 +326,18 @@ std::vector<APIQuadcopter*> API::getQuadcoptersNotSelectedForFlight() {
  */
 std::vector<APICamera*> API::getCameras() {
     return this->cameraSystem.getCamerasAsVector();
+}
+
+/**
+ * Move the formation by a vector
+ * 
+ * @param vector the vector for moving the formation
+ */
+void API::moveFormation(Vector vector) {
+    api_application::MoveFormation message;
+    message.header.stamp = ros::Time::now();
+    message.xMovement = vector.getX();
+    message.yMovement = vector.getY();
+    message.ZMovement = vector.getZ();
+    this->systemPublisher.publish(message);
 }
