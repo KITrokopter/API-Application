@@ -150,6 +150,37 @@ bool API::initializeQuadcopters() {
     	}
     	quadIt++;
     }
+    sendQuadcoptersToController();
+    return true;
+}
+
+/**
+ * Initialize the controller
+ */
+void API::sendQuadcoptersToController() {
+    /**
+     * since the service does not provide a good way
+     * to deal with quadcopters not selected for flight
+     * send only "selected for flight" quadcopters
+     */
+    ros::NodeHandle nodeHandle;
+    ros::ServiceClient client = nodeHandle.serviceClient<control_application::SetQuadcopters>("SetQuadcopters");
+    control_application::SetQuadcopters srv;
+    srv.request.header.stamp = ros::Time::now();
+    std::vector<APIQuadcopter*> result;
+    for (std::map<uint32_t, APIQuadcopter>::iterator it =
+        this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
+    {
+        srv.request.quadcoptersId.push_back(&it->first);
+    }
+    srv.request.amount = srv.request.quadcoptersId.size();
+}
+
+/**
+ * Initializes the cameras
+ */
+void API::initializeCameras() {
+    this->cameraSystem.initializeCameras(this->quadcopters);
 }
 
 /**
@@ -182,13 +213,6 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
 }
 
 /**
- * Initializes the cameras
- */
-void API::initializeCameras() {
-    this->cameraSystem.initializeCameras(this->quadcopters)
-}
-
-/**
  * Initializes the controller
  */
 void API::initializeController() {
@@ -214,18 +238,16 @@ void API::sendFormation() {
     msg.distance = this->formation.getMinimumDistance();
     msg.amount = this->formation.getQuadcopterAmount();
     Vector positions = this->formation.getQuadcopterPositions();
-    for (std::vector<Vector*>::iterator it = positions.begin(); it != positions.end(); ++it)
+    for (std::vector<Vector>::iterator it = positions.begin(); it != positions.end(); ++it)
     {
         msg.xPositions.push_back(it.getX());
         msg.yPositions.push_back(it.getY());
         msg.zPositions.push_back(it.getZ());
     }
-     
-    
 }
 
 /**
- * Get the formation.
+ * Get a pointer to the formation.
  * 
  * @return the formation
  */
@@ -233,6 +255,11 @@ APIFormation* API::getFormation() {
     return &this->formation;
 }
 
+/**
+ * Get a pointer to the camera system
+ * 
+ * @return the pointer
+ */
 APICameraSystem* API::getCameraSystem()
 {
    return &cameraSystem;

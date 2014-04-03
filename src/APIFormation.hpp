@@ -12,13 +12,13 @@ class APIFormation {
                 APIFormation() {};
 		APIFormation(int newQuadcopterAmount, Vector newQuadcopterPositions);
 
-		uint16_t getQuadcopterAmount();
+		int getQuadcopterAmount();
 		std::vector<Vector*> getQuadcopterPositions();
-		Vector getQuadcopterPosition(int number);
+		Vector getQuadcopterPosition(int index);
 
 		void setMinimumDistance(uint16_t minimumDistance);
                 uint16_t getMinimumDistance();
-		void setQuadcopterPositions(Vector position);
+		void setQuadcopterPositions(std::vector<Vector> positions);
 
 
 	private:

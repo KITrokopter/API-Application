@@ -33,6 +33,7 @@ class APIMessageListener;
 	
 	void initializeCameras();
 	bool initializeQuadcopters();
+        void sendQuadcoptersToController();
         
         void startSystem();
         void shutdownSystem();
@@ -90,7 +91,6 @@ class APIMessageListener;
 	
 	/* Settings */
 	Cuboid getMaximumOperatingArea();
-	bool setOperatingArea(Cuboid);
 	
 	/* Movement */
 	void moveFormation(Vector);
