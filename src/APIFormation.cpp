@@ -1,9 +1,8 @@
 #include "APIFormation.hpp"
 
-using namespace kitrokopter
+using namespace kitrokopter;
 
-APIFormation() :
-    quadcopterAmount(0),
+APIFormation::APIFormation() :
     minimumDistance(0),
     quadcopterPositions(std::vector<Vector>())
     {
@@ -17,10 +16,10 @@ APIFormation() :
  * @param quadcopterPositions the positions of the quadcopters
  * @param minDistance a multiplication factor
  */
-APIFormation(std::vector<Vector> newQuadcopterPositions, uint16_t newMinDistance)
+APIFormation::APIFormation(std::vector<Vector> newQuadcopterPositions, uint16_t newMinDistance)
 {
     this->quadcopterPositions = newQuadcopterPositions;
-    this->minDistance = newMinDistance;
+    this->minimumDistance = newMinDistance;
 }
 
 /**
@@ -49,8 +48,8 @@ std::vector<Vector>* APIFormation::getQuadcopterPositions()
  * @param index index of the quadcopter in the vector
  * @return the quadcopter's position
  */
-Vector* APIFormation::getQuadcopterPosition(int index) {
-    return this->quadcopterPositions[number]; 
+Vector APIFormation::getQuadcopterPosition(int index) {
+    return this->quadcopterPositions[index];
 }
 
 /**
@@ -58,7 +57,7 @@ Vector* APIFormation::getQuadcopterPosition(int index) {
  * 
  * @param positions the positions
  */
-void APIFormation::setQuadcopterPositions(Vector positions) {
+void APIFormation::setQuadcopterPositions(std::vector<Vector> positions) {
     this->quadcopterPositions = positions;
 }
 
@@ -68,7 +67,7 @@ void APIFormation::setQuadcopterPositions(Vector positions) {
  * 
  * @param distance the new minDistance
  */
-APIFormation::setMinimumDistance(uint16_t distance)
+void APIFormation::setMinimumDistance(uint16_t distance)
 {
-    this->minDistance = distance;
+    this->minimumDistance = distance;
 }

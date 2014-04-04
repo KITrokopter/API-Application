@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <vector>
 
 #include "Vector.hpp"
 
@@ -9,11 +10,11 @@ namespace kitrokopter {
 class APIFormation {
 
 	public:
-                APIFormation() {};
-		APIFormation(int newQuadcopterAmount, Vector newQuadcopterPositions);
+                APIFormation();
+		APIFormation(std::vector<Vector> newQuadcopterPositions, uint16_t newMinDistance);
 
 		int getQuadcopterAmount();
-		std::vector<Vector*> getQuadcopterPositions();
+		std::vector<Vector>* getQuadcopterPositions();
 		Vector getQuadcopterPosition(int index);
 
 		void setMinimumDistance(uint16_t minimumDistance);
