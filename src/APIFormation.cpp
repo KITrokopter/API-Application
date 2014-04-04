@@ -71,3 +71,12 @@ void APIFormation::setMinimumDistance(uint16_t distance)
 {
     this->minimumDistance = distance;
 }
+
+/**
+ * Get the minimum distance
+ * 
+ * @return teh minimum distance
+ */
+uint16_t APIFormation::getMinimumDistance() {
+   return this->minimumDistance; 
+}
