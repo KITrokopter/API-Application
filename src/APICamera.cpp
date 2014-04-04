@@ -182,6 +182,7 @@ void APICamera::sendPictureSendingActivation(bool active)
     camera_application::PictureSendingActivation msg;
     msg.ID = this->id;
     msg.active = active;
+    msg.all = false;
     pictureSendingActivationPublisher.publish(msg);
 }
 
