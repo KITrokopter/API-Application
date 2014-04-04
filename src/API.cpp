@@ -9,6 +9,7 @@
 #include "api_application/SetFormation.h"
 #include "api_application/MoveFormation.h"
 #include "control_application/SetQuadcopters.h"
+#include "control_application/Rotate.h"
 
 using namespace kitrokopter;
 
@@ -21,6 +22,9 @@ using namespace kitrokopter;
  */
 API::API(int argc, char **argv, bool sync)
 {
+    //TODO this is only a dummy
+    this->formation = DummyFormation();
+    
     this->idCounter = 0;
     //this->formation = NULL;
     this->controllerIds = std::vector<int>(1);
@@ -55,6 +59,15 @@ API::API(int argc, char **argv, bool sync)
 API::~API()
 {
    delete spinner;
+}
+
+/**
+ * This is only a dummy formation
+ */
+APIFormation dummyFormation {
+    std::vector<Vector> positions;
+    positions.pushBack(Vector(0.0., 0.0, 0.0));
+    return APIFormation(positions, 1);
 }
 
 /**
@@ -179,6 +192,10 @@ void API::sendQuadcoptersToController() {
         srv.request.quadcoptersId.push_back(it->first);
     }
     srv.request.amount = srv.request.quadcoptersId.size();
+    if (!client.call(srv)) {
+        ROS_ERROR("Could not call StartCalibration service.");
+        throw new std::runtime_error("Could not call StartCalibration service.");
+    }
 }
 
 /**
@@ -342,4 +359,21 @@ void API::moveFormation(Vector vector) {
     message.yMovement = vector.getY();
     message.zMovement = vector.getZ();
     this->systemPublisher.publish(message);
+}
+
+/**
+ * Send a rotate formation signal to the controller
+ * TODO the controller needs to provide a proper rotate functionality
+ *      to make the formation turn by a choosable angle
+ */ 
+void API::rotateFormation()
+{
+    ros::NodeHandle nodeHandle;
+    ros::ServiceClient client = nodeHandle.serviceClient<control_application::Rotate>("Rotate");
+    control_application::Rotate srv;
+    srv.request.header.stamp = ros::Time::now();
+    if (!client.call(srv)) {
+        ROS_ERROR("Could not call Rotate service.");
+        throw new std::runtime_error("Could not call Rotate service.");
+    }
 }
