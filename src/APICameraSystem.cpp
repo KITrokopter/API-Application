@@ -180,15 +180,20 @@ bool APICameraSystem::startCalibration(const CalibrationBoard &board)
  * 
  * @return the ids of the cameras which contain a chessboard
  */
-std::vector<int> APICameraSystem::takeCalibrationPictures() {
+std::map<uint32_t, bool> APICameraSystem::takeCalibrationPictures() {
     ros::NodeHandle nodeHandle;
     ros::ServiceClient client = nodeHandle.serviceClient<control_application::TakeCalibrationPicture>("TakeCalibrationPicture");
     control_application::TakeCalibrationPicture srv;
     if (client.call(srv))
     {
         cv_bridge::CvImagePtr cv_ptr;
+        std::map<uint32_t, bool> result;
+        if (srv.response.containsChessboard.size() != srv.response.ids.size()) {
+            throw new std::runtime_error("Malformed take calibration picture answer. ContainsChessboard and ids must have the same length!");
+        }
         for (int i = 0; i < srv.response.ids.size(); ++i)
         {
+            result[srv.response.ids[i]] = srv.response.containsChessboard[i]
             auto cam = getCamera(srv.response.ids[i]);
             //ros provides functions to convert the images to a cv:Mat
             try
@@ -199,7 +204,7 @@ std::vector<int> APICameraSystem::takeCalibrationPictures() {
                 ROS_ERROR("cv_bridge exception: %s", e.what());
             }
         }
-	return srv.response.containsChessboard();
+	return result;
     } else {
 	ROS_ERROR("Could not call TakeCalibrationPicture.");
 	return 0;

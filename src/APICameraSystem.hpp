@@ -30,7 +30,7 @@ class APICameraSystem {
 
 		/* Calibration */
 		bool startCalibration(const CalibrationBoard &board);
-		int takeCalibrationPictures();
+		std::map<uint32_t, bool> takeCalibrationPictures();
 		void calculateCalibration();
 
 		/* Calibration getters */
