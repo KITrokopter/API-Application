@@ -11,7 +11,6 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   rosconsole
   message_generation
-  #cv_bridge
 )
 
 ## System dependencies are found with CMake's conventions
@@ -90,7 +89,7 @@ catkin_package(
   INCLUDE_DIRS src
   LIBRARIES api_application
 # DEPENDS system_lib
-  CATKIN_DEPENDS roscpp std_msgs message_runtime #cv_bridge
+  CATKIN_DEPENDS roscpp std_msgs message_runtime
 )
 
 ###########
