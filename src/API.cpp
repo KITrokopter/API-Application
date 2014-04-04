@@ -8,6 +8,7 @@
 #include "api_application/System.h"
 #include "api_application/SetFormation.h"
 #include "api_application/MoveFormation.h"
+#include "control_application/SetQuadcopters.h"
 
 using namespace kitrokopter;
 
