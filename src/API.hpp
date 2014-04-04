@@ -34,6 +34,7 @@ class APIMessageListener;
 	void initializeCameras();
 	bool initializeQuadcopters();
         void sendQuadcoptersToController();
+	void initializeController();
         
         void startSystem();
         void shutdownSystem();

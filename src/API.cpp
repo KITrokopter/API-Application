@@ -176,7 +176,7 @@ void API::sendQuadcoptersToController() {
     for (std::map<uint32_t, APIQuadcopter>::iterator it =
         this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
     {
-        srv.request.quadcoptersId.push_back(&it->first);
+        srv.request.quadcoptersId.push_back(it->first);
     }
     srv.request.amount = srv.request.quadcoptersId.size();
 }
@@ -242,12 +242,12 @@ void API::sendFormation() {
     msg.header.stamp = ros::Time::now();
     msg.distance = this->formation.getMinimumDistance();
     msg.amount = this->formation.getQuadcopterAmount();
-    Vector positions = this->formation.getQuadcopterPositions();
-    for (std::vector<Vector>::iterator it = positions.begin(); it != positions.end(); ++it)
+    auto positions = this->formation.getQuadcopterPositions();
+    for (auto& pos : *positions)
     {
-        msg.xPositions.push_back(it.getX());
-        msg.yPositions.push_back(it.getY());
-        msg.zPositions.push_back(it.getZ());
+        msg.xPositions.push_back(pos.getX());
+        msg.yPositions.push_back(pos.getY());
+        msg.zPositions.push_back(pos.getZ());
     }
 }
 
@@ -340,6 +340,6 @@ void API::moveFormation(Vector vector) {
     message.header.stamp = ros::Time::now();
     message.xMovement = vector.getX();
     message.yMovement = vector.getY();
-    message.ZMovement = vector.getZ();
+    message.zMovement = vector.getZ();
     this->systemPublisher.publish(message);
 }
