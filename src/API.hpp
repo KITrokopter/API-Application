@@ -101,6 +101,7 @@ class APIMessageListener;
 	ros::AsyncSpinner *spinner;
         ros::ServiceServer announceService;
         ros::Publisher systemPublisher;
+        ros::Publisher formationPublisher;
         ros::Publisher formationMovementPublisher;
 
 	//the ids of modules by category

@@ -1,5 +1,6 @@
 #include "API.hpp"
 #include "APICamera.hpp"
+#include "APIFormation.hpp"
 #include "ros/ros.h"
 #include <ros/console.h>
 #include <map>
