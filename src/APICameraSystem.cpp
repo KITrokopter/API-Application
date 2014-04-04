@@ -193,7 +193,7 @@ std::map<uint32_t, bool> APICameraSystem::takeCalibrationPictures() {
         }
         for (int i = 0; i < srv.response.ids.size(); ++i)
         {
-            result[srv.response.ids[i]] = srv.response.containsChessboard[i]
+            result[srv.response.ids[i]] = srv.response.containsChessboard[i];
             auto cam = getCamera(srv.response.ids[i]);
             //ros provides functions to convert the images to a cv:Mat
             try
@@ -207,7 +207,7 @@ std::map<uint32_t, bool> APICameraSystem::takeCalibrationPictures() {
 	return result;
     } else {
 	ROS_ERROR("Could not call TakeCalibrationPicture.");
-	return 0;
+	throw std::runtime_error("Could not call the TakeCalibrationPicture ROS service.");
     }
 }
 
