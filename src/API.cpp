@@ -7,7 +7,6 @@
 //messages
 #include "api_application/System.h"
 #include "api_application/SetFormation.h"
-#include "api_application/Formation.h"
 #include "api_application/MoveFormation.h"
 
 using namespace kitrokopter;
@@ -32,7 +31,7 @@ API::API(int argc, char **argv, bool sync)
     announceService = nodeHandle.advertiseService("announce", &API::announce, this);
     ROS_INFO("Ready to deliver IDs.");
     
-    formationPublisher = nodeHandle.advertise<api_application::Formation>("Formation", 1);
+    formationPublisher = nodeHandle.advertise<api_application::SetFormation>("SetFormation", 1);
     ROS_INFO("Ready to send a formation.");
     
     formationMovementPublisher = nodeHandle.advertise<api_application::MoveFormation>("MoveFormation", 1);
@@ -238,7 +237,7 @@ void API::setFormation(APIFormation newFormation) {
  * Send the formation to the controller
  */
 void API::sendFormation() {
-    api_application::Formation msg;
+    api_application::SetFormation msg;
     msg.header.stamp = ros::Time::now();
     msg.distance = this->formation.getMinimumDistance();
     msg.amount = this->formation.getQuadcopterAmount();
