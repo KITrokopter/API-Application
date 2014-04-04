@@ -199,6 +199,10 @@ std::map<uint32_t, bool> APICameraSystem::takeCalibrationPictures() {
 			
 			// Convert uchar[] to cv::Mat manually
 			image = cv::Mat(cv::Size(640, 480), CV_8UC3);
+			// Don't know if that's necessary. It ensures that the matrix buffer is created.
+			// I couldn't find documentation about if the buffer is created by the constructor I used,
+			// but when I used similar code I never got a segfault without calling create.
+			image.create(cv::Size(640, 480), CV_8UC3);
 			
 			for (int j = 0; j < 640 * 480 * 3; j++) {
 				image.data[j] = srv.response.images[i].data[j];
