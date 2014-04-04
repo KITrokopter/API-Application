@@ -14,6 +14,15 @@
 using namespace kitrokopter;
 
 /**
+ * This is only a dummy formation
+ */
+APIFormation dummyFormation() {
+    std::vector<Vector> positions;
+    positions.push_back(Vector(0.0, 0.0, 0.0));
+    return APIFormation(positions, 1);
+}
+
+/**
  * Initializes the API which means starting the announcement service.
  * 
  * @param argc remapping arguments from the command line for ros
@@ -23,7 +32,7 @@ using namespace kitrokopter;
 API::API(int argc, char **argv, bool sync)
 {
     //TODO this is only a dummy
-    this->formation = DummyFormation();
+    this->formation = dummyFormation();
     
     this->idCounter = 0;
     //this->formation = NULL;
@@ -59,15 +68,6 @@ API::API(int argc, char **argv, bool sync)
 API::~API()
 {
    delete spinner;
-}
-
-/**
- * This is only a dummy formation
- */
-APIFormation dummyFormation {
-    std::vector<Vector> positions;
-    positions.pushBack(Vector(0.0., 0.0, 0.0));
-    return APIFormation(positions, 1);
 }
 
 /**
