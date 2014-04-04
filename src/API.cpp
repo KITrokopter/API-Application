@@ -9,7 +9,7 @@
 #include "api_application/SetFormation.h"
 #include "api_application/MoveFormation.h"
 #include "control_application/SetQuadcopters.h"
-#include "control_application/Rotate.h"
+#include "control_application/Rotation.h"
 
 using namespace kitrokopter;
 
@@ -369,8 +369,8 @@ void API::moveFormation(Vector vector) {
 void API::rotateFormation()
 {
     ros::NodeHandle nodeHandle;
-    ros::ServiceClient client = nodeHandle.serviceClient<control_application::Rotate>("Rotate");
-    control_application::Rotate srv;
+    ros::ServiceClient client = nodeHandle.serviceClient<control_application::Rotation>("Rotation");
+    control_application::Rotation srv;
     srv.request.header.stamp = ros::Time::now();
     if (!client.call(srv)) {
         ROS_ERROR("Could not call Rotate service.");
