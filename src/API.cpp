@@ -1,6 +1,5 @@
 #include "API.hpp"
 #include "APICamera.hpp"
-#include "APIFormation.hpp"
 #include "ros/ros.h"
 #include <ros/console.h>
 #include <map>
@@ -8,6 +7,8 @@
 //messages
 #include "api_application/System.h"
 #include "api_application/SetFormation.h"
+#include "api_application/Formation.h"
+#include "api_application/MoveFormation.h"
 
 using namespace kitrokopter;
 
