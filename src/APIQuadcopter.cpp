@@ -127,7 +127,7 @@ void APIQuadcopter::blink() {
     quadcopter_application::blink srv;
     srv.request.header.stamp = ros::Time::now();
     if (!client.call(srv) || srv.response.error != 0) {
-        throw new std::runtime_error("unable to blink");
+        throw std::runtime_error("unable to blink");
     }
 }
 

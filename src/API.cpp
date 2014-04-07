@@ -135,7 +135,7 @@ bool API::removeQuadcopter(int id) {
  */ 
 std::vector<uint8_t> API::scanChannels() {
    if (this->quadcopters.size() == 0) {
-       throw new std::runtime_error("no quadcopter module to scan with");
+       throw std::runtime_error("no quadcopter module to scan with");
    }
    return this->quadcopters.begin()->second.scanChannels();
 }
@@ -194,7 +194,7 @@ void API::sendQuadcoptersToController() {
     srv.request.amount = srv.request.quadcopterIds.size();
     if (!client.call(srv)) {
         ROS_ERROR("Could not call SetQuadcopters service.");
-        throw new std::runtime_error("Could not call SetQuadcopters service.");
+        throw std::runtime_error("Could not call SetQuadcopters service.");
     }
 }
 
@@ -374,6 +374,6 @@ void API::rotateFormation()
     srv.request.header.stamp = ros::Time::now();
     if (!client.call(srv)) {
         ROS_ERROR("Could not call Rotate service.");
-        throw new std::runtime_error("Could not call Rotate service.");
+        throw std::runtime_error("Could not call Rotate service.");
     }
 }

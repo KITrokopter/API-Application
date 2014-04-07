@@ -47,10 +47,10 @@ void APICameraSystem::initializeCameras(
 			if (messageCopy.response.error != 0) {
 				err << "InitializeCameraService returned error: "
 						<< messageCopy.response.error;
-				throw new std::runtime_error(err.str());
+				throw std::runtime_error(err.str());
 			}
 		} else {
-			throw new std::runtime_error(
+			throw std::runtime_error(
 					"Could not call InitializeCameraService");
 		}
 	}
@@ -133,7 +133,7 @@ std::vector<APICamera*> APICameraSystem::getCamerasAsVector() {
  */
 void APICameraSystem::addCamera(APICamera camera) {
     if (this->cameras.find(camera.getId()) != this->cameras.end()) {
-	throw new std::runtime_error("camera id already in use");
+	throw std::runtime_error("camera id already in use");
     } else {
 	uint32_t id = camera.getId();
 	this->cameras.insert(
@@ -190,7 +190,7 @@ std::map<uint32_t, bool> APICameraSystem::takeCalibrationPictures() {
         cv_bridge::CvImagePtr cv_ptr;
         std::map<uint32_t, bool> result;
         if (srv.response.containsChessboard.size() != srv.response.ids.size()) {
-            throw new std::runtime_error("Malformed take calibration picture answer. ContainsChessboard and ids must have the same length!");
+            throw std::runtime_error("Malformed take calibration picture answer. ContainsChessboard and ids must have the same length!");
         }
         for (unsigned int i = 0; i < srv.response.ids.size(); ++i)
         {
