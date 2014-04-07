@@ -22,14 +22,11 @@ APICameraSystem::APICameraSystem() {
  * 
  * @param quadcopters The quadcopters which will be tracked.
  */
-void APICameraSystem::initializeCameras(
-		std::map<uint32_t, APIQuadcopter>& quadcopters) {
-	camera_application::InitializeCameraService message =
-			this->buildInitMessage(quadcopters);
+void APICameraSystem::initializeCameras(const std::map<uint32_t, APIQuadcopter>& quadcopters) {
+	camera_application::InitializeCameraService message = this->buildInitMessage(quadcopters);
 
 	std::vector < uint32_t > cameraIds;
-	for (std::map<uint32_t, APICamera>::const_iterator it =
-			this->cameras.begin(); it != this->cameras.end(); ++it) {
+	for (std::map<uint32_t, APICamera>::const_iterator it = this->cameras.begin(); it != this->cameras.end(); ++it) {
 		cameraIds.push_back(it->first);
 	}
 
@@ -46,12 +43,11 @@ void APICameraSystem::initializeCameras(
 		if (ros::service::call(sstm.str(), messageCopy)) {
 			if (messageCopy.response.error != 0) {
 				err << "InitializeCameraService returned error: "
-						<< messageCopy.response.error;
+					<< messageCopy.response.error;
 				throw std::runtime_error(err.str());
 			}
 		} else {
-			throw std::runtime_error(
-					"Could not call InitializeCameraService");
+			throw std::runtime_error("Could not call InitializeCameraService");
 		}
 	}
 }
@@ -61,8 +57,7 @@ void APICameraSystem::initializeCameras(
  * 
  * @return the message
  */
-camera_application::InitializeCameraService APICameraSystem::buildInitMessage(
-		std::map<uint32_t, APIQuadcopter> quadcopters) {
+camera_application::InitializeCameraService APICameraSystem::buildInitMessage(const std::map<uint32_t, APIQuadcopter>& quadcopters) {
 	camera_application::InitializeCameraService message;
 	message.request.header.stamp = ros::Time::now();
 
@@ -76,7 +71,7 @@ camera_application::InitializeCameraService APICameraSystem::buildInitMessage(
 
 	std::vector < uint32_t > colorRanges;
 	for (auto id : quadcopterIds) {
-	    auto colorRange = quadcopters[id].getColorRange();
+	    auto colorRange = quadcopters.at(id).getColorRange();
 	    colorRanges.push_back(colorRange[0]);
 	    colorRanges.push_back(colorRange[1]);
 	}

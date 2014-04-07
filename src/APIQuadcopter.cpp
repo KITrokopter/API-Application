@@ -156,7 +156,7 @@ void APIQuadcopter::setColorRange(uint32_t range[2]) {
  * 
  * @return the color range
  */
-uint32_t* APIQuadcopter::getColorRange() {
+const uint32_t* APIQuadcopter::getColorRange() const {
     return this->colorRange;
 }
 

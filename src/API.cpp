@@ -74,7 +74,8 @@ API::~API()
  * Start the system
  */
 void API::startSystem() {
-    this->sendSystemSignal(STARTUP);
+   this->initializeCameras();
+   this->sendSystemSignal(STARTUP);
 }
 
 /**

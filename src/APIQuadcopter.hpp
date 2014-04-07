@@ -44,7 +44,7 @@ class APIQuadcopter {
 
 		bool isTracked();
 
-		uint32_t* getColorRange();
+		const uint32_t* getColorRange() const;
 		float getLinkQuality();
 
 		float getStabilizerRollData();

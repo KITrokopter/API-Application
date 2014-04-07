@@ -31,11 +31,8 @@ class APIMessageListener;
 	    api_application::Announce::Request &req,
 	    api_application::Announce::Response &res);
 	
-	void initializeCameras();
 	bool initializeQuadcopters();
-        void sendQuadcoptersToController();
-	void initializeController();
-        
+
         void startSystem();
         void shutdownSystem();
 	
@@ -98,6 +95,11 @@ class APIMessageListener;
 	void rotateFormation();
 	
     private:
+	/* Initialization */
+	void initializeCameras();
+        void sendQuadcoptersToController();
+	void initializeController();
+
 	int idCounter;
 	ros::AsyncSpinner *spinner;
         ros::ServiceServer announceService;
