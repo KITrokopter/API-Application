@@ -189,9 +189,9 @@ void API::sendQuadcoptersToController() {
     for (std::map<uint32_t, APIQuadcopter>::iterator it =
         this->quadcopters.begin(); it != this->quadcopters.end(); ++it)
     {
-        srv.request.quadcoptersId.push_back(it->first);
+        srv.request.quadcopterIds.push_back(it->first);
     }
-    srv.request.amount = srv.request.quadcoptersId.size();
+    srv.request.amount = srv.request.quadcopterIds.size();
     if (!client.call(srv)) {
         ROS_ERROR("Could not call SetQuadcopters service.");
         throw new std::runtime_error("Could not call SetQuadcopters service.");
