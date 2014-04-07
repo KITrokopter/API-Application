@@ -36,10 +36,10 @@ void APICameraSystem::initializeCameras(
 	std::stringstream sstm;
 	std::stringstream err;
 
-	for (int i = 0; i < cameraIds.size(); i++) {
+	for (auto id : cameraIds) {
 		//empty the stringstream
 		sstm.str("");
-		sstm << "InitializeCameraService" << cameraIds[i];
+		sstm << "InitializeCameraService" << id;
 		//copy the original message to be able to use the response
 		camera_application::InitializeCameraService messageCopy = message;
 
@@ -75,9 +75,10 @@ camera_application::InitializeCameraService APICameraSystem::buildInitMessage(
 	message.request.quadCopterIds = quadcopterIds;
 
 	std::vector < uint32_t > colorRanges;
-	for (int i = 0; i < quadcopterIds.size(); i++) {
-		colorRanges.push_back(quadcopters[i].getColorRange()[0]);
-		colorRanges.push_back(quadcopters[i].getColorRange()[1]);
+	for (auto id : quadcopterIds) {
+	    auto colorRange = quadcopters[id].getColorRange();
+	    colorRanges.push_back(colorRange[0]);
+	    colorRanges.push_back(colorRange[1]);
 	}
 	message.request.hsvColorRanges = colorRanges;
 	return message;
@@ -191,7 +192,7 @@ std::map<uint32_t, bool> APICameraSystem::takeCalibrationPictures() {
         if (srv.response.containsChessboard.size() != srv.response.ids.size()) {
             throw new std::runtime_error("Malformed take calibration picture answer. ContainsChessboard and ids must have the same length!");
         }
-        for (int i = 0; i < srv.response.ids.size(); ++i)
+        for (unsigned int i = 0; i < srv.response.ids.size(); ++i)
         {
             result[srv.response.ids[i]] = srv.response.containsChessboard[i];
             auto cam = getCamera(srv.response.ids[i]);
@@ -224,7 +225,7 @@ void APICameraSystem::calculateCalibration()
 	auto res = srv.response;
 	uint32_t id;
 	double x, y, z;
-	for (int i = 0; i < res.IDs.size(); ++i) {
+	for (unsigned int i = 0; i < res.IDs.size(); ++i) {
 	    id = res.IDs[i];
 	    x = res.cameraXPositions[i];
 	    y = res.cameraYPositions[i];

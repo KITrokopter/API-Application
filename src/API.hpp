@@ -85,7 +85,7 @@ class APIMessageListener;
 
 	/* Launch / Land */
 	// TODO
-	void launchQuadcopters(int height) {}
+	void launchQuadcopters(int height) { (void)height; }
 	double getLaunchProgress();
 	bool quadcoptersLaunched();
 	void landQuadcopters();

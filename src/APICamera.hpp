@@ -46,7 +46,7 @@ class APICamera {
 		cv::Mat getCalibrationImage(int number);
                 
 		void setCalibrationData(APICalibrationData data);
-		APICalibrationData* const getCalibrationData();
+		const APICalibrationData* getCalibrationData();
 		bool isCalibrated();
                 
 		void deleteCalibration();
@@ -66,8 +66,8 @@ class APICamera {
 
 		void handlePicture(const camera_application::Picture::Ptr &msg);
 
-		APICalibrationData *calibration;
 		bool calibrated;
+		APICalibrationData *calibration;
 		std::vector<cv::Mat> calibrationImages;
                 cv::Mat lastImage;
 		uint32_t id;
