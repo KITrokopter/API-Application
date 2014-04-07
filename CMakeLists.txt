@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(api_application)
 
-SET (CMAKE_CXX_FLAGS "-std=c++11")
+SET (CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Werror")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -102,6 +102,11 @@ catkin_package(
 # include_directories(include)
 include_directories(
   src
+)
+
+# System includes won't cause warnings here.
+include_directories(
+  SYSTEM
   ${catkin_INCLUDE_DIRS}
 )
 

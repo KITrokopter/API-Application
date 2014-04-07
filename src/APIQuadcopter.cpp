@@ -10,6 +10,7 @@ using namespace kitrokopter;
 APIQuadcopter::APIQuadcopter(int newid) : 
     id(newid),
     selectedForFlight(true),
+    trackingStatus(false),
     channel(-1),
     colorRange{0, 0},
     currentSpeedValues{Vector(), Vector()},
@@ -18,7 +19,6 @@ APIQuadcopter::APIQuadcopter(int newid) :
     currentPositionValues{Vector(), Vector(-1.0, -1.0, -1.0)},
     currentPositionTimestamps{0, 0},
     currentOrientation(Vector()),
-    linkQuality(0.0),
     targetSpeed(0.0),
     targetAcceleration(0.0),
     targetPosition(Vector()),
@@ -27,7 +27,7 @@ APIQuadcopter::APIQuadcopter(int newid) :
     stabilizerPitchData(0.0),
     stabilizerYawData(0.0),
     batteryStatus(0.0),
-    trackingStatus(false)
+    linkQuality(0.0)
 {
 }
 

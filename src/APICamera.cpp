@@ -18,8 +18,8 @@ using namespace kitrokopter;
 APICamera::APICamera(uint32_t newId) :
     calibrated(false),
     calibration(NULL),
-    position(Vector()),
-    hardwareId(0)
+    hardwareId(0),
+    position(Vector())
 {
     this->id = newId;
 }
@@ -72,7 +72,7 @@ void APICamera::setCalibrationData(APICalibrationData data)
 /**
  * @return The calibration data.
  */
-APICalibrationData* const APICamera::getCalibrationData()
+const APICalibrationData* APICamera::getCalibrationData()
 {
     return calibration;
 }
