@@ -138,7 +138,7 @@ void APICamera::addCameraListener(APICameraListener *listener)
 }
 
 template <typename T>
-void removeListener(std::vector<T*> from, T *listener)
+void removeListener(std::vector<T*> &from, T *listener)
 {
     for (typename std::vector<T*>::iterator it = from.begin(); it != from.end(); ++it) {
 	if (*it == listener) {
