@@ -1,6 +1,4 @@
 #include "APICameraSystem.hpp"
-#include <cv_bridge/cv_bridge.h>
-#include <sensor_msgs/image_encodings.h>
 
 //Messages
 #include "camera_application/InitializeCameraService.h"
@@ -184,30 +182,39 @@ std::map<uint32_t, bool> APICameraSystem::takeCalibrationPictures() {
     ros::NodeHandle nodeHandle;
     ros::ServiceClient client = nodeHandle.serviceClient<control_application::TakeCalibrationPicture>("TakeCalibrationPicture");
     control_application::TakeCalibrationPicture srv;
+	
     if (client.call(srv))
     {
-        cv_bridge::CvImagePtr cv_ptr;
+        cv::Mat image;
         std::map<uint32_t, bool> result;
+		
         if (srv.response.containsChessboard.size() != srv.response.ids.size()) {
             throw new std::runtime_error("Malformed take calibration picture answer. ContainsChessboard and ids must have the same length!");
         }
+        
         for (int i = 0; i < srv.response.ids.size(); ++i)
         {
             result[srv.response.ids[i]] = srv.response.containsChessboard[i];
             auto cam = getCamera(srv.response.ids[i]);
-            //ros provides functions to convert the images to a cv:Mat
-            try
-            {
-                cv_ptr = cv_bridge::toCvCopy(srv.response.images[i], sensor_msgs::image_encodings::BGR8);
-                cam->addCalibrationImage(cv_ptr->image);
-            } catch (cv_bridge::Exception& e) {
-                ROS_ERROR("cv_bridge exception: %s", e.what());
-            }
+			
+			// Convert uchar[] to cv::Mat manually
+			image = cv::Mat(cv::Size(640, 480), CV_8UC3);
+			// Don't know if that's necessary. It ensures that the matrix buffer is created.
+			// I couldn't find documentation about if the buffer is created by the constructor I used,
+			// but when I used similar code I never got a segfault without calling create.
+			image.create(cv::Size(640, 480), CV_8UC3);
+			
+			for (int j = 0; j < 640 * 480 * 3; j++) {
+				image.data[j] = srv.response.images[i].data[j];
+			}
+			
+            cam->addCalibrationImage(image);
         }
-	return result;
+        
+		return result;
     } else {
-	ROS_ERROR("Could not call TakeCalibrationPicture.");
-	throw std::runtime_error("Could not call the TakeCalibrationPicture ROS service.");
+		ROS_ERROR("Could not call TakeCalibrationPicture.");
+		throw std::runtime_error("Could not call the TakeCalibrationPicture ROS service.");
     }
 }
 
