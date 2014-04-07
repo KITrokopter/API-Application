@@ -193,8 +193,8 @@ void API::sendQuadcoptersToController() {
     }
     srv.request.amount = srv.request.quadcoptersId.size();
     if (!client.call(srv)) {
-        ROS_ERROR("Could not call StartCalibration service.");
-        throw new std::runtime_error("Could not call StartCalibration service.");
+        ROS_ERROR("Could not call SetQuadcopters service.");
+        throw new std::runtime_error("Could not call SetQuadcopters service.");
     }
 }
 
