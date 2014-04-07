@@ -23,7 +23,7 @@ APICameraSystem::APICameraSystem() {
  * @param quadcopters The quadcopters which will be tracked.
  */
 void APICameraSystem::initializeCameras(
-		std::map<uint32_t, APIQuadcopter> quadcopters) {
+		std::map<uint32_t, APIQuadcopter>& quadcopters) {
 	camera_application::InitializeCameraService message =
 			this->buildInitMessage(quadcopters);
 
