@@ -359,7 +359,7 @@ void API::moveFormation(Vector vector) {
     message.xMovement = vector.getX();
     message.yMovement = vector.getY();
     message.zMovement = vector.getZ();
-    this->systemPublisher.publish(message);
+    this->formationMovementPublisher.publish(message);
 }
 
 /**
