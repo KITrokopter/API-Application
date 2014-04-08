@@ -268,7 +268,7 @@ void API::sendFormation() {
         msg.yPositions.push_back(pos.getY());
         msg.zPositions.push_back(pos.getZ());
     }
-    this->formationPublisher->publish(msg);
+    this->formationPublisher.publish(msg);
 }
 
 /**
