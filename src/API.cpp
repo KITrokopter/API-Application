@@ -74,6 +74,7 @@ API::~API()
  * Start the system
  */
 void API::startSystem() {
+   this->sendFormation(); 
    this->initializeCameras();
    this->sendSystemSignal(STARTUP);
 }
@@ -239,7 +240,7 @@ bool API::announce(api_application::Announce::Request &req, api_application::Ann
  * Initializes the controller
  */
 void API::initializeController() {
-    
+    this->sendFormation();
 }
 
 /**
