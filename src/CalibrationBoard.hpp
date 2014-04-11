@@ -1,12 +1,11 @@
 #pragma once
 
 namespace kitrokopter {
-
 /**
  * This class specifies the calibration board used to calibrate the cameras.
  */
 class CalibrationBoard {
-    public:
+public:
 	/**
 	 * Creates a calibration board with the given dimensions.
 	 *
@@ -16,15 +15,14 @@ class CalibrationBoard {
 	 * @param boardRectHeight The height of a single field.
 	 */
 	CalibrationBoard(uint32_t hnum, uint32_t vnum, float boardRectWidth, float boardRectHeight) :
-	   horizontalNumber(hnum),
-	   verticalNumber(vnum),
-	   rectangleWidth(boardRectWidth),
-	   rectangleHeight(boardRectHeight)
-	{}
+		horizontalNumber(hnum),
+		verticalNumber(vnum),
+		rectangleWidth(boardRectWidth),
+		rectangleHeight(boardRectHeight)
+	{
+	}
 
 	const uint32_t horizontalNumber, verticalNumber;
 	const float rectangleWidth, rectangleHeight;
-
 };
-
 }

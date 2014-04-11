@@ -3,13 +3,9 @@
 #include "APIFormation.hpp"
 
 namespace kitrokopter {
-
 class CircleAPIFormation : public APIFormation {
+public:
 
-	public:
-
-		CircleAPIFormation(int quadcopterAmount);
-
+	CircleAPIFormation(int quadcopterAmount);
 };
-
 }

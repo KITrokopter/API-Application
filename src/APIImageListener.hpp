@@ -3,16 +3,14 @@
 #include <opencv2/core/core.hpp>
 
 namespace kitrokopter {
-
 class APIImageListener {
+public:
 
-	public:
+	virtual void imageReceived(cv::Mat)  = 0;
 
-		virtual void imageReceived(cv::Mat)  = 0;
-
-		// virtual destructor for interface 
-		virtual ~APIImageListener() { }
-
+	// virtual destructor for interface
+	virtual ~APIImageListener()
+	{
+	}
 };
-
 }

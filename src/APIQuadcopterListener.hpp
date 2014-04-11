@@ -3,16 +3,14 @@
 #include "APIQuadcopterUpdateEvent.hpp"
 
 namespace kitrokopter {
-
 class APIQuadcopterListener {
+public:
 
- public:
+	virtual void updateQuadcopterValues(APIQuadcopterUpdateEvent e)  = 0;
 
-    virtual void updateQuadcopterValues(APIQuadcopterUpdateEvent e)  = 0;
-
-    // virtual destructor for interface 
-    virtual ~APIQuadcopterListener() { }
-
+	// virtual destructor for interface
+	virtual ~APIQuadcopterListener()
+	{
+	}
 };
-
 }
