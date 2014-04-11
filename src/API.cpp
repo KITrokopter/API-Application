@@ -19,7 +19,9 @@ using namespace kitrokopter;
 APIFormation dummyFormation() {
     std::vector<Vector> positions;
     positions.push_back(Vector(0.0, 0.0, 0.0));
-    return APIFormation(positions, 1);
+    positions.push_back(Vector(100.0, 0.0, 0.0));
+    positions.push_back(Vector(-100.0, 0.0, 0.0));
+    return APIFormation(positions, 3);
 }
 
 /**
