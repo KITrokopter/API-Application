@@ -18,73 +18,75 @@
 #include "camera_application/Picture.h"
 
 namespace kitrokopter {
-
 class APICameraSystem;
 
 class APICamera {
 	friend class APICameraSystem;
 
-	public:
-		APICamera() {}
-		APICamera(uint32_t newId);
-                APICamera(uint32_t newId, uint64_t newHardwareId);
-		~APICamera();
+public:
+	APICamera()
+	{
+	}
 
-		void listen();
-		void initialize(std::vector<APIQuadcopter> quadcopters);
+	APICamera(uint32_t newId);
+	APICamera(uint32_t newId, uint64_t newHardwareId);
+	~APICamera();
 
-		cv::Mat getImage();
-                uint32_t getId();
-                uint64_t getHardwareId();
-                
+	void listen();
+	void initialize(std::vector<APIQuadcopter> quadcopters);
 
-		/* Calibration */
-		int getCalibrationImageCount();
-                
-                void addCalibrationImage(cv::Mat image);
-		std::vector<cv::Mat> getAllCalibrationImages();
-		cv::Mat getCalibrationImage(int number);
-                
-		void setCalibrationData(APICalibrationData data);
-		const APICalibrationData* getCalibrationData();
-		bool isCalibrated();
-                
-		void deleteCalibration();
+	cv::Mat getImage();
+	uint32_t getId();
+	uint64_t getHardwareId();
 
-		Vector getPosition();
-		Vector getOrientation();
 
-		void addImageListener(APIImageListener*);
-		void removeImageListener(APIImageListener*);
-		void sendPictureSendingActivation(bool active);
+	/* Calibration */
+	int getCalibrationImageCount();
 
-		void addCameraListener(APICameraListener*);
-		void removeCameraListener(APICameraListener*);
+	void addCalibrationImage(cv::Mat image);
 
-	private:
-		void setPosition(double x, double y, double z);
+	std::vector<cv::Mat> getAllCalibrationImages();
+	cv::Mat getCalibrationImage(int number);
 
-		void handlePicture(const camera_application::Picture::Ptr &msg);
+	void setCalibrationData(APICalibrationData data);
+	const APICalibrationData* getCalibrationData();
+	bool isCalibrated();
 
-		bool calibrated;
-		APICalibrationData *calibration;
-		std::vector<cv::Mat> calibrationImages;
-                cv::Mat lastImage;
-		uint32_t id;
-                uint64_t hardwareId;
-		static const int VERTICAL_DETECTION_ANGLE;
-		static const int HORIZONTAL_DETECTION_ANGLE;
+	void deleteCalibration();
 
-		// Listeners
-		std::vector<APIImageListener*> imageListeners;
-		std::vector<APICameraListener*> cameraListeners;
+	Vector getPosition();
+	Vector getOrientation();
 
-		// ROS Subscribers
-		ros::Subscriber pictureSubscriber;
-                
-                ros::Publisher pictureSendingActivationPublisher;
+	void addImageListener(APIImageListener*);
+	void removeImageListener(APIImageListener*);
+	void sendPictureSendingActivation(bool active);
 
-		Vector position;
+	void addCameraListener(APICameraListener*);
+	void removeCameraListener(APICameraListener*);
+
+private:
+	void setPosition(double x, double y, double z);
+
+	void handlePicture(const camera_application::Picture::Ptr &msg);
+
+	bool calibrated;
+	APICalibrationData *calibration;
+	std::vector<cv::Mat> calibrationImages;
+	cv::Mat lastImage;
+	uint32_t id;
+	uint64_t hardwareId;
+	static const int VERTICAL_DETECTION_ANGLE;
+	static const int HORIZONTAL_DETECTION_ANGLE;
+
+	// Listeners
+	std::vector<APIImageListener*> imageListeners;
+	std::vector<APICameraListener*> cameraListeners;
+
+	// ROS Subscribers
+	ros::Subscriber pictureSubscriber;
+
+	ros::Publisher pictureSendingActivationPublisher;
+
+	Vector position;
 };
-
 }

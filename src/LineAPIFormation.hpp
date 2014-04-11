@@ -3,13 +3,9 @@
 #include "APIFormation.h"
 
 namespace kitrokopter {
-
 class LineAPIFormation : public APIFormation {
+public:
 
-	public:
-
-		LineAPIFormation(int quadcopterAmount);
-
+	LineAPIFormation(int quadcopterAmount);
 };
-
 }
