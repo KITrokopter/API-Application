@@ -34,11 +34,19 @@ APICamera::~APICamera()
 	}
 }
 
+/**
+ * Get the camera's id
+ * 
+ * @return the cameras id
+ */
 uint32_t APICamera::getId()
 {
 	return this->id;
 }
 
+/**
+ * Start listening for new images
+ */
 void APICamera::listen()
 {
 	ros::NodeHandle nh;
@@ -192,6 +200,13 @@ void APICamera::sendPictureSendingActivation(bool active)
 	pictureSendingActivationPublisher.publish(msg);
 }
 
+
+/**
+ * Convert one of the not standard conform images provided by the camera and controll application to 
+ * a cv image.
+ * 
+ * @return pointer to a cv image
+ */
 cv::Mat* msgToMat(camera_application::Picture::_image_type data)
 {
 	/*
@@ -223,6 +238,11 @@ void APICamera::handlePicture(const camera_application::Picture::Ptr &msg)
 	delete image;
 }
 
+/**
+ * Get the camera's position
+ * 
+ * @return the camera's position
+ */
 Vector APICamera::getPosition()
 {
 	return position;
